@@ -1,0 +1,90 @@
+{
+  "bajada": "Festival silencioso y sustentable",
+  "titular": ["El festival más", "ruidoso", "que nunca vas a escuchar."],
+  "fechas_largas": "14 al 16 de noviembre",
+  "cta": "Elegí tu canal",
+  "que_es": {
+    "titulo": ["El silencio", "se ve"],
+    "texto": [
+      "Ritmo Blanco es un festival de música silenciosa en los Bosques de Palermo. Escuchás con auriculares inalámbricos y elegís entre tres canales que suenan al mismo tiempo.",
+      "Desde afuera, el parque está en silencio. Adentro, todos bailan.",
+      "Blanco es lo que queda cuando nadie impone su ruido, y es la suma de los tres canales."
+    ],
+    "canales_intro": "Tres canales a la vez. Cambiá cuando quieras.",
+    "cierre": "A las 21:30 los tres canales transmiten al mismo artista: todo el parque escucha lo mismo a la vez."
+  },
+  "pasos": {
+    "titulo": ["Cómo", "funciona"],
+    "lista": [
+      {
+        "titulo": "Agarrá tus auriculares.",
+        "texto": "Te los damos en la entrada. Te los pedimos de vuelta en la salida."
+      },
+      {
+        "titulo": "Elegí tu canal.",
+        "texto": "Tres canales a la vez. Cambiá cuando quieras:",
+        "guino": "nadie se ofende."
+      },
+      {
+        "titulo": "Bailá fuerte.",
+        "texto": "Te ven todos, pero no escuchan nada."
+      }
+    ]
+  },
+  "programa": {
+    "titulo": ["Programa", "tres jornadas"],
+    "cierre_rotulo": "Los tres canales, el mismo artista"
+  },
+  "mapa": {
+    "titulo": ["Mapa", "del predio"],
+    "texto": "Tocá una zona para ver qué pasa ahí.",
+    "avenidas": ["Av. Figueroa Alcorta", "Av. Leopoldo Lugones"],
+    "servicios": ["Accesos", "Auriculares", "Hidratación", "Baños", "Primeros auxilios"]
+  },
+  "desde_casa": {
+    "titulo": ["Participá", "desde casa"],
+    "texto": "Las actividades virtuales se siguen desde tu casa con el mismo canal que suena en el bosque. Las híbridas pasan en el parque y en tu pantalla a la vez.",
+    "guino": "Bailá en el living. Tus vecinos tampoco se van a enterar."
+  },
+  "rastro": {
+    "titulo": ["No dejamos", "rastro"],
+    "items": [
+      {
+        "fuerte": "100",
+        "suave": "decibeles",
+        "texto": "La OMS recomienda que un concierto no supere los 100 decibeles en promedio (Norma mundial para lugares y eventos de escucha segura, 2022). Acá la música suena solo en tus auriculares: ruido cero hacia afuera."
+      },
+      {
+        "fuerte": "Pedaleá",
+        "suave": "tu energía",
+        "texto": "Las bicis generadoras cargan los auriculares que usa el público."
+      },
+      {
+        "fuerte": "Cada paso",
+        "suave": "cuenta",
+        "texto": "Los pisos cinéticos convierten tus pasos en energía para iluminar el predio."
+      },
+      {
+        "fuerte": "Nos vamos",
+        "suave": "como llegamos",
+        "texto": "Estructuras reutilizables, hidratación libre y compost."
+      }
+    ]
+  },
+  "info": {
+    "titulo": ["Información", "práctica"],
+    "items": [
+      { "rotulo": "Entrada", "texto": "Gratuita, auriculares incluidos (con DNI)." },
+      { "rotulo": "Horario", "texto": "14, 15 y 16 de noviembre, de 14:00 a 23:00." },
+      { "rotulo": "Cómo llegar", "texto": "Subte D (Plaza Italia), colectivos [LÍNEAS], Ecobici." },
+      { "rotulo": "Traé", "texto": "DNI, botella reutilizable, abrigo." },
+      { "rotulo": "No se permite", "texto": "Vidrio, parlantes (obvio), drones." },
+      { "rotulo": "Accesibilidad", "texto": "Accesos y baños adaptados, zona de descanso." },
+      { "rotulo": "Lluvia", "texto": "[A DEFINIR]" },
+      { "rotulo": "Edad", "texto": "[A DEFINIR]" }
+    ]
+  },
+  "sponsors": ["Natura", "Spotify", "Philips Hue", "Sony"],
+  "redes": "@ritmoblanco",
+  "despedida": "Te vamos a extrañar (en silencio)."
+}

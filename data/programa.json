@@ -1,0 +1,517 @@
+{
+  "festival": "Ritmo Blanco",
+  "sede": "Bosques de Palermo, Buenos Aires",
+  "fechas": "14 al 16 de noviembre",
+  "entrada": "Gratuita, auriculares incluidos",
+  "canales": {
+    "tumbao": "Raíz y ritmo",
+    "pulso": "Bandas y canción",
+    "sinte": "Electrónica"
+  },
+  "zonas": {
+    "Domo Callado": {
+      "color": "#692136",
+      "texto": "#FFFFFF",
+      "uso": "Talleres y charlas"
+    },
+    "Usina Bailable": {
+      "color": "#767498",
+      "texto": "#FFFFFF",
+      "uso": "Clases, bicis y pisos cinéticos"
+    },
+    "Escenario Mudo": {
+      "color": "#B3A5BA",
+      "texto": "#692136",
+      "uso": "Line-up y clases masivas"
+    },
+    "Pantalla Muda": {
+      "color": "#E1B0C1",
+      "texto": "#692136",
+      "uso": "Charlas y transmisión a casa"
+    },
+    "Instalación central": {
+      "color": "#EDCDB8",
+      "texto": "#692136",
+      "uso": "Instalación con materiales recuperados"
+    },
+    "Desde Casa": {
+      "color": "transparent",
+      "borde": "#692136",
+      "texto": "#692136",
+      "uso": "Actividades virtuales"
+    }
+  },
+  "dias": [
+    {
+      "numero": 1,
+      "fecha": "2026-11-14",
+      "nombre": [
+        "Flotá",
+        "quieto"
+      ],
+      "generos": "Electrónica experimental, ambient y fusiones.",
+      "frase": "Para bailar con los ojos cerrados (y juran que no se están durmiendo).",
+      "horario": "14:00–23:00",
+      "lineup": {
+        "escenario": "Escenario Mudo",
+        "sets": [
+          {
+            "horario": "16:00–17:45",
+            "canales": {
+              "tumbao": {
+                "artista": "Tonolec",
+                "descripcion": "electro-folk con cantos qom"
+              },
+              "pulso": {
+                "artista": "Lisandro Aristimuño",
+                "descripcion": "canción de bosque y ruta"
+              },
+              "sinte": {
+                "artista": "Mitú",
+                "descripcion": "electrónica orgánica"
+              }
+            }
+          },
+          {
+            "horario": "18:00–20:00",
+            "canales": {
+              "tumbao": {
+                "artista": "Nicola Cruz",
+                "descripcion": "electrónica andina"
+              },
+              "pulso": {
+                "artista": "Daniel Melero",
+                "descripcion": "pop experimental"
+              },
+              "sinte": {
+                "artista": "Monte (Simón Mejía)",
+                "descripcion": "sonidos de la selva del Pacífico"
+              }
+            }
+          }
+        ],
+        "cierre": {
+          "horario": "21:30–23:00",
+          "artista": "Juana Molina",
+          "descripcion": "loops, voces y experimentación",
+          "todos_los_canales": true
+        }
+      },
+      "actividades": [
+        {
+          "inicio": "14:00",
+          "fin": "15:30",
+          "duracion": "90 min",
+          "titulo": "Placa de Chladni casera",
+          "descripcion": "Armamos una placa de Chladni con plástico reciclado, un parlante en desuso y sal fina, y vemos cómo cada frecuencia dibuja una figura distinta.",
+          "tipo": "TALLER",
+          "modalidad": "presencial",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
+          "inicio": "14:00",
+          "fin": "14:45",
+          "duracion": "45 min",
+          "titulo": "Ruido que no se ve",
+          "descripcion": "Charla con especialistas sobre contaminación sonora en la ciudad y cómo afecta a las aves y a la fauna del bosque.",
+          "tipo": "CHARLA",
+          "modalidad": "hibrida",
+          "zona": "Pantalla Muda",
+          "destacado": false
+        },
+        {
+          "inicio": "14:30",
+          "fin": "15:30",
+          "duracion": "60 min",
+          "titulo": "Yoga a todo volumen",
+          "descripcion": "Clase de yoga al aire libre con música ambient en tu canal; traé tu mat o usá uno de los nuestros, hechos con lona reutilizada.",
+          "tipo": "CLASE",
+          "modalidad": "presencial",
+          "zona": "Usina Bailable",
+          "destacado": true
+        },
+        {
+          "inicio": "15:00",
+          "fin": "15:30",
+          "duracion": "30 min",
+          "titulo": "Respiración y sonido",
+          "descripcion": "Meditación guiada con cuencos y sonidos del bosque para seguir desde casa, con el mismo canal que suena en el parque.",
+          "tipo": "CLASE",
+          "modalidad": "virtual",
+          "zona": "Desde Casa",
+          "destacado": false
+        },
+        {
+          "inicio": "15:45",
+          "fin": "16:30",
+          "duracion": "45 min",
+          "titulo": "Compostaje para principiantes",
+          "descripcion": "Qué va a la compostera, qué no y cómo armar una en un balcón chico; con preguntas en vivo desde casa.",
+          "tipo": "CHARLA",
+          "modalidad": "hibrida",
+          "zona": "Pantalla Muda",
+          "destacado": false
+        },
+        {
+          "inicio": "16:00",
+          "fin": "17:30",
+          "duracion": "90 min",
+          "titulo": "Ecocuero de fruta",
+          "descripcion": "Aprendé a fabricar un material parecido al cuero con cáscaras de fruta y almidón, y llevate tu muestra para usarla en un proyecto propio.",
+          "tipo": "TALLER",
+          "modalidad": "presencial",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
+          "inicio": "16:20",
+          "fin": "17:00",
+          "duracion": "40 min",
+          "titulo": "Pedaleá tu energía",
+          "descripcion": "Conocé cómo funcionan las bicis generadoras y cargá con tus piernas los auriculares que usa el público.",
+          "tipo": "TALLER",
+          "modalidad": "presencial",
+          "zona": "Usina Bailable",
+          "destacado": false
+        },
+        {
+          "inicio": "17:45",
+          "fin": "18:30",
+          "duracion": "45 min",
+          "titulo": "Grabar el bosque",
+          "descripcion": "Un artista sonoro muestra cómo graba los sonidos de la naturaleza y cómo los transforma en música electrónica.",
+          "tipo": "CHARLA",
+          "modalidad": "hibrida",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
+          "inicio": "18:30",
+          "fin": "19:00",
+          "duracion": "30 min",
+          "titulo": "Recorrido por la instalación",
+          "descripcion": "Visita guiada a la instalación central, construida con materiales recuperados, que cambia cada día con la energía que genera el público.",
+          "tipo": "EXPERIENCIA",
+          "modalidad": "presencial",
+          "zona": "Instalación central",
+          "destacado": false
+        }
+      ]
+    },
+    {
+      "numero": 2,
+      "fecha": "2026-11-15",
+      "nombre": [
+        "Cantá",
+        "callado"
+      ],
+      "generos": "Indie, pop y funk.",
+      "frase": "Canciones que te sabés de memoria y nadie te escucha cantar.",
+      "horario": "14:00–23:00",
+      "lineup": {
+        "escenario": "Escenario Mudo",
+        "sets": [
+          {
+            "horario": "16:00–17:45",
+            "canales": {
+              "tumbao": {
+                "artista": "Perotá Chingó",
+                "descripcion": "folk y canción para corear"
+              },
+              "pulso": {
+                "artista": "Usted Señálemelo",
+                "descripcion": "indie de Mendoza"
+              },
+              "sinte": {
+                "artista": "Juan Ingaramo",
+                "descripcion": "pop con funk"
+              }
+            }
+          },
+          {
+            "horario": "18:00–20:00",
+            "canales": {
+              "tumbao": {
+                "artista": "Kevin Johansen",
+                "descripcion": "canción con todas las fusiones"
+              },
+              "pulso": {
+                "artista": "Cigarbox Man",
+                "descripcion": "rock sustentable con guitarras recicladas"
+              },
+              "sinte": {
+                "artista": "Indios",
+                "descripcion": "synth pop luminoso"
+              }
+            }
+          }
+        ],
+        "cierre": {
+          "horario": "21:30–23:00",
+          "artista": "Bandalos Chinos",
+          "descripcion": "pop para cantar de memoria",
+          "todos_los_canales": true
+        }
+      },
+      "actividades": [
+        {
+          "inicio": "14:00",
+          "fin": "15:30",
+          "duracion": "90 min",
+          "titulo": "Instrumentos con basura",
+          "descripcion": "Construimos maracas, tambores y guitarras con cartón, latas, tubos y botellas, y al final los tocamos todos juntos en una banda improvisada.",
+          "tipo": "TALLER",
+          "modalidad": "hibrida",
+          "zona": "Domo Callado",
+          "destacado": true
+        },
+        {
+          "inicio": "14:00",
+          "fin": "15:00",
+          "duracion": "60 min",
+          "titulo": "Funk para tímidos",
+          "descripcion": "Clase de baile para quienes nunca bailan: pasos simples, sin espejo y con tu canal favorito sonando en los auriculares.",
+          "tipo": "CLASE",
+          "modalidad": "presencial",
+          "zona": "Usina Bailable",
+          "destacado": false
+        },
+        {
+          "inicio": "14:30",
+          "fin": "15:15",
+          "duracion": "45 min",
+          "titulo": "Música sustentable",
+          "descripcion": "Músicos y productores cuentan cómo hacer discos, giras y shows que generen menos residuos y consuman menos energía.",
+          "tipo": "CHARLA",
+          "modalidad": "hibrida",
+          "zona": "Pantalla Muda",
+          "destacado": false
+        },
+        {
+          "inicio": "15:15",
+          "fin": "15:55",
+          "duracion": "40 min",
+          "titulo": "Coro desde el sillón",
+          "descripcion": "Ensayo de coro online para cantar desde tu casa la misma canción que suena en el bosque, al mismo tiempo.",
+          "tipo": "CLASE",
+          "modalidad": "virtual",
+          "zona": "Desde Casa",
+          "destacado": false
+        },
+        {
+          "inicio": "15:45",
+          "fin": "16:45",
+          "duracion": "60 min",
+          "titulo": "Cuadernos de cartón",
+          "descripcion": "Encuadernamos cuadernos con cartón y papel recuperados del propio festival, para que anotes ahí las letras de tus canciones.",
+          "tipo": "TALLER",
+          "modalidad": "presencial",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
+          "inicio": "16:10",
+          "fin": "16:55",
+          "duracion": "45 min",
+          "titulo": "¿Dónde termina un disco?",
+          "descripcion": "Charla sobre los residuos de la industria musical, desde los vinilos y los CD hasta el merchandising, y las alternativas que ya existen.",
+          "tipo": "CHARLA",
+          "modalidad": "hibrida",
+          "zona": "Pantalla Muda",
+          "destacado": false
+        },
+        {
+          "inicio": "17:00",
+          "fin": "18:15",
+          "duracion": "75 min",
+          "titulo": "Estampá lo que ya tenés",
+          "descripcion": "Taller de serigrafía con tintas al agua: traé una remera o una bolsa vieja y estampala con un diseño del festival.",
+          "tipo": "TALLER",
+          "modalidad": "presencial",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
+          "inicio": "17:20",
+          "fin": "18:05",
+          "duracion": "45 min",
+          "titulo": "Bailá con tu abuela",
+          "descripcion": "Clase de baile para todas las edades: vení con quien quieras y bailen juntos el mismo canal.",
+          "tipo": "CLASE",
+          "modalidad": "hibrida",
+          "zona": "Usina Bailable",
+          "destacado": false
+        },
+        {
+          "inicio": "18:45",
+          "fin": "19:45",
+          "duracion": "60 min",
+          "titulo": "Escribí una canción",
+          "descripcion": "Taller online de composición: en una hora armamos entre todos la letra y el estribillo de una canción colectiva.",
+          "tipo": "TALLER",
+          "modalidad": "virtual",
+          "zona": "Desde Casa",
+          "destacado": false
+        }
+      ]
+    },
+    {
+      "numero": 3,
+      "fecha": "2026-11-16",
+      "nombre": [
+        "Gritá",
+        "bajito"
+      ],
+      "generos": "House, disco y ritmos latinos.",
+      "frase": "La fiesta más ruidosa que nadie escuchó.",
+      "horario": "14:00–23:00",
+      "lineup": {
+        "escenario": "Escenario Mudo",
+        "sets": [
+          {
+            "horario": "16:00–17:45",
+            "canales": {
+              "tumbao": {
+                "artista": "Kumbia Queers",
+                "descripcion": "cumbia tropi punk"
+              },
+              "pulso": {
+                "artista": "Dancing Mood",
+                "descripcion": "ska y jazz para bailar"
+              },
+              "sinte": {
+                "artista": "Chancha Vía Circuito",
+                "descripcion": "cumbia digital"
+              }
+            }
+          },
+          {
+            "horario": "18:00–20:00",
+            "canales": {
+              "tumbao": {
+                "artista": "La Delio Valdez",
+                "descripcion": "cumbia con orquesta"
+              },
+              "pulso": {
+                "artista": "Miss Bolivia",
+                "descripcion": "cumbia, funk y electrónica"
+              },
+              "sinte": {
+                "artista": "Hernán Cattáneo",
+                "descripcion": "house progresivo"
+              }
+            }
+          }
+        ],
+        "cierre": {
+          "horario": "21:30–23:00",
+          "artista": "Bomba Estéreo",
+          "descripcion": "cumbia electrónica con conciencia ambiental",
+          "todos_los_canales": true
+        }
+      },
+      "actividades": [
+        {
+          "inicio": "14:00",
+          "fin": "15:00",
+          "duracion": "60 min",
+          "titulo": "Salsa sin pisotones",
+          "descripcion": "Clase de salsa para todos los niveles, en el bosque y en casa a la vez; si pisás a alguien, nadie se entera.",
+          "tipo": "CLASE",
+          "modalidad": "hibrida",
+          "zona": "Usina Bailable",
+          "destacado": false
+        },
+        {
+          "inicio": "14:00",
+          "fin": "15:30",
+          "duracion": "90 min",
+          "titulo": "Plástico que se transforma",
+          "descripcion": "Trituramos tapitas y botellas, las prensamos en planchas y las convertimos en llaveros, posavasos y piezas nuevas.",
+          "tipo": "TALLER",
+          "modalidad": "presencial",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
+          "inicio": "14:45",
+          "fin": "15:30",
+          "duracion": "45 min",
+          "titulo": "Moda circular",
+          "descripcion": "Charla sobre ropa de segunda mano, reparación e intercambio: cómo vestirse para un festival sin comprar nada nuevo.",
+          "tipo": "CHARLA",
+          "modalidad": "hibrida",
+          "zona": "Pantalla Muda",
+          "destacado": false
+        },
+        {
+          "inicio": "15:30",
+          "fin": "16:15",
+          "duracion": "45 min",
+          "titulo": "Cumbia en el living",
+          "descripcion": "Clase de cumbia para bailar desde casa, con el mismo canal que suena en el bosque.",
+          "tipo": "CLASE",
+          "modalidad": "virtual",
+          "zona": "Desde Casa",
+          "destacado": false
+        },
+        {
+          "inicio": "15:50",
+          "fin": "17:05",
+          "duracion": "75 min",
+          "titulo": "Riñoneras de lona",
+          "descripcion": "Cosemos riñoneras y bolsos con lonas y banners de festivales anteriores; cada pieza es única.",
+          "tipo": "TALLER",
+          "modalidad": "presencial",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
+          "inicio": "16:15",
+          "fin": "16:55",
+          "duracion": "40 min",
+          "titulo": "Carrera de bicis quietas",
+          "descripcion": "Competencia por equipos en las bicis generadoras: gana el equipo que más energía cargue para la fiesta de la noche.",
+          "tipo": "EXPERIENCIA",
+          "modalidad": "presencial",
+          "zona": "Usina Bailable",
+          "destacado": false
+        },
+        {
+          "inicio": "20:15",
+          "fin": "21:00",
+          "duracion": "45 min",
+          "titulo": "Bailemos todos",
+          "descripcion": "Clase masiva en el escenario principal: cientos de personas aprenden la misma coreografía con auriculares y sin un solo parlante.",
+          "tipo": "CLASE",
+          "modalidad": "presencial",
+          "zona": "Escenario Mudo",
+          "destacado": true
+        },
+        {
+          "inicio": "20:20",
+          "fin": "20:50",
+          "duracion": "30 min",
+          "titulo": "Plantá y llevate",
+          "descripcion": "Repartimos plantines nativos y te enseñamos a plantarlos con el compost producido durante el festival.",
+          "tipo": "EXPERIENCIA",
+          "modalidad": "presencial",
+          "zona": "Instalación central",
+          "destacado": false
+        },
+        {
+          "inicio": "20:40",
+          "fin": "21:10",
+          "duracion": "30 min",
+          "titulo": "¿Cuánta energía hicimos?",
+          "descripcion": "Repaso en vivo de lo que dejó el festival: energía generada por bicis y pisos, residuos evitados y cuánto se recicló.",
+          "tipo": "CHARLA",
+          "modalidad": "hibrida",
+          "zona": "Pantalla Muda",
+          "destacado": false
+        }
+      ]
+    }
+  ]
+}

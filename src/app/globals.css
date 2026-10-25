@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Ritmo Blanco · tokens del sistema (BRIEF.md §6).
+  Nunca negro ni gris: los oscuros son vino. Sin esquinas redondeadas ni sombras.
+*/
+@theme {
+  --color-*: initial;
+  --color-vino: #692136;
+  --color-blanco: #ffffff;
+  --color-rosa: #e1b0c1;
+  --color-melocoton: #edcdb8;
+  --color-crema: #f2dabd;
+  --color-lila: #b3a5ba;
+  --color-azulgris: #9195b4;
+  --color-lila-oscuro: #767498;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-*: initial;
+  --font-display: var(--font-grotesk), "Sets Grotesk", system-ui, sans-serif;
+  --font-mono: var(--font-plex), "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-*: initial;
+  --shadow-*: initial;
+
+  --ease-reposo: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    color: var(--color-vino);
+    background: var(--color-blanco);
+    scroll-behavior: smooth;
+    scroll-padding-top: 1rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    /* Lugar para la barra de canal fija abajo en el celular */
+    padding-bottom: 5.5rem;
+  }
+  @media (min-width: 64rem) {
+    html {
+      scroll-padding-top: 5rem;
+    }
+    body {
+      padding-bottom: 0;
+    }
+  }
+  ::selection {
+    background: var(--color-rosa);
+    color: var(--color-vino);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-vino);
+    outline-offset: 3px;
+  }
+  .sobre-oscuro :focus-visible {
+    outline-color: var(--color-blanco);
+  }
+  mark {
+    background: none;
+    color: inherit;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*
+  Retícula: 4 columnas en el celular, 8 en tablet, 12 en escritorio.
+  Margen 20 px, calle 16 px (24 px desde tablet), máximo 1280 px.
+*/
+@utility reticula {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 1rem;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (min-width: 48rem) {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    padding-inline: 2rem;
+  }
+  @media (min-width: 64rem) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    padding-inline: 3rem;
+  }
+}
+
+/* Rótulos en mono mayúscula: fechas, canales, legales */
+@utility rotulo {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Filete fino vino: la única división del sistema */
+@utility filete {
+  border-top: 1px solid var(--color-vino);
+}
+
+@utility sr-solo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
