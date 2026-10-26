@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Actividad } from "./actividad";
 import { nombreCanal } from "./canal";
 import { FotoPendiente, Modo, Signo } from "./signos";
@@ -9,7 +9,6 @@ import { alternarFiltro, limpiarFiltros, useCanal, useFiltros, type Filtros } fr
 import {
   CANALES,
   MODALIDADES,
-  NOMBRE_MODALIDAD,
   TIPOS,
   diaSemana,
   fechaCorta,
@@ -29,17 +28,20 @@ function cumple(a: A, f: Filtros) {
   );
 }
 
+const sinSuscripcion = () => () => {};
+
+/* Si hoy es un día del festival, el programa abre en ese día */
+function diaDeHoy() {
+  const hoy = new Date().toLocaleDateString("en-CA", { timeZone: "America/Argentina/Buenos_Aires" });
+  return Math.max(0, programa.dias.findIndex((d) => d.fecha === hoy));
+}
+
 export function Programa() {
   const dias = programa.dias;
-  const [actual, setActual] = useState(0);
+  const [elegido, setActual] = useState<number | null>(null);
+  const hoy = useSyncExternalStore(sinSuscripcion, diaDeHoy, () => 0);
+  const actual = elegido ?? hoy;
   const pestanas = useRef<(HTMLButtonElement | null)[]>([]);
-
-  // Si hoy es un día del festival, abre ese día
-  useEffect(() => {
-    const hoy = new Date().toLocaleDateString("en-CA", { timeZone: "America/Argentina/Buenos_Aires" });
-    const i = dias.findIndex((d) => d.fecha === hoy);
-    if (i > 0) setActual(i);
-  }, [dias]);
 
   const teclas = (e: React.KeyboardEvent) => {
     const delta = { ArrowRight: 1, ArrowLeft: -1 }[e.key];

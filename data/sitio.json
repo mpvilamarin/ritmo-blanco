@@ -44,7 +44,8 @@
   "desde_casa": {
     "titulo": ["Participá", "desde casa"],
     "texto": "Las actividades virtuales se siguen desde tu casa con el mismo canal que suena en el bosque. Las híbridas pasan en el parque y en tu pantalla a la vez.",
-    "guino": "Bailá en el living. Tus vecinos tampoco se van a enterar."
+    "cierre": "Bailá en el living.",
+    "guino": "Tus vecinos tampoco se van a enterar."
   },
   "rastro": {
     "titulo": ["No dejamos", "rastro"],
@@ -52,7 +53,8 @@
       {
         "fuerte": "100",
         "suave": "decibeles",
-        "texto": "La OMS recomienda que un concierto no supere los 100 decibeles en promedio (Norma mundial para lugares y eventos de escucha segura, 2022). Acá la música suena solo en tus auriculares: ruido cero hacia afuera."
+        "texto": "La OMS recomienda que un concierto no supere los 100 decibeles en promedio (Norma mundial para lugares y eventos de escucha segura, 2022). Ruido cero hacia afuera: acá la música suena",
+        "guino": "solo en tus auriculares."
       },
       {
         "fuerte": "Pedaleá",
@@ -86,5 +88,6 @@
   },
   "sponsors": ["Natura", "Spotify", "Philips Hue", "Sony"],
   "redes": "@ritmoblanco",
-  "despedida": "Te vamos a extrañar (en silencio)."
+  "despedida": ["Te vamos a extrañar", "(en silencio)."],
+  "credito": "Trabajo práctico · Diseño Gráfico 3 · Cátedra Belluccia · TP4"
 }

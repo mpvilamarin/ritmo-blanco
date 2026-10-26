@@ -4,8 +4,11 @@ import { Mapa } from "@/components/mapa";
 import { DefsArena } from "@/components/pisadas";
 import { Programa } from "@/components/programa";
 import { ComoFunciona } from "@/components/secciones/como-funciona";
+import { DesdeCasa } from "@/components/secciones/desde-casa";
+import { Info, Pie } from "@/components/secciones/info";
 import { Portada } from "@/components/secciones/portada";
 import { QueEs } from "@/components/secciones/que-es";
+import { Rastro } from "@/components/secciones/rastro";
 
 export default function Inicio() {
   return (
@@ -25,8 +28,11 @@ export default function Inicio() {
         <ComoFunciona />
         <Programa />
         <Mapa />
-        <div className="h-[60vh]" />
+        <DesdeCasa />
+        <Rastro />
+        <Info />
       </main>
+      <Pie />
     </>
   );
 }
