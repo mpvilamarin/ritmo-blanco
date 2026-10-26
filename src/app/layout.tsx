@@ -1,22 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 
 /*
   Sets Grotesk está solo en Adobe Fonts. Mientras no haya kit web, se ve con
-  Space Grotesk. Para usar el kit: agregar <link rel="stylesheet" href="https://use.typekit.net/XXXX.css">
+  Schibsted Grotesk, la misma que usa el diseño de Claude Design. Para usar el kit: agregar <link rel="stylesheet" href="https://use.typekit.net/XXXX.css">
   en <head> y cambiar --font-display en globals.css a "sets-grotesk".
 */
-const grotesk = Space_Grotesk({
+const grotesk = Schibsted_Grotesk({
   variable: "--font-grotesk",
   subsets: ["latin"],
-  weight: ["300", "500", "700"],
+  weight: ["400", "700", "800", "900"],
 });
 
 const plex = IBM_Plex_Mono({
   variable: "--font-plex",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#767498",
+  themeColor: "#e1b0c1",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

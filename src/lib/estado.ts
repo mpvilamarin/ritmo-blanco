@@ -8,7 +8,7 @@ import { CANALES, type CanalId, type Modalidad, type Tipo } from "./programa";
   en el navegador) y los filtros del programa (el mapa también los cambia).
 */
 
-function crearStore<T>(inicial: T, leerGuardado?: () => T) {
+export function crearStore<T>(inicial: T, leerGuardado?: () => T) {
   let valor = inicial;
   let leido = !leerGuardado;
   const oyentes = new Set<() => void>();

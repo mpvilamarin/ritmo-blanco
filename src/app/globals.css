@@ -17,6 +17,8 @@
   /* Vino noche: el fondo oscuro de la versión intensa. Los oscuros son vino, nunca negro. */
   --color-noche: #2a0c17;
   --color-noche-2: #3d1424;
+  /* Hover de los botones vino */
+  --color-vino-oscuro: #561a2c;
   --color-transparent: transparent;
   --color-current: currentColor;
 
@@ -42,17 +44,8 @@
     font-family: var(--font-mono);
     font-size: 0.875rem;
     line-height: 1.5;
-    /* Lugar para la barra de canal fija abajo en el celular */
-    padding-bottom: 5.5rem;
   }
-  @media (min-width: 64rem) {
-    html {
-      scroll-padding-top: 5rem;
-    }
-    body {
-      padding-bottom: 0;
-    }
-  }
+
   ::selection {
     background: var(--color-rosa);
     color: var(--color-vino);
@@ -261,4 +254,122 @@
 }
 .sin-barra::-webkit-scrollbar {
   display: none;
+}
+
+/* Diseño Claude Design: cintas onduladas, carrusel de artistas y "Estás acá" */
+@keyframes rb-izq-3 {
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+@keyframes rb-der-3 {
+  from {
+    transform: translateX(-33.3333%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes rb-izq-2 {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes rb-pulso {
+  0%,
+  100% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+.rb-cinta-izq {
+  animation: rb-izq-3 46s linear infinite;
+}
+.rb-cinta-der {
+  animation: rb-der-3 52s linear infinite;
+}
+.rb-carrusel {
+  animation: rb-izq-2 var(--duracion, 90s) linear infinite;
+}
+.rb-carrusel-pausa:hover .rb-carrusel,
+.rb-carrusel-pausa:focus-within .rb-carrusel {
+  animation-play-state: paused;
+}
+.rb-pulso {
+  animation: rb-pulso 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rb-cinta-izq,
+  .rb-cinta-der,
+  .rb-carrusel,
+  .rb-pulso {
+    animation: none !important;
+  }
+  /* Sin movimiento, el carrusel se recorre a mano */
+  .rb-carrusel-pausa {
+    overflow-x: auto !important;
+  }
+}
+
+/*
+  Escala tipográfica fija (de grande a chico). Toda la página usa solo estos
+  cinco tamaños más el rótulo; los títulos van siempre en mayúscula.
+*/
+@utility t-1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+@utility t-2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.625rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+@utility t-3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+@utility t-cuerpo {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+@utility t-chico {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+/* Cifras de la cuenta regresiva */
+@utility t-cifra {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 10vw, 8rem);
+  line-height: 0.85;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ancho de lectura y márgenes laterales comunes a todas las secciones */
+@utility contenido {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: var(--margen);
+}
+@utility banda {
+  padding-block: clamp(4rem, 8vw, 7rem);
 }
