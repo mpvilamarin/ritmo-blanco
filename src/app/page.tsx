@@ -1,5 +1,6 @@
 import { BarraCanal } from "@/components/canal";
 import { Degrade } from "@/components/degrade";
+import { Mapa } from "@/components/mapa";
 import { DefsArena } from "@/components/pisadas";
 import { Programa } from "@/components/programa";
 import { ComoFunciona } from "@/components/secciones/como-funciona";
@@ -23,6 +24,7 @@ export default function Inicio() {
         <QueEs />
         <ComoFunciona />
         <Programa />
+        <Mapa />
         <div className="h-[60vh]" />
       </main>
     </>
