@@ -134,7 +134,7 @@ export function FotoPendiente({ texto = "[FOTO]", className = "" }: { texto?: st
     <div
       role="img"
       aria-label={`Foto pendiente: ${texto}`}
-      className={`con-grano flex items-center justify-center overflow-hidden ${className}`}
+      className={`con-grano flex items-center justify-center overflow-hidden ${className.includes("absolute") ? "" : "relative"} ${className}`}
       style={{
         background:
           "radial-gradient(120% 90% at 85% 10%, #edcdb8 0%, #e1b0c1 35%, #b3a5ba 70%, #9195b4 100%)",

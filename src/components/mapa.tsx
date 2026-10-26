@@ -2,7 +2,7 @@
 
 import { soloZona, useFiltros } from "@/lib/estado";
 import { programa, sitio } from "@/lib/programa";
-import { Titulo } from "./titulo";
+import { Encabezado } from "./recursos";
 
 /*
   Mapa esquemático del predio, con la lectura del impreso: caminos blancos,
@@ -86,10 +86,8 @@ export function Mapa() {
 
   return (
     <section id="mapa" aria-labelledby="mapa-titulo" className="reticula gap-y-8 pt-20 md:pt-28">
-      <div id="mapa-titulo" className="col-span-3 md:col-span-4 lg:col-span-4">
-        <Titulo fuerte={t.titulo[0]} suave={t.titulo[1]} max={130} className="text-6xl" />
-      </div>
-      <p className="col-span-full self-end md:col-span-4 lg:col-span-5 lg:col-start-8">{t.texto}</p>
+      <Encabezado id="mapa-titulo" rotulo={t.rotulo} titulo={t.titulo} />
+      <p className="col-span-full text-base">{t.texto}</p>
 
       <figure className="col-span-full lg:col-span-8">
         <svg viewBox="0 0 400 300" className="w-full" role="group" aria-label="Mapa del predio">

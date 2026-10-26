@@ -204,17 +204,45 @@
   }
 }
 
-/* Grano reutilizable para bloques con color propio (portada, fotos) */
-.con-grano {
-  position: relative;
-  isolation: isolate;
+@layer components {
+  /* Grano reutilizable para bloques con color propio (portada, fotos) */
+  /* El bloque necesita relative o absolute (de las utilidades) para contener el grano */
+  .con-grano {
+    isolation: isolate;
+  }
+  .con-grano::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.25;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
 }
-.con-grano::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.25;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+
+/* Franjas: cintas que se desplazan en loop. Quietas con reduced motion. */
+@keyframes desfile {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.desfile {
+  animation: desfile 60s linear infinite;
+}
+.desfile-inverso {
+  animation-direction: reverse;
+}
+@media (prefers-reduced-motion: reduce) {
+  .desfile {
+    animation: none !important;
+  }
+}
+
+/* Carrusel: scroll horizontal sin barra visible (la reemplaza la barra de progreso) */
+.sin-barra {
+  scrollbar-width: none;
+}
+.sin-barra::-webkit-scrollbar {
+  display: none;
 }

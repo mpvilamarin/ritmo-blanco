@@ -1,14 +1,12 @@
 import { Guino, Logo, Texto } from "../signos";
-import { Titulo } from "../titulo";
+import { Encabezado } from "../recursos";
 import { sitio } from "@/lib/programa";
 
 export function Info() {
   const t = sitio.info;
   return (
-    <section id="info" aria-labelledby="info-titulo" className="reticula gap-y-8 pt-20 md:pt-28">
-      <div id="info-titulo" className="col-span-3 md:col-span-4 lg:col-span-5">
-        <Titulo fuerte={t.titulo[0]} suave={t.titulo[1]} max={130} className="text-6xl" />
-      </div>
+    <section id="info" aria-labelledby="info-titulo" className="reticula gap-y-10 pt-24 md:pt-32">
+      <Encabezado id="info-titulo" rotulo={t.rotulo} titulo={t.titulo} />
       <dl className="col-span-full grid gap-x-6 md:grid-cols-2 lg:grid-cols-4">
         {t.items.map((item) => (
           <div key={item.rotulo} className="filete py-3">

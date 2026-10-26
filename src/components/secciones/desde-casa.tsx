@@ -1,56 +1,48 @@
-import { Pisadas } from "../pisadas";
-import { Guino, Modo, TipoEtiqueta, ZonaEtiqueta } from "../signos";
-import { Titulo } from "../titulo";
-import { diaSemana, fechaCorta, ordenarActividades, programa, sitio } from "@/lib/programa";
+import { Encabezado } from "../recursos";
+import { Guino, Modo } from "../signos";
+import { ordenarActividades, programa, sitio } from "@/lib/programa";
 
-/* Todo lo que se puede seguir desde casa: actividades virtuales e híbridas del JSON */
+/*
+  Todo lo que se puede seguir desde casa (virtual e híbrido, del JSON),
+  como una lista de nombres grandes con el dato chico al lado.
+*/
 export function DesdeCasa() {
   const t = sitio.desde_casa;
+  const lista = programa.dias.flatMap((d) =>
+    ordenarActividades(d.actividades)
+      .filter((a) => a.modalidad !== "presencial")
+      .map((a) => ({ ...a, dia: d })),
+  );
+
   return (
-    <section id="desde-casa" aria-labelledby="casa-titulo" className="reticula gap-y-8 pt-12 md:pt-16">
-      <Pisadas className="col-span-full mb-4" pasos={4} />
-      <div id="casa-titulo" className="col-span-3 md:col-span-4 lg:col-span-5">
-        <Titulo fuerte={t.titulo[0]} suave={t.titulo[1]} max={130} className="text-6xl" />
-      </div>
-      <div className="col-span-full space-y-3 self-end md:col-span-4 lg:col-span-5 lg:col-start-8">
+    <section id="desde-casa" aria-labelledby="casa-titulo" className="reticula gap-y-10 pt-16 md:pt-20">
+      <Encabezado id="casa-titulo" rotulo={t.rotulo} titulo={t.titulo} />
+      <div className="col-span-full space-y-3 text-base md:col-span-6 lg:col-span-6">
         <p>{t.texto}</p>
         <p>
           {t.cierre} <Guino>{t.guino}</Guino>
         </p>
       </div>
 
-      <div className="col-span-full grid gap-10 lg:grid-cols-3 lg:gap-6">
-        {programa.dias.map((d) => {
-          const lista = ordenarActividades(d.actividades).filter((a) => a.modalidad !== "presencial");
-          return (
-            <div key={d.numero}>
-              <h3 className="flex items-baseline justify-between gap-3 border-b border-vino pb-2">
-                <span className="font-display text-2xl uppercase">
-                  <b>{d.nombre[0]}</b> <span className="font-light">{d.nombre[1]}</span>
-                </span>
-                <span className="rotulo">
-                  {diaSemana(d.fecha)} {fechaCorta(d.fecha)}
-                </span>
-              </h3>
-              <ul>
-                {lista.map((a) => (
-                  <li key={a.titulo} className="grid grid-cols-[3.5rem_1fr] gap-x-3 border-b border-vino/40 py-3">
-                    <time className="font-display text-xl leading-none font-bold">{a.inicio}</time>
-                    <div>
-                      <p className="font-display text-lg leading-tight font-medium">{a.titulo}</p>
-                      <div className="mt-2 flex flex-wrap items-center gap-2">
-                        <Modo modalidad={a.modalidad} conTexto />
-                        <TipoEtiqueta tipo={a.tipo} />
-                        <ZonaEtiqueta nombre={a.zona} zona={programa.zonas[a.zona]} />
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
+      <ol className="col-span-full border-t border-vino lg:col-span-10 lg:col-start-2">
+        {lista.map((a) => (
+          <li
+            key={`${a.dia.numero}-${a.titulo}`}
+            className="grid grid-cols-[1fr_auto] items-baseline gap-x-4 gap-y-1 border-b border-vino py-4 md:grid-cols-[9rem_1fr_auto]"
+          >
+            <p className="rotulo col-span-2 md:col-span-1">
+              <span className="font-semibold">{a.dia.nombre[0]}</span> · {a.inicio}
+            </p>
+            <p className="font-display text-xl leading-tight font-bold uppercase md:text-3xl">
+              {a.titulo}
+              <span className="mt-1 block font-mono text-[0.75rem] font-normal tracking-normal normal-case md:mt-0 md:ml-3 md:inline md:align-middle">
+                / {a.tipo.toLowerCase()} · {a.zona} · {a.duracion}
+              </span>
+            </p>
+            <Modo modalidad={a.modalidad} conTexto />
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }

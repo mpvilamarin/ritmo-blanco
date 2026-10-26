@@ -49,11 +49,11 @@ export function Titulo({ fuerte, suave, as: Tag = "h2", max = 140, className = "
 
   return (
     <Tag ref={caja} className={`font-display uppercase leading-[0.88] ${className}`}>
-      <span ref={linea1} className="inline-block whitespace-nowrap font-bold tracking-[-0.02em]">
+      <span ref={linea1} className="block w-fit whitespace-nowrap font-bold tracking-[-0.02em]">
         {fuerte}
-      </span>{" "}
-      <br />
-      <span ref={linea2} className="inline-block whitespace-nowrap font-light tracking-[-0.01em]">
+      </span>
+      <span className="sr-solo"> </span>
+      <span ref={linea2} className="block w-fit whitespace-nowrap font-light tracking-[-0.01em]">
         {suave}
       </span>
     </Tag>

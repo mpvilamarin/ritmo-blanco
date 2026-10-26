@@ -1,20 +1,59 @@
 {
   "bajada": "Festival silencioso y sustentable",
-  "titular": ["El festival más", "ruidoso", "que nunca vas a escuchar."],
+  "titular": [
+    "El festival más",
+    "ruidoso",
+    "que nunca vas a escuchar."
+  ],
   "fechas_largas": "14 al 16 de noviembre",
   "cta": "Elegí tu canal",
+  "cuenta": {
+    "rotulo": "Faltan",
+    "unidades": [
+      "días",
+      "horas",
+      "minutos",
+      "segundos"
+    ],
+    "durante": "Está pasando ahora",
+    "despues": "Nos fuimos como llegamos."
+  },
+  "franjas": [
+    [
+      "Elegí tu canal",
+      "14 al 16 de noviembre",
+      "Bosques de Palermo",
+      "Entrada gratuita"
+    ],
+    [
+      "Tumbao · raíz y ritmo",
+      "Pulso · bandas y canción",
+      "Sinte · electrónica"
+    ]
+  ],
   "que_es": {
-    "titulo": ["El silencio", "se ve"],
+    "titulo": [
+      "El silencio",
+      "se ve"
+    ],
     "texto": [
       "Ritmo Blanco es un festival de música silenciosa en los Bosques de Palermo. Escuchás con auriculares inalámbricos y elegís entre tres canales que suenan al mismo tiempo.",
       "Desde afuera, el parque está en silencio. Adentro, todos bailan.",
       "Blanco es lo que queda cuando nadie impone su ruido, y es la suma de los tres canales."
     ],
     "canales_intro": "Tres canales a la vez. Cambiá cuando quieras.",
-    "cierre": ["A las 21:30 los tres canales transmiten al mismo artista:", "todo el parque escucha lo mismo a la vez."]
+    "cierre": [
+      "A las 21:30 los tres canales transmiten al mismo artista:",
+      "todo el parque escucha lo mismo a la vez."
+    ],
+    "rotulo": "Qué es",
+    "centro": "Blanco"
   },
   "pasos": {
-    "titulo": ["Cómo", "funciona"],
+    "titulo": [
+      "Cómo",
+      "funciona"
+    ],
     "lista": [
       {
         "titulo": "Agarrá tus auriculares.",
@@ -29,26 +68,60 @@
         "titulo": "Bailá fuerte.",
         "texto": "Te ven todos, pero no escuchan nada."
       }
-    ]
+    ],
+    "rotulo": "En tres pasos"
+  },
+  "artistas": {
+    "rotulo": "Line-up · tres canales a la vez",
+    "titulo": [
+      "Artistas",
+      "en tus auriculares"
+    ],
+    "texto": "Elegí un canal y sus artistas pasan adelante.",
+    "todos": "Los tres"
   },
   "programa": {
-    "titulo": ["Programa", "tres jornadas"],
-    "cierre_rotulo": "Los tres canales, el mismo artista"
+    "titulo": [
+      "Programa",
+      "tres jornadas"
+    ],
+    "cierre_rotulo": "Los tres canales, el mismo artista",
+    "rotulo": "14 al 16 de noviembre"
   },
   "mapa": {
-    "titulo": ["Mapa", "del predio"],
+    "titulo": [
+      "Mapa",
+      "del predio"
+    ],
     "texto": "Tocá una zona para ver qué pasa ahí.",
-    "avenidas": ["Av. Figueroa Alcorta", "Av. Leopoldo Lugones"],
-    "servicios": ["Accesos", "Auriculares", "Hidratación", "Baños", "Primeros auxilios"]
+    "avenidas": [
+      "Av. Figueroa Alcorta",
+      "Av. Leopoldo Lugones"
+    ],
+    "servicios": [
+      "Accesos",
+      "Auriculares",
+      "Hidratación",
+      "Baños",
+      "Primeros auxilios"
+    ],
+    "rotulo": "Bosques de Palermo"
   },
   "desde_casa": {
-    "titulo": ["Participá", "desde casa"],
+    "titulo": [
+      "Participá",
+      "desde casa"
+    ],
     "texto": "Las actividades virtuales se siguen desde tu casa con el mismo canal que suena en el bosque. Las híbridas pasan en el parque y en tu pantalla a la vez.",
     "cierre": "Bailá en el living.",
-    "guino": "Tus vecinos tampoco se van a enterar."
+    "guino": "Tus vecinos tampoco se van a enterar.",
+    "rotulo": "Virtual e híbrido"
   },
   "rastro": {
-    "titulo": ["No dejamos", "rastro"],
+    "titulo": [
+      "No dejamos",
+      "rastro"
+    ],
     "items": [
       {
         "fuerte": "100",
@@ -71,23 +144,60 @@
         "suave": "como llegamos",
         "texto": "Estructuras reutilizables, hidratación libre y compost."
       }
-    ]
+    ],
+    "rotulo": "Sustentabilidad"
   },
   "info": {
-    "titulo": ["Información", "práctica"],
+    "titulo": [
+      "Información",
+      "práctica"
+    ],
     "items": [
-      { "rotulo": "Entrada", "texto": "Gratuita, auriculares incluidos (con DNI)." },
-      { "rotulo": "Horario", "texto": "14, 15 y 16 de noviembre, de 14:00 a 23:00." },
-      { "rotulo": "Cómo llegar", "texto": "Subte D (Plaza Italia), colectivos [LÍNEAS], Ecobici." },
-      { "rotulo": "Traé", "texto": "DNI, botella reutilizable, abrigo." },
-      { "rotulo": "No se permite", "texto": "Vidrio, parlantes (obvio), drones." },
-      { "rotulo": "Accesibilidad", "texto": "Accesos y baños adaptados, zona de descanso." },
-      { "rotulo": "Lluvia", "texto": "[A DEFINIR]" },
-      { "rotulo": "Edad", "texto": "[A DEFINIR]" }
-    ]
+      {
+        "rotulo": "Entrada",
+        "texto": "Gratuita, auriculares incluidos (con DNI)."
+      },
+      {
+        "rotulo": "Horario",
+        "texto": "14, 15 y 16 de noviembre, de 14:00 a 23:00."
+      },
+      {
+        "rotulo": "Cómo llegar",
+        "texto": "Subte D (Plaza Italia), colectivos [LÍNEAS], Ecobici."
+      },
+      {
+        "rotulo": "Traé",
+        "texto": "DNI, botella reutilizable, abrigo."
+      },
+      {
+        "rotulo": "No se permite",
+        "texto": "Vidrio, parlantes (obvio), drones."
+      },
+      {
+        "rotulo": "Accesibilidad",
+        "texto": "Accesos y baños adaptados, zona de descanso."
+      },
+      {
+        "rotulo": "Lluvia",
+        "texto": "[A DEFINIR]"
+      },
+      {
+        "rotulo": "Edad",
+        "texto": "[A DEFINIR]"
+      }
+    ],
+    "rotulo": "Antes de venir"
   },
-  "sponsors": ["Natura", "Spotify", "Philips Hue", "Sony"],
+  "sponsors": [
+    "Natura",
+    "Spotify",
+    "Philips Hue",
+    "Sony"
+  ],
   "redes": "@ritmoblanco",
-  "despedida": ["Te vamos a extrañar", "(en silencio)."],
+  "despedida": [
+    "Te vamos a extrañar",
+    "(en silencio)."
+  ],
   "credito": "Trabajo práctico · Diseño Gráfico 3 · Cátedra Belluccia · TP4"
 }

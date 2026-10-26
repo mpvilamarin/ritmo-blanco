@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Actividad } from "./actividad";
+import { Encabezado } from "./recursos";
 import { nombreCanal } from "./canal";
 import { FotoPendiente, Modo, Signo } from "./signos";
 import { Titulo } from "./titulo";
@@ -53,10 +54,8 @@ export function Programa() {
   };
 
   return (
-    <section id="programa" aria-labelledby="programa-titulo" className="reticula gap-y-8 pt-16 md:pt-24">
-      <div id="programa-titulo" className="col-span-3 md:col-span-4 lg:col-span-5">
-        <Titulo fuerte={sitio.programa.titulo[0]} suave={sitio.programa.titulo[1]} max={130} className="text-6xl" />
-      </div>
+    <section id="programa" aria-labelledby="programa-titulo" className="reticula gap-y-10 pt-24 md:pt-32">
+      <Encabezado id="programa-titulo" rotulo={sitio.programa.rotulo} titulo={sitio.programa.titulo} />
 
       <div role="tablist" aria-label="Jornadas" className="col-span-full grid grid-cols-3 border border-vino">
         {dias.map((d, i) => {
