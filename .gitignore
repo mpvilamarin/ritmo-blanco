@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Materiales de referencia (no se publican)
+/ritmo-blanco-web 2/

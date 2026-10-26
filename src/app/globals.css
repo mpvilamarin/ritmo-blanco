@@ -82,25 +82,38 @@
 }
 
 /*
-  Retícula: 4 columnas en el celular, 8 en tablet, 12 en escritorio.
-  Margen 20 px, calle 16 px (24 px desde tablet), máximo 1280 px.
+  Retícula (REFERENCIAS-WEB.md, de 05 y 02): 4 columnas en el celular, 8 en
+  tablet, 12 en escritorio, con margen lateral amplio. --calle es el espacio
+  entre columnas; las líneas visibles van al centro de cada calle.
 */
+:root {
+  --calle: 1rem;
+  --margen: 1.25rem;
+}
+@media (min-width: 48rem) {
+  :root {
+    --calle: 1.5rem;
+    --margen: 2.5rem;
+  }
+}
+@media (min-width: 64rem) {
+  :root {
+    --margen: 5rem;
+  }
+}
 @utility reticula {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 1rem;
+  column-gap: var(--calle);
   width: 100%;
-  max-width: 80rem;
+  max-width: 90rem;
   margin-inline: auto;
-  padding-inline: 1.25rem;
+  padding-inline: var(--margen);
   @media (min-width: 48rem) {
     grid-template-columns: repeat(8, minmax(0, 1fr));
-    column-gap: 1.5rem;
-    padding-inline: 2rem;
   }
   @media (min-width: 64rem) {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    padding-inline: 3rem;
   }
 }
 

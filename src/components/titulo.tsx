@@ -3,8 +3,8 @@
 import { useLayoutEffect, useRef } from "react";
 
 type Props = {
-  fuerte: string;
-  suave: string;
+  fuerte: React.ReactNode;
+  suave: React.ReactNode;
   as?: "h1" | "h2" | "h3" | "p";
   /** Cuerpo máximo en px, para que no crezca sin límite en pantallas anchas */
   max?: number;

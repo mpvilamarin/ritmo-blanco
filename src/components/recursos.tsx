@@ -6,7 +6,7 @@ import { CANALES } from "@/lib/programa";
   Curva nodal de una placa de Chladni, recortada a una franja horizontal.
   La misma fórmula que la arena: cada separador es un modo distinto.
 */
-function curvaNodal(n: number, m: number, fase: number, ancho: number, alto: number) {
+export function curvaNodal(n: number, m: number, fase: number, ancho: number, alto: number) {
   const muestras = 180;
   const vs: number[] = [];
   for (let i = 0; i < muestras; i++) {
@@ -22,8 +22,8 @@ function curvaNodal(n: number, m: number, fase: number, ancho: number, alto: num
   return vs.map((v, i) => [(i / (muestras - 1)) * ancho, alto / 2 + (v / max) * alto * 0.38] as const);
 }
 
-const ANCHO = 1440;
-const trazo = (pts: readonly (readonly [number, number])[]) =>
+export const ANCHO = 1440;
+export const trazo = (pts: readonly (readonly [number, number])[]) =>
   pts.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join("");
 
 /* Separador: dos líneas de arena que siguen una curva nodal */
@@ -140,18 +140,41 @@ export function Encabezado({
   );
 }
 
-/* La retícula a la vista: columnas finas en vino que atraviesan la página */
-export function ReticulaVisible() {
+/*
+  La retícula a la vista (de 05): líneas verticales finas en vino al 11 %,
+  una al centro de cada calle y las de los bordes a media calle del área de
+  contenido, así todas las columnas se leen como celdas iguales. Va por encima de todo (también de las
+  fotos a sangre) con multiply, sin bloquear clics.
+*/
+function Lineas({ columnas, clase }: { columnas: number; clase: string }) {
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-[5]">
-      <div className="reticula h-full">
-        {Array.from({ length: 12 }, (_, i) => (
-          <div
+    <div className={`relative mx-auto h-full max-w-[90rem] ${clase}`} style={{ paddingInline: "var(--margen)" }}>
+      <div className="relative h-full">
+        <span className="absolute inset-y-0 w-px bg-vino" style={{ left: "calc(var(--calle) / -2)" }} />
+        {Array.from({ length: columnas - 1 }, (_, i) => (
+          <span
             key={i}
-            className={`h-full border-x border-vino/[0.07] ${i >= 4 ? "hidden md:block" : ""} ${i >= 8 ? "md:hidden lg:block" : ""}`}
+            className="absolute inset-y-0 w-px bg-vino"
+            style={{ left: `calc(${i + 1} * (100% + var(--calle)) / ${columnas} - var(--calle) / 2)` }}
           />
         ))}
+        <span className="absolute inset-y-0 w-px bg-vino" style={{ right: "calc(var(--calle) / -2)" }} />
       </div>
     </div>
   );
+}
+
+export function ReticulaVisible() {
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-20 opacity-[0.11] mix-blend-multiply">
+      <Lineas columnas={4} clase="md:hidden" />
+      <Lineas columnas={8} clase="hidden md:block lg:hidden" />
+      <Lineas columnas={12} clase="hidden lg:block" />
+    </div>
+  );
+}
+
+/* Filete horizontal a todo el ancho, en el mismo tono que la retícula */
+export function FileteGrilla({ className = "" }: { className?: string }) {
+  return <hr aria-hidden className={`border-0 border-t border-vino/[0.14] ${className}`} />;
 }
