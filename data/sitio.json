@@ -11,7 +11,7 @@
       "Blanco es lo que queda cuando nadie impone su ruido, y es la suma de los tres canales."
     ],
     "canales_intro": "Tres canales a la vez. Cambiá cuando quieras.",
-    "cierre": "A las 21:30 los tres canales transmiten al mismo artista: todo el parque escucha lo mismo a la vez."
+    "cierre": ["A las 21:30 los tres canales transmiten al mismo artista:", "todo el parque escucha lo mismo a la vez."]
   },
   "pasos": {
     "titulo": ["Cómo", "funciona"],
