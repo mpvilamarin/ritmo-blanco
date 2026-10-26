@@ -9,7 +9,7 @@ export function ComoFunciona() {
   return (
     <section id="como" aria-labelledby="como-titulo" className="reticula gap-y-12 pt-24 md:pt-36">
       <Encabezado id="como-titulo" rotulo={t.rotulo} titulo={t.titulo} centrado ancho="max-w-[26rem]" />
-      <ol className="col-span-full grid md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-start md:gap-4 lg:col-span-10 lg:col-start-2">
+      <ol className="col-span-full grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] md:items-start md:gap-4 lg:col-span-10 lg:col-start-2">
         {t.lista.map((paso, i) => (
           <li key={paso.titulo} className="contents">
             <div className="flex flex-col items-center text-center">

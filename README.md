@@ -24,6 +24,9 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 | `src/components/titulo.tsx` | Regla bold/light: dos líneas del mismo ancho |
 | `src/components/signos.tsx` | Signos de canal, modalidad, tipo, zona, recuadro rosa, logo y placeholders |
 | `src/components/arena.tsx` | Arena de Chladni en canvas |
+| `src/components/recursos.tsx` | Franjas, bandas y separadores con curvas nodales, encabezados, retícula visible |
+| `src/components/cuenta.tsx` | Cuenta regresiva |
+| `src/components/artistas.tsx` | Carrusel de artistas |
 | `src/components/pisadas.tsx` | Huellas que aparecen al scrollear |
 | `src/components/canal.tsx` | Selector de canal y barra fija |
 | `src/components/programa.tsx` | Pestañas por día, line-up, cierre, actividades y filtros |
@@ -32,25 +35,27 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 
 ## Decisiones
 
-**Una sola página.** Casi todos llegan desde el QR o las redes, desde el celular: una página con anclas se recorre con el pulgar y no hace esperar entre secciones. El orden es el de una visita: qué es, cómo funciona, programa, dónde queda cada cosa, cómo participar desde casa, qué cuidamos, info práctica.
+**Fondo claro, recursos de festival.** La web mantiene el degradé claro del impreso (frío arriba, cálido hacia el final) y suma recursos de sitio de evento: franjas en movimiento, cuenta regresiva, carrusel de artistas y listas grandes. Sin negro ni grises: los oscuros son vino.
 
-**Elegir canal es la interacción central.** La barra fija (abajo en el celular, arriba en escritorio) repite el CTA en todas las pantallas. Elegir un canal hace tres cosas: la arena se sacude y se reacomoda en la figura de ese canal, tu artista pasa adelante y más grande en cada franja del line-up, y la barra dice qué estás escuchando. Tocar el canal elegido lo suelta y los tres vuelven a pesar igual. Se guarda en el navegador. Si es un día del festival entre las 21:30 y las 23:00, la barra avisa que todo el parque escucha lo mismo.
+**Portada.** El nombre ocupa la pantalla en dos líneas del mismo ancho (bold/light) y sangra por los bordes. Lo pisa una foto en collage con arena de Chladni adentro y lo cruza un trazo de Lissajous 3:2, otro recurso del sistema. Debajo van el titular con el guiño y la cuenta regresiva al 14.11 a las 14:00, hora de Buenos Aires, que durante y después del festival cambia de mensaje.
 
-**La arena es calculada, no dibujada.** Cada canal es un modo de vibración de la placa. Los granos se juntan donde la placa no vibra, y una leve deformación del plano da la figura orgánica del afiche. El cierre suma los tres modos: blanco es la suma de los canales. El gesto es vibrar y volver al reposo: cuando la figura se asienta, el cálculo se detiene.
+**Los canales como tres círculos.** "Qué es" muestra los tres canales como círculos que se cruzan. Donde se superponen los tres está el blanco: la suma de los canales, que es el concepto del festival. Tocar un círculo elige el canal (con teclado: flechas y Enter). Alrededor de cada círculo corren sus artistas, tomados del JSON.
 
-**El degradé acompaña el scroll.** Arriba, frío (lila, azul gris); hacia el final, cálido (rosa, melocotón, crema), como el recorrido continuo del pliego. Las capas de la página son claras a propósito: el vino pasa al menos 7:1 en cualquier punto. La portada usa el degradé profundo del afiche con texto blanco. Para que el texto chico pase 4.5:1 sobre la arena, la zona del texto se oscurece con lila oscuro mezclado con vino, nunca con negro.
+**Carrusel de artistas.** Están todos los del JSON, incluidos los cierres, en círculos de dos tamaños con ritmo grande / par / par, sobre una banda crema. Cada círculo lleva el color de su canal y el placeholder `[FOTO DE PRENSA]`. Elegir un canal trae a sus artistas adelante. La barra de progreso y las flechas reemplazan la barra de scroll.
 
-**Retícula y jerarquía.** Sin tarjetas, sombras ni esquinas redondeadas. La jerarquía la da la tipografía (Grotesk para nombres y horas, Plex Mono para datos) y las divisiones son filetes de 1 px en vino. El programa repite la columna impresa: hora grande, tipo con contorno y o de modalidad arriba, zona abajo. La destacada lleva foto y fondo rosa.
+**Retícula a la vista.** Las columnas se marcan con filetes muy suaves que atraviesan toda la página. Los bloques se apoyan en ellas pero las rompen (el nombre de la portada, los círculos, las bandas), para que se vea una grilla y no una plantilla.
 
-**Un solo guiño por sección.** El recuadro rosa marca una frase por bloque: *ruidoso*, *todo el parque escucha lo mismo*, *nadie se ofende*, *tus vecinos tampoco se van a enterar*, *solo en tus auriculares*, *(en silencio)*.
+**Separaciones con ondas de Chladni.** Los bordes de las bandas y los separadores son curvas nodales calculadas con la misma fórmula que la arena: cada separación es un modo distinto, con una línea de granos encima.
 
-**El mapa conecta con el programa.** Tocar una zona (en el mapa o en la leyenda) filtra las actividades y lleva al programa. Si ese día no hay nada en la zona, la web dice en qué otro día sí hay.
+**Programa, mapa y "desde casa".** El programa conserva la columna impresa, el mapa filtra el programa y "Desde casa" es una lista de nombres grandes con el dato chico al lado.
+
+**Un solo guiño por sección** en recuadro rosa.
 
 ## Accesibilidad
 
 - Contraste medido sobre el render real; el texto chico pasa 4.5:1.
 - Todo funciona con teclado: enlace para saltar al programa, selector de canal y pestañas con flechas, zonas del mapa con Enter.
-- `prefers-reduced-motion`: la arena aparece ya asentada, las huellas no se desplazan, el degradé no se mueve y el scroll es instantáneo.
+- `prefers-reduced-motion`: la arena aparece ya asentada, las franjas quedan quietas, las huellas no se desplazan, el degradé no se mueve y el scroll es instantáneo.
 - Sin desborde horizontal a 320, 375 y 768 px.
 
 ## Pendientes
