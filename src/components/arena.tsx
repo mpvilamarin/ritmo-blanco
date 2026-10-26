@@ -132,7 +132,7 @@ export function Arena({ fijo, particulas = 22000, className = "" }: Props) {
 
     let raf = 0;
     if (quieto) {
-      for (let i = 0; i < 60; i++) paso();
+      for (let i = 0; i < 120; i++) paso();
       dibujar();
     } else {
       const animar = () => {

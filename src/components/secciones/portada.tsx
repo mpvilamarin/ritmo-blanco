@@ -4,8 +4,8 @@ import { CANALES, programa, sitio } from "@/lib/programa";
 
 /*
   Portada: la misma composición que el posteo "El festival más ruidoso".
-  Fondo frío profundo abajo a la izquierda (donde va el texto blanco, 4.6:1
-  sobre lila oscuro) y la luz cálida arriba a la derecha, donde vive la arena.
+  Fondo frío profundo abajo a la izquierda, donde va el texto blanco: lila
+  oscuro mezclado con vino para que el texto chico pase 4.5:1 y la luz cálida arriba a la derecha, donde vive la arena.
 */
 export function Portada() {
   const [antes, guino, despues] = sitio.titular;
@@ -17,8 +17,8 @@ export function Portada() {
         background: [
           "radial-gradient(75% 55% at 105% -5%, #fff0db 0%, #f8d9c4 22%, #f0bdbd 45%, #e1b0c100 75%)",
           "radial-gradient(60% 45% at 115% 60%, #ffe2c6b3 0%, #f6c7ba00 70%)",
-          "radial-gradient(90% 70% at 0% 100%, #767498 0%, #76749800 70%)",
-          "linear-gradient(195deg, #b3a5ba 0%, #9195b4 35%, #767498 62%)",
+          "radial-gradient(100% 75% at 0% 100%, #5e4a72 0%, #67597d 45%, #6a5f8600 85%)",
+          "linear-gradient(195deg, #b3a5ba 0%, #9195b4 18%, #767498 36%, #5e4a72 90%)",
         ].join(","),
       }}
     >
@@ -39,7 +39,13 @@ export function Portada() {
           </h1>
         </div>
 
-        <div className="col-span-full md:col-span-6 lg:col-span-7">
+        <div className="relative col-span-full md:col-span-6 lg:col-span-7">
+          {/* Velo difuso detrás del texto: sostiene el contraste sobre la arena */}
+          <div
+            aria-hidden
+            className="absolute -inset-x-16 -inset-y-20 -z-10"
+            style={{ background: "radial-gradient(closest-side, #5e4a72f2 55%, #5e4a7200)" }}
+          />
           <p className="rotulo mb-5">{sitio.bajada}</p>
           <p className="font-display text-[clamp(2.1rem,9.6vw,4.6rem)] leading-[0.95] uppercase">
             <span className="block font-bold">{antes}</span>
@@ -67,7 +73,7 @@ export function Portada() {
       </div>
 
       {/* Fundido hacia el degradé claro de la página */}
-      <div aria-hidden className="h-24 bg-gradient-to-b from-[#767498] to-transparent" />
+      <div aria-hidden className="h-24 bg-gradient-to-b from-[#5e4a72] to-transparent" />
     </header>
   );
 }

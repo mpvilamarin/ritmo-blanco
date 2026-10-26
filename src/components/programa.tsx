@@ -98,20 +98,20 @@ export function Programa() {
           hidden={i !== actual}
           className="col-span-full"
         >
-          {i === actual && <Jornada dia={d} />}
+          <Jornada dia={d} activa={i === actual} />
         </div>
       ))}
     </section>
   );
 }
 
-function Jornada({ dia }: { dia: Dia }) {
+function Jornada({ dia, activa }: { dia: Dia; activa: boolean }) {
   return (
     <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-12 lg:gap-x-6">
       <Cabecera dia={dia} />
       <LineUp dia={dia} />
       <Cierre dia={dia} />
-      <Actividades dia={dia} />
+      <Actividades dia={dia} activa={activa} />
     </div>
   );
 }
@@ -232,7 +232,7 @@ function Cierre({ dia }: { dia: Dia }) {
   );
 }
 
-function Actividades({ dia }: { dia: Dia }) {
+function Actividades({ dia, activa }: { dia: Dia; activa: boolean }) {
   const filtros = useFiltros();
   const lista = ordenarActividades(dia.actividades).filter((a) => cumple(a, filtros));
   const activos = filtros.zona.length + filtros.tipo.length + filtros.modalidad.length;
@@ -242,7 +242,7 @@ function Actividades({ dia }: { dia: Dia }) {
     .filter((x) => x.n > 0);
 
   return (
-    <section id="actividades" aria-labelledby={`act-${dia.numero}`} className="scroll-mt-6 lg:col-span-12 lg:scroll-mt-24">
+    <section id={activa ? "actividades" : undefined} aria-labelledby={`act-${dia.numero}`} className="scroll-mt-6 lg:col-span-12 lg:scroll-mt-24">
       <div className="flex items-center gap-4">
         <h4 id={`act-${dia.numero}`} className="shrink-0 font-display text-xl uppercase">
           Actividades

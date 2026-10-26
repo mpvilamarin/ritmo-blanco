@@ -115,7 +115,7 @@ export function BarraCanal() {
       className="fixed inset-x-0 bottom-0 z-40 border-t border-vino bg-blanco lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b"
     >
       <div className="mx-auto flex max-w-[80rem] flex-col gap-1.5 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] lg:flex-row lg:items-center lg:gap-8 lg:px-12 lg:py-2">
-        <a href="#inicio" className="hidden shrink-0 lg:block">
+        <a href="#inicio" aria-label="Ritmo Blanco, volver al inicio" className="hidden shrink-0 lg:block">
           <Logo className="h-9 w-auto" />
         </a>
         <ul className="hidden flex-1 gap-6 lg:flex">
