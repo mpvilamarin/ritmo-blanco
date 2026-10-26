@@ -14,6 +14,9 @@
   --color-lila: #b3a5ba;
   --color-azulgris: #9195b4;
   --color-lila-oscuro: #767498;
+  /* Vino noche: el fondo oscuro de la versión intensa. Los oscuros son vino, nunca negro. */
+  --color-noche: #2a0c17;
+  --color-noche-2: #3d1424;
   --color-transparent: transparent;
   --color-current: currentColor;
 
