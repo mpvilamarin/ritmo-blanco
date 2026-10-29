@@ -37,11 +37,11 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 
 **Fondo claro, recursos de festival.** La web mantiene el degradé claro del impreso (frío arriba, cálido hacia el final) y suma recursos de sitio de evento: franjas en movimiento, cuenta regresiva, carrusel de artistas y listas grandes. Sin negro ni grises: los oscuros son vino.
 
-**Portada.** El nombre ocupa la pantalla en dos líneas del mismo ancho (bold/light) y sangra por los bordes. Lo pisa una foto en collage con arena de Chladni adentro y lo cruza un trazo de Lissajous 3:2, otro recurso del sistema. Debajo van el titular con el guiño y la cuenta regresiva al 14.11 a las 14:00, hora de Buenos Aires, que durante y después del festival cambia de mensaje.
+**Portada (provisoria).** Fondo blanco con aire, arena de partículas en anillos (vino y rosa) como en el merch, las fechas gigantes como el número de la remera, el titular bold/light con el guiño principal en el recuadro rosa y una sola acción.
 
 **Los canales como tres círculos.** "Qué es" muestra los tres canales como círculos que se cruzan. Donde se superponen los tres está el blanco: la suma de los canales, que es el concepto del festival. Tocar un círculo elige el canal (con teclado: flechas y Enter). Alrededor de cada círculo corren sus artistas, tomados del JSON.
 
-**Carrusel de artistas.** Están todos los del JSON, incluidos los cierres, en círculos de dos tamaños con ritmo grande / par / par, sobre una banda crema. Cada círculo lleva el color de su canal y el placeholder `[FOTO DE PRENSA]`. Elegir un canal trae a sus artistas adelante. La barra de progreso y las flechas reemplazan la barra de scroll.
+**Carrusel de artistas.** Están todos los del JSON, incluidos los cierres, en círculos de dos tamaños. Solo los cierres llevan anillo blanco; el canal se indica con su signo.
 
 **Retícula a la vista.** Las columnas se marcan con filetes muy suaves que atraviesan toda la página. Los bloques se apoyan en ellas pero las rompen (el nombre de la portada, los círculos, las bandas), para que se vea una grilla y no una plantilla.
 
@@ -49,7 +49,7 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 
 **Programa, mapa y "desde casa".** El programa conserva la columna impresa, el mapa filtra el programa y "Desde casa" es una lista de nombres grandes con el dato chico al lado.
 
-**Un solo guiño por sección** en recuadro rosa.
+**Un guiño por módulo.** El recuadro rosa marca solo el principal de la web (portada). Los canales se distinguen solo por su signo; el color es de las zonas.
 
 ## Accesibilidad
 
