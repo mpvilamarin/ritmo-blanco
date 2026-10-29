@@ -34,7 +34,7 @@ const canalDe = (s: Show) => (s.canal === "todos" ? "Cierre" : CANAL[s.canal].no
 
 function Artista({ s, grande }: { s: Show; grande: boolean }) {
   return (
-    <div className={`flex flex-col items-center gap-3 text-center ${grande ? "w-[clamp(200px,20vw,280px)]" : "w-[clamp(120px,10vw,140px)]"}`}>
+    <div className={`flex flex-col items-center gap-3 text-center ${grande ? "w-[min(46vw,24svh)] lg:w-[min(20vw,30svh)]" : "w-[min(28vw,10svh)] lg:w-[min(10vw,13svh)]"}`}>
       <div className={`aspect-square w-full rounded-full ${grande ? "p-1.5" : "p-1"}`} style={{ background: anillo(s) }}>
         <Foto circulo texto="[FOTO DE PRENSA]" className="size-full" />
       </div>
@@ -61,7 +61,7 @@ export function LineUp() {
   const pista = (copia: boolean) => (
     <ul aria-hidden={copia || undefined} className="flex flex-none items-center">
       {base.map((c, i) => (
-        <li key={i} className="flex flex-none flex-col gap-6 px-4 lg:px-5">
+        <li key={i} className="flex flex-none flex-col gap-4 px-3 lg:px-5">
           {"grande" in c ? <Artista s={c.grande} grande /> : c.par.map((s) => <Artista key={s.slug} s={s} grande={false} />)}
         </li>
       ))}
@@ -69,16 +69,18 @@ export function LineUp() {
   );
 
   return (
-    <section id="lineup" aria-labelledby="lineup-titulo" className="banda scroll-mt-4 overflow-hidden bg-vino text-blanco">
+    // Todo en una pantalla: el carrusel toma el alto que queda
+    <section id="lineup" aria-labelledby="lineup-titulo" className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center gap-[2.5svh] overflow-hidden bg-vino py-[3.5svh] lg:gap-[3svh] lg:py-[5svh] text-blanco lg:h-[100svh] lg:min-h-[640px]">
       <div className="contenido">
         <Encabezado
+          centrado
           id="lineup-titulo"
           rotulo={`${SHOWS.length} artistas · 3 canales · ${DIAS.length} días`}
           titulo="Line-up"
           claro
           texto={<p className="text-melocoton">Cada artista suena en un canal. En el cierre de cada noche, los tres canales transmiten lo mismo.</p>}
         />
-        <div role="group" aria-label="Filtrar por canal" className="mt-10 flex flex-wrap gap-2">
+        <div role="group" aria-label="Filtrar por canal" className="mt-[2.5svh] flex flex-wrap justify-center gap-2">
           {[null, ...CANALES].map((c) => {
             const on = canal === c;
             return (
@@ -87,7 +89,7 @@ export function LineUp() {
                 type="button"
                 aria-pressed={on}
                 onClick={() => setCanal(c)}
-                className={`rotulo inline-flex cursor-pointer items-center gap-2 border px-4 py-2.5 ${
+                className={`rotulo inline-flex cursor-pointer items-center gap-2 border px-3 py-2 lg:px-4 lg:py-2.5 ${
                   on ? "border-rosa bg-rosa text-vino" : "border-blanco/40 hover:border-blanco"
                 }`}
               >
@@ -100,15 +102,15 @@ export function LineUp() {
       </div>
 
       {/* Pasa sola y se frena al pasar el mouse; con movimiento reducido se recorre a mano */}
-      <div className="rb-carrusel-pausa sin-barra mt-12 overflow-hidden" tabIndex={0} aria-label="Artistas">
+      <div className="rb-carrusel-pausa sin-barra overflow-hidden" tabIndex={0} aria-label="Artistas">
         <div key={canal ?? "todos"} className="rb-carrusel flex w-max" style={{ ["--duracion" as string]: `${base.length * 4}s` }}>
           {pista(false)}
           {pista(true)}
         </div>
       </div>
 
-      <div className="contenido mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-blanco/20 pt-6">
-        <ul className="flex flex-wrap gap-x-6 gap-y-2">
+      <div className="contenido flex flex-wrap items-center justify-center gap-x-10 gap-y-4 border-t border-blanco/20 pt-4">
+        <ul className="hidden flex-wrap gap-x-6 gap-y-2 lg:flex">
           {CANALES.map((c) => (
             <li key={c} className="rotulo inline-flex items-center gap-2">
               <Signo canal={c} className="size-3.5 text-rosa" />

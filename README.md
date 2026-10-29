@@ -65,3 +65,4 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 - **Fotos:** las de prensa de los artistas y las de las actividades destacadas son placeholders. No se usan imágenes generadas de artistas reales.
 - **Sponsors:** van como nombres en vino hasta tener los logos en un solo color.
 - **Contraste a revisar:** el blanco sobre Lila oscuro (`#767498`, zona Usina Bailable) da 4.45:1, apenas debajo de 4.5:1, en las etiquetas chicas. Viene del JSON y del brief, así que no se cambió.
+# ritmo-blanco

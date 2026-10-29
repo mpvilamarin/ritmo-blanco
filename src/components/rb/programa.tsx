@@ -1,6 +1,7 @@
 "use client";
 
-import { Encabezado, Foto } from "./base";
+import { useRef, useState } from "react";
+import { Cronograma } from "../cronograma";
 import { Modo, Signo } from "../signos";
 import { cambiarPrograma, usePrograma } from "@/lib/estado-programa";
 import { ACTIVIDADES, CANAL, DIAS, FORMA_TIPO, SHOWS, capital, tipoLindo } from "@/lib/rb";
@@ -13,34 +14,86 @@ function FormaTipo({ tipo }: { tipo: Tipo }) {
 }
 
 const chip = (on: boolean) =>
-  `rotulo inline-flex cursor-pointer items-center gap-2 border border-vino px-3 py-2 transition-colors ${
+  `rotulo inline-flex shrink-0 cursor-pointer items-center gap-2 border border-vino px-3 py-1.5 transition-colors ${
     on ? "bg-vino text-blanco" : "hover:bg-crema"
   }`;
 
+/*
+  Programa en una sola pantalla (100vh):
+    · encabezado corto: rótulo, título y bajada en una línea
+    · los tres días como pestañas en una fila
+    · dos vistas en el mismo lugar:
+        line-up → grilla horaria: franjas en filas, canales en columnas, el cierre en vino
+        actividades → filtros en una fila y un carrusel horizontal de tarjetas
+*/
 export function Programa() {
   const e = usePrograma();
+  const pista = useRef<HTMLUListElement>(null);
+  // "pantalla": un día por vez, en 100vh · "cuadricula": los tres días como el cronograma impreso
+  const [disposicion, setDisposicion] = useState<"pantalla" | "cuadricula">("pantalla");
+  const cuadricula = disposicion === "cuadricula";
   const shows = SHOWS.filter((s) => s.dia === e.dia);
   const delDia = ACTIVIDADES.filter((a) => a.dia === e.dia);
   const filtradas = delDia
     .filter((a) => (!e.tipo || a.tipo === e.tipo) && (!e.modalidad || a.modalidad === e.modalidad) && (!e.zona || a.zona === e.zona))
     .sort((a, b) => a.inicio.localeCompare(b.inicio));
-  const destacada = filtradas.find((a) => a.destacado);
-  const resto = filtradas.filter((a) => a !== destacada);
   const cierre = shows.find((s) => s.cierre)!;
   const franjas = [...new Set(shows.filter((s) => !s.cierre).map((s) => s.inicio))];
   const escenario = programa.dias[0].lineup.escenario;
 
-  return (
-    <section id="programa" aria-labelledby="programa-titulo" className="banda contenido scroll-mt-4">
-      <Encabezado
-        id="programa-titulo"
-        rotulo={`Programa · ${DIAS.length} días`}
-        titulo="Programa"
-        texto={<p>Elegí un día. Los shows suenan de 16 a 23 en el {escenario}; los talleres, charlas y clases arrancan a las 14.</p>}
-      />
+  const mover = (dir: 1 | -1) => {
+    const el = pista.current;
+    if (!el) return;
+    const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: quieto ? "auto" : "smooth" });
+  };
 
-      {/* Días: tres celdas de la grilla */}
-      <div role="tablist" aria-label="Días" className="mt-12 grid grid-cols-3 border-y border-vino">
+  return (
+    <section
+      id="programa"
+      aria-labelledby="programa-titulo"
+      className={`contenido flex scroll-mt-0 flex-col gap-[2.5svh] py-[5svh] ${
+        cuadricula ? "" : "min-h-[100svh] justify-center lg:h-[100svh] lg:min-h-[680px]"
+      }`}
+    >
+      <header>
+        <p className="rotulo mb-3">Programa · {DIAS.length} días · 14:00 a 23:00</p>
+        <h2 id="programa-titulo" className="t-1">
+          Programa
+        </h2>
+        <p className="t-cuerpo mt-3">
+          Shows de 16 a 23 en el {escenario}. Talleres, charlas y clases desde las 14.
+        </p>
+        {/* Disposición y descarga */}
+        <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div role="group" aria-label="Disposición" className="flex">
+            {(
+              [
+                ["pantalla", "Por día"],
+                ["cuadricula", "Cuadrícula"],
+              ] as const
+            ).map(([v, t]) => (
+              <button key={v} type="button" aria-pressed={disposicion === v} onClick={() => setDisposicion(v)} className={`${chip(disposicion === v)} -ml-px first:ml-0`}>
+                <IconoDisposicion tipo={v} />
+                {t}
+              </button>
+            ))}
+          </div>
+          <a href="/ritmo-blanco-cronograma.pdf" download className={chip(false)}>
+            <svg viewBox="0 0 16 16" aria-hidden className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13.5h11" />
+            </svg>
+            Descargar PDF
+          </a>
+        </div>
+      </header>
+
+      {cuadricula && <Cronograma />}
+
+      {!cuadricula && (
+        <>
+      {/* Días */}
+      <div role="tablist" aria-label="Días" className="grid grid-cols-3 border-y border-vino">
         {DIAS.map((d, i) => {
           const on = e.dia === d.numero;
           return (
@@ -50,19 +103,21 @@ export function Programa() {
               role="tab"
               aria-selected={on}
               onClick={() => cambiarPrograma({ dia: d.numero, abierta: null })}
-              className={`flex cursor-pointer flex-col items-start gap-1 p-3 text-left transition-colors md:p-5 ${i > 0 ? "border-l border-vino" : ""} ${
-                on ? "bg-vino text-blanco" : "hover:bg-crema"
-              }`}
+              className={`flex cursor-pointer flex-col items-start gap-0.5 px-3 py-2.5 text-left transition-colors lg:flex-row lg:items-baseline lg:gap-4 lg:px-5 lg:py-3 ${
+                i > 0 ? "border-l border-vino" : ""
+              } ${on ? "bg-vino text-blanco" : "hover:bg-crema"}`}
             >
-              <span className="rotulo">{d.etiqueta}</span>
               <span className="t-2">{d.fecha}</span>
-              <span className="t-3">{d.nombre}</span>
+              <span className="font-display text-sm leading-tight uppercase lg:text-lg">
+                <b className="font-black">{programa.dias[i].nombre[0]}</b> <span className="font-light">{programa.dias[i].nombre[1]}</span>
+              </span>
             </button>
           );
         })}
       </div>
 
-      <div role="tablist" aria-label="Vista" className="mt-6 flex gap-6 border-b border-vino/20">
+      {/* Vista */}
+      <div role="tablist" aria-label="Vista" className="flex gap-6 border-b border-vino/20">
         {(
           [
             ["lineup", "Line-up", shows.length],
@@ -77,7 +132,7 @@ export function Programa() {
               role="tab"
               aria-selected={on}
               onClick={() => cambiarPrograma({ vista: v })}
-              className={`rotulo -mb-px cursor-pointer border-b-2 py-3 ${on ? "border-vino" : "border-transparent opacity-60 hover:opacity-100"}`}
+              className={`rotulo -mb-px cursor-pointer border-b-2 py-2.5 ${on ? "border-vino" : "border-transparent opacity-60 hover:opacity-100"}`}
             >
               {label} · {n}
             </button>
@@ -86,169 +141,158 @@ export function Programa() {
       </div>
 
       {e.vista === "lineup" && (
-        <div className="mt-8">
-          <div className="hidden grid-cols-[8rem_repeat(3,minmax(0,1fr))] gap-6 border-b border-vino pb-3 md:grid">
+        <div>
+          {/* Cabecera de canales: solo en escritorio */}
+          <div className="hidden grid-cols-[7rem_repeat(3,minmax(0,1fr))] gap-6 pb-2 lg:grid">
             <span className="rotulo">{escenario}</span>
             {CANALES.map((c) => (
               <span key={c} className="rotulo flex items-center gap-2">
-                <Signo canal={c} className="size-3.5" />
-                {CANAL[c].nombre} · {CANAL[c].que}
+                <span className="grid size-6 place-items-center" style={{ background: CANAL[c].color, color: CANAL[c].tinta }}>
+                  <Signo canal={c} className="size-3.5" />
+                </span>
+                {CANAL[c].nombre}
               </span>
             ))}
           </div>
           {franjas.map((inicio) => {
             const celdas = CANALES.map((c) => shows.find((s) => s.inicio === inicio && s.canal === c)!);
             return (
-              <div key={inicio} className="grid gap-4 border-b border-vino py-6 md:grid-cols-[8rem_repeat(3,minmax(0,1fr))] md:gap-6">
+              <div key={inicio} className="grid grid-cols-[4rem_1fr] gap-x-4 border-t border-vino py-3 lg:grid-cols-[7rem_repeat(3,minmax(0,1fr))] lg:gap-6 lg:py-4">
                 <p>
-                  <span className="t-2 block">{inicio}</span>
-                  <span className="rotulo mt-1 block">hasta {celdas[0].fin}</span>
+                  <span className="t-3 block">{inicio}</span>
+                  <span className="rotulo mt-0.5 block">a {celdas[0].fin}</span>
                 </p>
-                {celdas.map((a, k) => (
-                  <div key={a.slug} className="flex gap-3">
-                    <Signo canal={CANALES[k]} className="mt-1 size-4 md:hidden" />
-                    <div>
-                      <p className="t-3">{a.nombre}</p>
-                      <p className="t-chico mt-1">
-                        <span className="md:hidden">{CANAL[CANALES[k]].nombre} · </span>
-                        {a.que}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                <ul className="contents">
+                  {celdas.map((a, k) => (
+                    <li key={a.slug} className="col-start-2 flex items-center gap-3 py-1 lg:col-start-auto lg:block lg:py-0">
+                      <span className="grid size-6 shrink-0 place-items-center lg:hidden" style={{ background: CANAL[CANALES[k]].color, color: CANAL[CANALES[k]].tinta }}>
+                        <Signo canal={CANALES[k]} className="size-3" />
+                      </span>
+                      <span>
+                        <span className="t-3 block text-[1rem] lg:text-[var(--tx-nombre)]">{a.nombre}</span>
+                        <span className="t-chico hidden lg:block">{a.que}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             );
           })}
-          <div className="mt-8 grid gap-4 bg-vino p-6 text-blanco md:grid-cols-[8rem_1fr] md:gap-6 md:p-8">
-            <p>
-              <span className="t-2 block">{cierre.inicio}</span>
-              <span className="rotulo mt-1 block text-rosa">hasta {cierre.fin}</span>
+          <div className="grid grid-cols-[4rem_1fr] gap-x-4 bg-vino px-0 py-4 text-blanco lg:grid-cols-[7rem_1fr] lg:gap-6 lg:py-5">
+            <p className="pl-3 lg:pl-4">
+              <span className="t-3 block">{cierre.inicio}</span>
+              <span className="rotulo mt-0.5 block text-rosa">a {cierre.fin}</span>
             </p>
-            <div>
+            <div className="pr-3">
               <p className="rotulo flex items-center gap-2 text-rosa">
                 <span className="flex gap-1">
                   {CANALES.map((c) => (
-                    <Signo key={c} canal={c} className="size-3.5" />
+                    <Signo key={c} canal={c} className="size-3" />
                   ))}
                 </span>
                 Cierre · los 3 canales a la vez
               </p>
-              <p className="t-1 mt-3">{cierre.nombre}</p>
-              <p className="t-cuerpo mt-2 text-melocoton">{capital(cierre.que)}</p>
+              <p className="t-2 mt-2">{cierre.nombre}</p>
+              <p className="t-chico mt-1 text-melocoton">{capital(cierre.que)}</p>
             </div>
           </div>
         </div>
       )}
 
       {e.vista === "actividades" && (
-        <>
-          <div className="mt-6 grid gap-4 md:grid-cols-[auto_1fr] md:gap-x-6">
-            <p className="rotulo md:pt-2.5">Tipo</p>
-            <div role="group" aria-label="Tipo" className="flex flex-wrap gap-1.5">
-              <button type="button" aria-pressed={!e.tipo} onClick={() => cambiarPrograma({ tipo: null, abierta: null })} className={chip(!e.tipo)}>
-                Todo
+        <div className="flex min-h-0 flex-col gap-4">
+          {/* Filtros en una sola fila desplazable */}
+          <div className="sin-barra flex items-center gap-1.5 overflow-x-auto">
+            <button type="button" aria-pressed={!e.tipo} onClick={() => cambiarPrograma({ tipo: null })} className={chip(!e.tipo)}>
+              Todo
+            </button>
+            {TIPOS.map((t) => (
+              <button key={t} type="button" aria-pressed={e.tipo === t} onClick={() => cambiarPrograma({ tipo: t })} className={chip(e.tipo === t)}>
+                <FormaTipo tipo={t} />
+                {tipoLindo(t)}
               </button>
-              {TIPOS.map((t) => (
-                <button key={t} type="button" aria-pressed={e.tipo === t} onClick={() => cambiarPrograma({ tipo: t, abierta: null })} className={chip(e.tipo === t)}>
-                  <FormaTipo tipo={t} />
-                  {tipoLindo(t)}
-                </button>
-              ))}
-            </div>
-            <p className="rotulo md:pt-2.5">Modalidad</p>
-            <div role="group" aria-label="Modalidad" className="flex flex-wrap items-center gap-1.5">
+            ))}
+            <span aria-hidden className="mx-2 h-5 w-px shrink-0 bg-vino/30" />
+            {MODALIDADES.map((m) => (
               <button
+                key={m}
                 type="button"
-                aria-pressed={!e.modalidad}
-                onClick={() => cambiarPrograma({ modalidad: null, abierta: null })}
-                className={chip(!e.modalidad)}
+                aria-pressed={e.modalidad === m}
+                onClick={() => cambiarPrograma({ modalidad: e.modalidad === m ? null : m })}
+                className={chip(e.modalidad === m)}
               >
-                Todas
+                <Modo modalidad={m} />
+                {NOMBRE_MODALIDAD[m]}
               </button>
-              {MODALIDADES.map((m) => (
-                <button
-                  key={m}
-                  type="button"
-                  aria-pressed={e.modalidad === m}
-                  onClick={() => cambiarPrograma({ modalidad: m, abierta: null })}
-                  className={chip(e.modalidad === m)}
-                >
-                  <Modo modalidad={m} />
-                  {NOMBRE_MODALIDAD[m]}
-                </button>
-              ))}
-              {e.zona && (
-                <button type="button" onClick={() => cambiarPrograma({ zona: null })} className={chip(true)}>
-                  Zona: {e.zona} <span aria-hidden>✕</span>
-                  <span className="sr-solo">(sacar filtro)</span>
-                </button>
-              )}
-            </div>
+            ))}
+            {e.zona && (
+              <button type="button" onClick={() => cambiarPrograma({ zona: null })} className={chip(true)}>
+                Zona: {e.zona} <span aria-hidden>✕</span>
+                <span className="sr-solo">(sacar filtro)</span>
+              </button>
+            )}
           </div>
 
-          {destacada && (
-            <div className="mt-8 grid bg-rosa md:grid-cols-2">
-              <Foto texto="[FOTO] Actividad destacada" className="min-h-[220px]" />
-              <div className="flex flex-col justify-center gap-3 p-6 md:p-8">
-                <p className="rotulo">Destacado del día</p>
-                <p className="t-2">{destacada.titulo}</p>
-                <p className="rotulo">
-                  {destacada.inicio} — {destacada.fin} · {tipoLindo(destacada.tipo)} · {destacada.zona} · {NOMBRE_MODALIDAD[destacada.modalidad]}
-                </p>
-                <p className="t-cuerpo">{destacada.descripcion}</p>
-              </div>
-            </div>
-          )}
-
-          <ul className="mt-8 border-t border-vino">
-            {resto.map((a) => {
-              const abierta = e.abierta === a.clave;
-              const z = programa.zonas[a.zona];
-              return (
-                <li key={a.clave} className="border-b border-vino/25">
-                  <button
-                    type="button"
-                    aria-expanded={abierta}
-                    onClick={() => cambiarPrograma({ abierta: abierta ? null : a.clave })}
-                    className="grid w-full cursor-pointer grid-cols-[4.5rem_minmax(0,1fr)_1.5rem] items-start gap-4 py-5 text-left hover:bg-crema/40 md:grid-cols-[8rem_minmax(0,1fr)_1.5rem] md:gap-6"
+          {/* Carrusel de tarjetas rectas, en orden horario */}
+          {filtradas.length ? (
+            <ul ref={pista} tabIndex={0} aria-label="Actividades del día" className="sin-barra flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1">
+              {filtradas.map((a) => {
+                const z = programa.zonas[a.zona];
+                return (
+                  <li
+                    key={a.clave}
+                    className={`flex w-[78vw] shrink-0 snap-start flex-col border border-vino p-4 sm:w-[20rem] ${a.destacado ? "bg-rosa" : "bg-blanco"}`}
                   >
-                    <span>
-                      <span className="t-3 block">{a.inicio}</span>
-                      <span className="rotulo mt-1 block">hasta {a.fin}</span>
-                    </span>
-                    <span className="flex min-w-0 flex-col gap-2">
-                      <span className="t-3">{a.titulo}</span>
-                      <span className="rotulo flex flex-wrap items-center gap-x-4 gap-y-1.5">
-                        <span className="inline-flex items-center gap-1.5">
-                          <FormaTipo tipo={a.tipo} />
-                          {tipoLindo(a.tipo)}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5">
-                          <span className="size-2.5" style={{ background: z.color, boxShadow: "0 0 0 1px #692136" }} />
-                          {a.zona}
-                        </span>
-                        <Modo modalidad={a.modalidad} conTexto />
-                        <span className="opacity-70">{a.duracion}</span>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className="t-2">{a.inicio}</span>
+                      <span className="rotulo">
+                        a {a.fin} · {a.duracion}
                       </span>
-                    </span>
-                    <span aria-hidden className={`t-3 text-right transition-transform ${abierta ? "rotate-45" : ""}`}>
-                      +
-                    </span>
-                  </button>
-                  {abierta && (
-                    <div className="grid gap-4 pb-6 md:grid-cols-[8rem_minmax(0,1fr)_12rem] md:gap-6">
-                      <span className="hidden md:block" />
-                      <p className="t-cuerpo max-w-[40rem]">{a.descripcion}</p>
-                      <Foto className="aspect-[4/3]" />
                     </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          {filtradas.length === 0 && <p className="t-3 py-10 text-center">Nada con esos filtros este día.</p>}
+                    <p className="t-3 mt-3">{a.titulo}</p>
+                    <p className="t-chico mt-2 line-clamp-3">{a.descripcion}</p>
+                    <div className="rotulo mt-auto flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-vino/25 pt-3">
+                      <span className="inline-flex items-center gap-1.5">
+                        <FormaTipo tipo={a.tipo} />
+                        {tipoLindo(a.tipo)}
+                      </span>
+                      <Modo modalidad={a.modalidad} conTexto />
+                      <span className="px-1.5 py-0.5" style={{ background: z.color, color: z.texto, boxShadow: z.borde ? `inset 0 0 0 1px ${z.borde}` : undefined }}>
+                        {a.zona}
+                      </span>
+                    </div>
+                    {a.destacado && <span className="rotulo mt-3">Destacada del día</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="t-3 py-10">Nada con esos filtros este día.</p>
+          )}
+          <div className="flex items-center gap-3">
+            <button type="button" onClick={() => mover(-1)} aria-label="Actividades anteriores" className={chip(false)}>
+              ←
+            </button>
+            <button type="button" onClick={() => mover(1)} aria-label="Actividades siguientes" className={chip(false)}>
+              →
+            </button>
+            <span className="rotulo">
+              {filtradas.length} de {delDia.length} actividades
+            </span>
+          </div>
+        </div>
+      )}
         </>
       )}
     </section>
+  );
+}
+
+/* Íconos de disposición: una columna ancha (por día) o tres columnas (cuadrícula) */
+function IconoDisposicion({ tipo }: { tipo: "pantalla" | "cuadricula" }) {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5">
+      {tipo === "pantalla" ? <rect x="2" y="2.5" width="12" height="11" /> : <path d="M2 2.5h12v11H2zM6 2.5v11M10 2.5v11" />}
+    </svg>
   );
 }

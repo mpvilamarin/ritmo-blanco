@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { boton } from "./base";
+import { Flecha, boton } from "./base";
 import { INICIO } from "@/lib/rb";
 import { programa } from "@/lib/programa";
 
@@ -54,32 +54,33 @@ export function Cuenta() {
       : [Math.floor(resto / 86400), Math.floor((resto % 86400) / 3600), Math.floor((resto % 3600) / 60), Math.floor(resto % 60)].map(dos);
 
   return (
-    <section aria-labelledby="cuenta-titulo" className="banda contenido text-center">
-      <p className="rotulo mb-4">Cuenta regresiva</p>
-      <h2 id="cuenta-titulo" className="t-2">
-        El bosque se pone los auriculares en
-      </h2>
-      {resto !== null && (
-        <p className="sr-solo">
-          Faltan {Number(valores[0])} días, {Number(valores[1])} horas y {Number(valores[2])} minutos.
-        </p>
-      )}
-      <ol aria-hidden className="mt-10 flex items-start justify-center">
-        {valores.map((v, i) => (
-          <li key={UNIDADES[i]} className="flex items-start">
-            {i > 0 && <span className="t-cifra px-[0.05em] text-rosa sm:px-[0.12em]">:</span>}
-            <span className="flex flex-col items-center">
+    // Sin fondo propio: el río (components/rio.tsx) pasa por detrás
+    <section id="cuenta" aria-labelledby="cuenta-titulo" className="relative text-center">
+      <div className="contenido py-[clamp(4rem,7vw,6.5rem)]">
+        <p className="rotulo">Festival silencioso · {programa.sede.split(",")[0]}</p>
+        <h2 id="cuenta-titulo" className="t-1 mx-auto mt-5 max-w-[17ch]">
+          El bosque se pone los auriculares
+        </h2>
+        {resto !== null && (
+          <p className="sr-solo">
+            Faltan {Number(valores[0])} días, {Number(valores[1])} horas y {Number(valores[2])} minutos.
+          </p>
+        )}
+        <ol aria-hidden className="mx-auto mt-[clamp(2.5rem,5vw,4rem)] grid max-w-[60rem] grid-cols-4">
+          {valores.map((v, i) => (
+            <li key={UNIDADES[i]} className={`relative flex flex-col items-center ${i > 0 ? "before:absolute before:top-[8%] before:left-0 before:h-[62%] before:w-px before:bg-rosa" : ""}`}>
               <span className="t-cifra">{v}</span>
-              <span className="rotulo mt-3 text-[0.5625rem] sm:text-[0.6875rem]">{UNIDADES[i]}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-vino/20 pt-8">
-        <span className="t-3">Abre el 14.11 · 14:00 h</span>
-        <button type="button" onClick={agendar} className={boton("borde")}>
-          Agregar al calendario
-        </button>
+              <span className="rotulo mt-4 text-[0.625rem] sm:text-[0.75rem]">{UNIDADES[i]}</span>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-[clamp(2.5rem,5vw,4rem)] flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+          <span className="t-3">14 nov · 14:00 h</span>
+          <button type="button" onClick={agendar} className={boton("vino")}>
+            Agregar al calendario
+            <Flecha />
+          </button>
+        </div>
       </div>
     </section>
   );

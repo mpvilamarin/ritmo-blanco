@@ -1,4 +1,6 @@
 import { Encabezado, Flecha, boton } from "./base";
+import { BoldLight, Guino } from "../sistema";
+import { Rio, type Punto } from "../rio";
 import { BotonPrograma } from "./boton-programa";
 import { Signo } from "../signos";
 import { CANAL, TOTALES } from "@/lib/rb";
@@ -44,46 +46,72 @@ const PASOS = [
   { t: "Movete y generá", d: "Pedaleá en las bicis generadoras o bailá sobre los pisos cinéticos: tu energía alimenta el festival." },
 ];
 
-/* Cuatro pasos en celdas de la grilla, unidos por una línea punteada ondulada */
+/*
+  Recorrido del río en "Cómo funciona": entra por la izquierda, serpentea por
+  detrás de los cuatro números y sale por la derecha. Es el mismo gusano de
+  degradé de la portada; une los pasos en lugar de la línea punteada.
+*/
+const RIO_PASOS_ESCRITORIO: Punto[] = [
+  [-0.2, 0, 0.56],
+  [0.06, 0, 0.52],
+  [0.3, 0, 0.58],
+  [0.55, 0, 0.5],
+  [0.8, 0, 0.58],
+  [1.0, 0, 0.52],
+  [1.25, 0, 0.55],
+];
+// Celular: los pasos van apilados; el río zigzaguea por la izquierda detrás de cada número
+const RIO_PASOS_CELULAR: Punto[] = [
+  [-0.35, 0, 0.12],
+  [0.14, 0, 0.19],
+  [-0.08, 0, 0.27],
+  [0.14, 0, 0.35],
+  [-0.08, 0, 0.44],
+  [0.14, 0, 0.52],
+  [-0.08, 0, 0.6],
+  [0.14, 0, 0.66],
+  [-0.4, 0, 0.74],
+];
+
+/* Cuatro pasos en celdas de la grilla, unidos por el río */
 export function ComoFunciona() {
   return (
-    <section id="como" aria-labelledby="como-titulo" className="banda contenido scroll-mt-4">
-      <Encabezado id="como-titulo" rotulo="Cómo funciona · 4 pasos" titulo="Cero ruido, todo ritmo" />
-      <div className="relative mt-12">
-        <svg viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden className="absolute top-[2.4rem] left-0 hidden h-6 w-full lg:block">
-          <path
-            d="M0,12 Q50,2 100,12 T200,12 T300,12 T400,12 T500,12 T600,12 T700,12 T800,12 T900,12 T1000,12 T1100,12 T1200,12"
-            fill="none"
-            stroke="#692136"
-            strokeWidth="1.5"
-            strokeDasharray="4 7"
-          />
-        </svg>
-        <ol className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+    <div className="relative isolate overflow-hidden">
+      <Rio secciones={RIO_PASOS} escritorio={RIO_PASOS_ESCRITORIO} celular={RIO_PASOS_CELULAR} ancho={0.05} anchoCelular={0.09} />
+      <section id="como" aria-label="Cómo funciona" className="banda contenido scroll-mt-4">
+        <p className="rotulo mb-5">Cómo funciona · {PASOS.length} pasos</p>
+        <BoldLight as="h2" fuerte="Cero ruido," suave={<Guino>todo ritmo.</Guino>} max={200} />
+        <ol className="mt-16 grid gap-12 lg:grid-cols-4 lg:gap-0">
           {PASOS.map((p, i) => (
-            <li key={p.t} className="flex flex-col gap-3">
-              <span aria-hidden className="t-1 w-fit bg-blanco pr-3 text-rosa">
+            <li key={p.t} className={`flex flex-col ${i > 0 ? "lg:border-l lg:border-vino/25 lg:pl-6" : ""} lg:pr-6`}>
+              <span aria-hidden className="t-cifra text-[clamp(4rem,8vw,7.5rem)]">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="t-3 border-t border-vino pt-4">
+              <h3 className="t-3 mt-6 border-t border-vino pt-4">
                 <span className="sr-solo">Paso {i + 1}: </span>
                 {p.t}
               </h3>
-              <p className="t-chico max-w-[18rem]">{p.d}</p>
+              <p className="t-cuerpo mt-2">{p.d}</p>
             </li>
           ))}
         </ol>
-      </div>
-      <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-vino pt-6">
-        <span className="rotulo">Tu auricular, 3 canales</span>
-        {CANALES.map((c) => (
-          <span key={c} className="inline-flex items-center gap-2">
-            <Signo canal={c} className="size-4" />
-            <span className="t-3">{CANAL[c].nombre}</span>
-            <span className="t-chico">{CANAL[c].que}</span>
-          </span>
-        ))}
-      </div>
-    </section>
+        <div className="mt-16 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-vino pt-6">
+          <span className="rotulo">Tu auricular, 3 canales</span>
+          {CANALES.map((c) => (
+            <span key={c} className="inline-flex items-center gap-3">
+              <span className="grid size-10 place-items-center" style={{ background: CANAL[c].color, color: CANAL[c].tinta }}>
+                <Signo canal={c} className="size-5" />
+              </span>
+              <span>
+                <span className="t-3 block">{CANAL[c].nombre}</span>
+                <span className="t-chico">{CANAL[c].que}</span>
+              </span>
+            </span>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
+
+const RIO_PASOS = ["como"];

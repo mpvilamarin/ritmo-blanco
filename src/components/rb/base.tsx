@@ -28,7 +28,10 @@ export function Foto({
   );
 }
 
-/* Rótulo chico + título en mayúscula, alineados a la izquierda o centrados */
+/*
+  Encabezado de sección, siempre en una sola columna: rótulo chico, título y
+  debajo la bajada. Nunca título y texto lado a lado.
+*/
 export function Encabezado({
   id,
   rotulo,
@@ -45,16 +48,12 @@ export function Encabezado({
   claro?: boolean;
 }) {
   return (
-    <header className={`grid gap-6 md:grid-cols-12 md:items-end ${centrado ? "text-center" : ""}`}>
-      <div className={centrado ? "md:col-span-12" : "md:col-span-7"}>
-        <p className={`rotulo mb-4 ${claro ? "text-rosa" : ""}`}>{rotulo}</p>
-        <h2 id={id} className="t-1">
-          {titulo}
-        </h2>
-      </div>
-      {texto && (
-        <div className={`t-cuerpo max-w-[34rem] ${centrado ? "mx-auto md:col-span-12" : "md:col-span-5"}`}>{texto}</div>
-      )}
+    <header className={`flex flex-col ${centrado ? "items-center text-center" : ""}`}>
+      <p className={`rotulo mb-4 ${claro ? "text-rosa" : ""}`}>{rotulo}</p>
+      <h2 id={id} className="t-1">
+        {titulo}
+      </h2>
+      {texto && <div className="mt-6 font-mono text-[clamp(1.0625rem,1.6vw,1.375rem)] leading-[1.55]">{texto}</div>}
     </header>
   );
 }
