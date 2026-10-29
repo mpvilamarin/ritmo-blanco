@@ -49,16 +49,21 @@ const CELULAR: Punto[] = [
   [0.48, 2, 0.2],
 ];
 
+/* Paradas del degradé por nombre de variable: el color real sale de globals.css */
 const PARADAS: [number, string][] = [
-  [0, "#B3A5BA"],
-  [0.3, "#9195B4"],
-  [0.5, "#E1B0C1"],
-  [0.65, "#B3A5BA"],
-  [0.8, "#E1B0C1"],
-  [1, "#EDCDB8"],
+  [0, "--color-lila"],
+  [0.3, "--color-azulgris"],
+  [0.5, "--color-rosa"],
+  [0.65, "--color-lila"],
+  [0.8, "--color-rosa"],
+  [1, "--color-melocoton"],
 ];
 const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
-const RGB = PARADAS.map(([p, h]) => [p, ...hex(h)] as const);
+let RGB: (readonly [number, ...number[]])[] = [];
+function leerParadas() {
+  const css = getComputedStyle(document.documentElement);
+  RGB = PARADAS.map(([p, v]) => [p, ...hex(css.getPropertyValue(v).trim())] as const);
+}
 
 function colorEn(s: number) {
   for (let i = 1; i < RGB.length; i++) {
@@ -104,6 +109,7 @@ const suave = (a: number, b: number, x: number) => {
 };
 
 function dibujar(canvas: HTMLCanvasElement, secciones: HTMLElement[], celular: boolean, recorrido: { escritorio: Punto[]; celular: Punto[]; ancho: number; anchoCelular: number }) {
+  leerParadas();
   const caja = canvas.parentElement!.getBoundingClientRect();
   const W = Math.round(caja.width);
   const H = Math.round(caja.height);

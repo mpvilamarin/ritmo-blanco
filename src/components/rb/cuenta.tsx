@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { Flecha, boton } from "./base";
-import { INICIO } from "@/lib/rb";
+import { FECHAS, INICIO } from "@/lib/rb";
 import { programa } from "@/lib/programa";
 
 const reloj = {
@@ -17,7 +17,7 @@ const reloj = {
 const dos = (n: number) => String(n).padStart(2, "0");
 const UNIDADES = ["días", "horas", "minutos", "segundos"];
 
-/* Archivo .ics para agendar los tres días (14:00 a 23:00 de Buenos Aires) */
+/* Archivo .ics para agendar todas las jornadas (14:00 a 23:00 de Buenos Aires) */
 function agendar() {
   const primero = programa.dias[0].fecha.replaceAll("-", "");
   const ultimo = programa.dias[programa.dias.length - 1].fecha;
@@ -32,7 +32,7 @@ function agendar() {
     `DTEND:${fin}`,
     "SUMMARY:Ritmo Blanco · Festival silencioso",
     `LOCATION:${programa.sede}`,
-    "DESCRIPTION:14 al 16 de noviembre. Tres canales\\, cero parlantes.",
+    `DESCRIPTION:${FECHAS.larga}. Tres canales\\, cero parlantes.`,
     "END:VEVENT",
     "END:VCALENDAR",
   ].join("\r\n");

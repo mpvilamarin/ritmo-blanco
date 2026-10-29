@@ -108,7 +108,7 @@ function Jornada({ dia }: { dia: Dia }) {
           <span className="shrink-0">Actividades</span>
           <span className="h-px flex-1 bg-vino" />
         </h4>
-        <ul className="mt-3 columns-2 gap-4 [column-rule:1px_solid_rgba(105,33,54,.5)]">
+        <ul className="mt-3 columns-2 gap-4 [column-rule:1px_solid_color-mix(in_srgb,var(--color-vino)_50%,transparent)]">
           {actividades.map((a) => (
             <li key={a.titulo} className={`mb-2.5 break-inside-avoid border-b border-vino/40 pb-2.5 ${a.destacado ? "border-0 bg-rosa pb-0" : ""}`}>
               {a.destacado && <Foto texto="[FOTO]" className="aspect-[2/1]" />}
@@ -136,7 +136,7 @@ function Jornada({ dia }: { dia: Dia }) {
 
 export function Cronograma() {
   return (
-    <div className="grid gap-12 lg:grid-cols-3 lg:gap-0">
+    <div className="grid gap-12 lg:grid-cols-[repeat(var(--dias),minmax(0,1fr))] lg:gap-0" style={{ ["--dias" as string]: programa.dias.length }}>
       {programa.dias.map((d, i) => (
         <div key={d.numero} className={`lg:px-6 ${i > 0 ? "lg:border-l lg:border-vino" : "lg:pl-0"} ${i === 2 ? "lg:pr-0" : ""}`}>
           <Jornada dia={d} />

@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { PALETA } from "@/lib/rb";
 
 /*
   Piezas comunes: lugar para foto, encabezado de sección y botón.
@@ -21,7 +22,7 @@ export function Foto({
       role="img"
       aria-label={`Foto pendiente: ${texto}`}
       className={`con-grano relative flex items-center justify-center overflow-hidden ${circulo ? "rounded-full" : ""} ${className}`}
-      style={{ background: "linear-gradient(140deg, #767498 0%, #b3a5ba 38%, #e1b0c1 70%, #edcdb8 100%)", ...style }}
+      style={{ background: `linear-gradient(140deg, ${PALETA.lilaOscuro} 0%, ${PALETA.lila} 38%, ${PALETA.rosa} 70%, ${PALETA.melocoton} 100%)`, ...style }}
     >
       <span className="rotulo bg-blanco/85 px-2 py-1 text-center text-[0.625rem] text-vino">{texto}</span>
     </div>

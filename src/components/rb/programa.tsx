@@ -21,7 +21,7 @@ const chip = (on: boolean) =>
 /*
   Programa en una sola pantalla (100vh):
     · encabezado corto: rótulo, título y bajada en una línea
-    · los tres días como pestañas en una fila
+    · todas las jornadas como pestañas en una fila
     · dos vistas en el mismo lugar:
         line-up → grilla horaria: franjas en filas, canales en columnas, el cierre en vino
         actividades → filtros en una fila y un carrusel horizontal de tarjetas
@@ -29,7 +29,7 @@ const chip = (on: boolean) =>
 export function Programa() {
   const e = usePrograma();
   const pista = useRef<HTMLUListElement>(null);
-  // "pantalla": un día por vez, en 100vh · "cuadricula": los tres días como el cronograma impreso
+  // "pantalla": un día por vez, en 100vh · "cuadricula": todas las jornadas como el cronograma impreso
   const [disposicion, setDisposicion] = useState<"pantalla" | "cuadricula">("pantalla");
   const cuadricula = disposicion === "cuadricula";
   const shows = SHOWS.filter((s) => s.dia === e.dia);
@@ -62,7 +62,7 @@ export function Programa() {
           Programa
         </h2>
         <p className="t-cuerpo mt-3">
-          Shows de 16 a 23 en el {escenario}. Talleres, charlas y clases desde las 14.
+          Shows de 17 a 23 en el {escenario}. Talleres, charlas y clases desde las 14.
         </p>
         {/* Disposición y descarga */}
         <div className="mt-5 flex flex-wrap items-center gap-2">
@@ -93,7 +93,7 @@ export function Programa() {
       {!cuadricula && (
         <>
       {/* Días */}
-      <div role="tablist" aria-label="Días" className="grid grid-cols-3 border-y border-vino">
+      <div role="tablist" aria-label="Días" className="grid border-y border-vino" style={{ gridTemplateColumns: `repeat(${DIAS.length}, minmax(0, 1fr))` }}>
         {DIAS.map((d, i) => {
           const on = e.dia === d.numero;
           return (

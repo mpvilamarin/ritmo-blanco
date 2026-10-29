@@ -42,7 +42,7 @@ export function DesdeCasa() {
 const PASOS = [
   { t: "Reservá", d: "Elegí un día o el pase completo. El cupo es limitado para que el bosque respire." },
   { t: "Retirá tus auriculares", d: "En el acceso te damos auriculares inalámbricos, con tu DNI. Los devolvés a la salida." },
-  { t: "Elegí tu canal", d: "Tumbao, Pulso o Sinte: cambiá cuando quieras. Nadie se ofende." },
+  { t: "Cambiá de canal", d: "Tumbao, Pulso o Sinte: pasás de uno a otro desde el auricular, cuando quieras." },
   { t: "Movete y generá", d: "Pedaleá en las bicis generadoras o bailá sobre los pisos cinéticos: tu energía alimenta el festival." },
 ];
 

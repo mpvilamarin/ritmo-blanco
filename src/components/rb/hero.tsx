@@ -5,6 +5,7 @@ import { Signo } from "../signos";
 import { CANALES } from "@/lib/programa";
 import { Guino, Marca } from "../sistema";
 import { programa } from "@/lib/programa";
+import { FECHAS } from "@/lib/rb";
 
 const MENU = [
   ["#programa", "Programa"],
@@ -79,7 +80,7 @@ function Menu() {
 export function Hero() {
   const primero = programa.dias[0];
   const datos = [
-    ["14—16.11", "Noviembre"],
+    [FECHAS.rango, "Noviembre"],
     [primero.horario.replace("–", "—").replace(/:00/g, ""), "Horas"],
     ["Gratis", "Entrada"],
   ];
@@ -97,15 +98,15 @@ export function Hero() {
         className="absolute inset-0 -z-10"
         style={{
           background: [
-            "linear-gradient(90deg, rgba(118,116,152,.62) 0%, rgba(118,116,152,.48) 32%, rgba(118,116,152,.18) 50%, rgba(118,116,152,0) 62%)",
-            "linear-gradient(180deg, rgba(118,116,152,.4) 0%, rgba(118,116,152,0) 14%)",
+            "linear-gradient(90deg, color-mix(in srgb, var(--color-lila-oscuro) 62%, transparent) 0%, color-mix(in srgb, var(--color-lila-oscuro) 48%, transparent) 32%, color-mix(in srgb, var(--color-lila-oscuro) 18%, transparent) 50%, color-mix(in srgb, var(--color-lila-oscuro) 0%, transparent) 62%)",
+            "linear-gradient(180deg, color-mix(in srgb, var(--color-lila-oscuro) 40%, transparent) 0%, color-mix(in srgb, var(--color-lila-oscuro) 0%, transparent) 14%)",
           ].join(","),
         }}
       />
       <div
         aria-hidden
         className="absolute inset-0 -z-10 lg:hidden"
-        style={{ background: "linear-gradient(0deg, rgba(118,116,152,.7) 0%, rgba(118,116,152,.55) 50%, rgba(118,116,152,.25) 72%, rgba(118,116,152,0) 88%)" }}
+        style={{ background: "linear-gradient(0deg, color-mix(in srgb, var(--color-lila-oscuro) 70%, transparent) 0%, color-mix(in srgb, var(--color-lila-oscuro) 55%, transparent) 50%, color-mix(in srgb, var(--color-lila-oscuro) 25%, transparent) 72%, color-mix(in srgb, var(--color-lila-oscuro) 0%, transparent) 88%)" }}
       />
 
       <Menu />
@@ -134,7 +135,7 @@ export function Hero() {
               </Guino>
             </p>
             <p className="mt-5 max-w-[30rem] font-mono text-[0.9375rem] leading-[1.55]">
-              Elegí tu canal y bailá en los Bosques de Palermo. Afuera, el parque sigue en silencio.
+              Bailá con auriculares en los Bosques de Palermo. Afuera, el parque sigue en silencio.
             </p>
             <a
               href="#programa"

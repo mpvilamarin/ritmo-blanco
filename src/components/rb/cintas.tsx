@@ -1,4 +1,5 @@
 import { programa } from "@/lib/programa";
+import { FECHAS, PALETA } from "@/lib/rb";
 
 /*
   Cintas onduladas con texto corrido sobre la onda: una vino con texto rosa y
@@ -29,13 +30,13 @@ export function Cintas() {
   return (
     <div aria-hidden className="pointer-events-none relative z-10 -mt-16 -mb-12 h-[clamp(140px,12vw,180px)] overflow-hidden">
       <div className="absolute -inset-x-[4%] top-[14%] -rotate-[2.5deg]">
-        <Cinta id="cinta-a" banda="#692136" tinta="#e1b0c1" palabras={[...nombres, "14 · 15 · 16 de noviembre"]} clase="rb-cinta-izq" />
+        <Cinta id="cinta-a" banda={PALETA.vino} tinta={PALETA.rosa} palabras={[...nombres, FECHAS.lista]} clase="rb-cinta-izq" />
       </div>
       <div className="absolute -inset-x-[4%] top-[38%] rotate-2">
         <Cinta
           id="cinta-b"
-          banda="#767498"
-          tinta="#ffffff"
+          banda={PALETA.lilaOscuro}
+          tinta={PALETA.blanco}
           palabras={["Tumbao", "Pulso", "Sinte", "0 parlantes", "La energía la ponés vos"]}
           clase="rb-cinta-der"
         />

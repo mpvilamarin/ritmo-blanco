@@ -115,7 +115,7 @@ export function Mapa() {
                 ))}
               </g>
               <g fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path d={SENDEROS} stroke="#ffffff" strokeWidth="4" />
+                <path d={SENDEROS} stroke={PALETA.blanco} strokeWidth="4" />
                 <path d={SENDEROS} stroke={PALETA.vino} strokeWidth=".5" strokeDasharray="1.4 1.4" />
               </g>
             </svg>
@@ -186,7 +186,7 @@ export function Mapa() {
 
         <div className="flex flex-col border-t border-vino pt-5 lg:border-t-0 lg:pt-0" aria-live="polite">
           <p className="rotulo flex items-center gap-2">
-            <span className="size-3" style={{ background: z.color, boxShadow: "inset 0 0 0 1px #692136" }} />
+            <span className="size-3" style={{ background: z.color, boxShadow: `inset 0 0 0 1px ${PALETA.vino}` }} />
             Zona {n} · {items.length} {esEscenario ? "shows" : "actividades"}
           </p>
           <h3 className="t-2 mt-3">{zona}</h3>

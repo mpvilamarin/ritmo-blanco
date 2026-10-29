@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Encabezado, Foto, boton } from "./base";
 import { Signo } from "../signos";
-import { CANAL, DIAS, SHOWS, type Show } from "@/lib/rb";
+import { CANAL, DIAS, PALETA, SHOWS, type Show } from "@/lib/rb";
 import { CANALES, type CanalId } from "@/lib/programa";
 
 type Columna = { grande: Show } | { par: Show[] };
@@ -29,7 +29,7 @@ function columnas(lista: Show[]) {
   return cols;
 }
 
-const anillo = (s: Show) => (s.canal === "todos" ? "#ffffff" : CANAL[s.canal].color);
+const anillo = (s: Show) => (s.canal === "todos" ? PALETA.blanco : CANAL[s.canal].color);
 const canalDe = (s: Show) => (s.canal === "todos" ? "Cierre" : CANAL[s.canal].nombre);
 
 function Artista({ s, grande }: { s: Show; grande: boolean }) {

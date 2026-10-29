@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 import { Signo } from "../signos";
 import { BoldLight, Guino } from "../sistema";
-import { ACTIVIDADES, CANAL, DIAS, PALETA, SHOWS, tipoLindo } from "@/lib/rb";
+import { ACTIVIDADES, CANAL, DIAS, PALETA, SHOWS, tipoLindo, velo } from "@/lib/rb";
 import { CANALES, TIPOS, programa } from "@/lib/programa";
 
 const plural = (n: number, t: string) => `${n} ${t.toLowerCase()}${n === 1 ? "" : /[aeiou]$/.test(t.toLowerCase()) ? "s" : "es"}`;
 
 /* Color de cada tipo de actividad para la barra proporcional */
 /* Fondo de cada bloque: tonos de la paleta muy aclarados */
-const FONDOS = ["#f2dabd66", "#e1b0c133", "#b3a5ba33", "#edcdb866", "#9195b426"];
+const FONDOS = [velo(PALETA.crema, 40), velo(PALETA.rosa, 20), velo(PALETA.lila, 20), velo(PALETA.melocoton, 40), velo(PALETA.azulgris, 15)];
 
 const COLOR_TIPO = { TALLER: PALETA.melocoton, CHARLA: PALETA.azulgris, CLASE: PALETA.rosa, EXPERIENCIA: PALETA.vino };
 
@@ -78,7 +78,7 @@ function GraficoActividades() {
           <span
             key={t}
             className="grid place-items-center font-display text-lg font-black"
-            style={{ flex: n, background: COLOR_TIPO[t], color: t === "EXPERIENCIA" || t === "CHARLA" ? "#fff" : PALETA.vino }}
+            style={{ flex: n, background: COLOR_TIPO[t], color: t === "EXPERIENCIA" || t === "CHARLA" ? PALETA.blanco : PALETA.vino }}
           >
             {n}
           </span>

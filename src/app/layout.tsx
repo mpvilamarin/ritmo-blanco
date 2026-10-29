@@ -22,16 +22,25 @@ const plex = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Ritmo Blanco · Festival silencioso y sustentable",
   description:
-    "14 al 16 de noviembre en los Bosques de Palermo. Entrada gratuita, auriculares incluidos. Elegí tu canal.",
+    "14 al 17 de noviembre en los Bosques de Palermo. Entrada gratuita con reserva, auriculares incluidos.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#e1b0c1",
+  // El meta no admite variables: es el blanco de la paleta
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${grotesk.variable} ${plex.variable} antialiased`}>
+    <html lang="es" className={`${grotesk.variable} ${plex.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        {/* Vista previa de la paleta v3 (pendiente de confirmar): ?paleta=v3 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if(new URLSearchParams(location.search).get("paleta")==="v3")document.documentElement.dataset.paleta="v3"`,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

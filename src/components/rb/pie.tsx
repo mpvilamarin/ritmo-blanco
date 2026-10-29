@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { boton } from "./base";
 import { Logo } from "../signos";
-import { INICIO } from "@/lib/rb";
+import { FECHAS, INICIO } from "@/lib/rb";
 import { sitio } from "@/lib/programa";
 
 /* Pie: sponsors en una franja propia (mismo peso, un solo color) y el nombre gigante cortado */
@@ -33,7 +33,7 @@ export function Pie() {
           </ul>
         </div>
         <div className="mt-10 flex flex-wrap justify-between gap-3 border-t border-blanco/30 pt-6">
-          <p className="rotulo">14 — 16 de noviembre de 2026 · Festival silencioso y sustentable</p>
+          <p className="rotulo">{FECHAS.larga} de 2026 · Festival silencioso y sustentable</p>
           <p className="rotulo text-lila">{sitio.credito}</p>
         </div>
       </div>
@@ -60,7 +60,7 @@ export function BarraFlotante() {
   const dias = useSyncExternalStore(scroll.suscribir, scroll.leer, scroll.servidor);
   if (dias < 0) return null;
   return (
-    <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-1 bg-vino p-1 pl-4 whitespace-nowrap text-blanco shadow-[0_10px_30px_rgba(105,33,54,.3)]">
+    <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-1 bg-vino p-1 pl-4 whitespace-nowrap text-blanco">
       <span className="rotulo pr-2">{dias > 0 ? `Faltan ${dias} días` : "Ya empezó"}</span>
       <a href="#desde-casa" className="rotulo px-3 py-2.5 hover:bg-vino-oscuro">
         En vivo

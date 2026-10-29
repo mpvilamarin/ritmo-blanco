@@ -6,6 +6,12 @@
 */
 @theme {
   --color-*: initial;
+  /*
+    Paleta v2 (vigente). Es la ÚNICA fuente de color de la web: los componentes
+    usan estas variables (clases de Tailwind o var(--color-…)), nunca hex.
+    Para probar la paleta v3 propuesta, abrir la web con ?paleta=v3
+    (ver el bloque [data-paleta="v3"] más abajo).
+  */
   --color-vino: #692136;
   --color-blanco: #ffffff;
   --color-rosa: #e1b0c1;
@@ -14,11 +20,22 @@
   --color-lila: #b3a5ba;
   --color-azulgris: #9195b4;
   --color-lila-oscuro: #767498;
-  /* Vino noche: el fondo oscuro de la versión intensa. Los oscuros son vino, nunca negro. */
-  --color-noche: #2a0c17;
-  --color-noche-2: #3d1424;
-  /* Hover de los botones vino */
-  --color-vino-oscuro: #561a2c;
+  /* Hover de los botones vino: mismo vino, más cerrado (nunca negro) */
+  --color-vino-oscuro: oklch(from var(--color-vino) calc(l - 0.06) c h);
+
+  /* Roles: qué color hace qué. Cambiar la paleta no toca componentes. */
+  --color-tinta: var(--color-vino);
+  --color-recuadro: var(--color-rosa);
+  --color-zona-domo: var(--color-vino);
+  --color-zona-domo-texto: var(--color-blanco);
+  --color-zona-usina: var(--color-lila-oscuro);
+  --color-zona-usina-texto: var(--color-blanco);
+  --color-zona-escenario: var(--color-lila);
+  --color-zona-escenario-texto: var(--color-vino);
+  --color-zona-pantalla: var(--color-rosa);
+  --color-zona-pantalla-texto: var(--color-vino);
+  --color-zona-instalacion: var(--color-melocoton);
+  --color-zona-instalacion-texto: var(--color-vino);
   --color-transparent: transparent;
   --color-current: currentColor;
 
@@ -65,6 +82,27 @@
   --calle: 1rem;
   --margen: 1.25rem;
 }
+/*
+  ── PALETA v3 · PROPUESTA, PENDIENTE DE CONFIRMAR ─────────────────────
+  Sale de los mockups del merch (ver diagnostico/merch-kv-y-piezas.md):
+  vino único (el del logo), violeta que arregla el contraste del lila oscuro
+  y el rosa reservado al recuadro y al número gigante. Se activa con
+  ?paleta=v3 en la URL. Si se confirma, estos valores pasan a @theme y se
+  borra este bloque.
+*/
+:root[data-paleta="v3"] {
+  --color-vino: #721b35;
+  --color-rosa: #f08faa;
+  --color-lila-oscuro: #6e64a8; /* violeta: blanco encima 5,2:1 */
+  --color-lila: #aa95c3; /* lila vivo: vino encima solo en texto grande */
+  --color-crema: #e0cfbc; /* crudo */
+  --color-azulgris: #d1b4d8; /* lila pálido */
+  --color-magenta: #b94c77;
+  --color-zona-pantalla: var(--color-magenta);
+  --color-zona-pantalla-texto: var(--color-blanco);
+  --color-zona-instalacion: var(--color-crema);
+}
+
 @media (min-width: 64rem) {
   :root {
     --col: 12;
@@ -220,7 +258,7 @@
   height: 110vmax;
   left: -50vmax;
   top: -30vmax;
-  background: radial-gradient(closest-side, #9195b466, #9195b400);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-azulgris) 40%, transparent), transparent);
   opacity: calc(1 - var(--p) * 0.9);
   transform: translate3d(0, calc(var(--p) * -40vh), 0);
 }
@@ -229,7 +267,7 @@
   height: 100vmax;
   right: -45vmax;
   top: -10vmax;
-  background: radial-gradient(closest-side, #b3a5ba80, #b3a5ba00);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-lila) 50%, transparent), transparent);
   opacity: calc(1 - var(--p) * 0.6);
   transform: translate3d(0, calc(var(--p) * -30vh), 0);
 }
@@ -238,7 +276,7 @@
   height: 100vmax;
   left: -30vmax;
   top: 40vh;
-  background: radial-gradient(closest-side, #e1b0c18c, #e1b0c100);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-rosa) 55%, transparent), transparent);
   opacity: calc(0.35 + var(--p) * 0.65);
   transform: translate3d(calc(var(--p) * 20vw), calc(var(--p) * -50vh), 0);
 }
@@ -247,7 +285,7 @@
   height: 90vmax;
   right: -40vmax;
   bottom: -60vmax;
-  background: radial-gradient(closest-side, #edcdb8cc, #edcdb800);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-melocoton) 80%, transparent), transparent);
   opacity: calc(0.2 + var(--p) * 0.8);
   transform: translate3d(0, calc(var(--p) * -45vh), 0);
 }
@@ -256,7 +294,7 @@
   height: 80vmax;
   left: -20vmax;
   bottom: -70vmax;
-  background: radial-gradient(closest-side, #f2dabdcc, #f2dabd00);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-crema) 80%, transparent), transparent);
   opacity: var(--p);
   transform: translate3d(0, calc(var(--p) * -40vh), 0);
 }

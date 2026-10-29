@@ -5,14 +5,36 @@ import { CANALES, diaSemana, fechaCorta, partirHorario, programa, type CanalId, 
   (Ritmo Blanco.dc.html). Nada se escribe a mano: todo sale del JSON.
 */
 
+/* Los colores salen de las variables de globals.css: nunca hex en los componentes */
 export const PALETA = {
-  vino: "#692136",
-  rosa: "#e1b0c1",
-  melocoton: "#edcdb8",
-  crema: "#f2dabd",
-  lila: "#b3a5ba",
-  azulgris: "#9195b4",
-  lilaOscuro: "#767498",
+  vino: "var(--color-vino)",
+  blanco: "var(--color-blanco)",
+  rosa: "var(--color-rosa)",
+  melocoton: "var(--color-melocoton)",
+  crema: "var(--color-crema)",
+  lila: "var(--color-lila)",
+  azulgris: "var(--color-azulgris)",
+  lilaOscuro: "var(--color-lila-oscuro)",
+};
+
+/** Un color de la paleta con transparencia: velo(PALETA.lila, 20) */
+export const velo = (color: string, porciento: number) => `color-mix(in srgb, ${color} ${porciento}%, transparent)`;
+
+/* Fechas del festival, siempre derivadas del JSON: "14", "15", "16", "17" */
+const NUMEROS = programa.dias.map((d) => d.fecha.slice(8));
+const LETRAS = ["", "un día", "dos días", "tres días", "cuatro días", "cinco días"];
+export const FECHAS = {
+  numeros: NUMEROS,
+  /** "14—17.11" */
+  rango: `${NUMEROS[0]}—${NUMEROS.at(-1)}.11`,
+  /** "14 · 15 · 16 · 17 de noviembre" */
+  lista: `${NUMEROS.join(" · ")} de noviembre`,
+  /** "14 al 17 de noviembre" */
+  larga: programa.fechas,
+  /** "14, 15, 16 y 17.11" */
+  enumeradas: `${NUMEROS.slice(0, -1).join(", ")} y ${NUMEROS.at(-1)}.11`,
+  /** "cuatro días" */
+  dias: LETRAS[NUMEROS.length] ?? `${NUMEROS.length} días`,
 };
 
 export const INICIO = `${programa.dias[0].fecha}T14:00:00-03:00`;
@@ -21,7 +43,7 @@ export const INICIO = `${programa.dias[0].fecha}T14:00:00-03:00`;
 export const CANAL: Record<CanalId, { nombre: string; que: string; color: string; tinta: string }> = {
   tumbao: { nombre: "Tumbao", que: programa.canales.tumbao, color: PALETA.rosa, tinta: PALETA.vino },
   pulso: { nombre: "Pulso", que: programa.canales.pulso, color: PALETA.melocoton, tinta: PALETA.vino },
-  sinte: { nombre: "Sinte", que: programa.canales.sinte, color: PALETA.lilaOscuro, tinta: "#ffffff" },
+  sinte: { nombre: "Sinte", que: programa.canales.sinte, color: PALETA.lilaOscuro, tinta: PALETA.blanco },
 };
 
 export const DIAS = programa.dias.map((d) => ({

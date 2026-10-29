@@ -20,18 +20,18 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 
 | Archivo | Qué hace |
 |---|---|
-| `src/app/globals.css` | Paleta, retícula (4/8/12 columnas), rótulos, degradé y grano |
-| `src/components/titulo.tsx` | Regla bold/light: dos líneas del mismo ancho |
-| `src/components/signos.tsx` | Signos de canal, modalidad, tipo, zona, recuadro rosa, logo y placeholders |
+| `src/app/globals.css` | **Única fuente de color**, escala tipográfica, retícula. Los componentes usan variables (`var(--color-…)` o clases de Tailwind), nunca hex. Roles: `--color-tinta`, `--color-recuadro`, `--color-zona-*` |
+| `src/lib/rb.ts` | Datos derivados del JSON (fechas, totales, shows) y `PALETA` como variables |
+| `src/components/rb/` | Las secciones de la página, en orden de aparición |
+| `src/components/sistema.tsx` | Marca, recuadro rosa (`Guino`) y bold/light |
+| `src/components/signos.tsx` | Signos de canal, modalidad, tipo y zona |
 | `src/components/arena.tsx` | Arena de Chladni en canvas |
-| `src/components/recursos.tsx` | Franjas, bandas y separadores con curvas nodales, encabezados, retícula visible |
-| `src/components/cuenta.tsx` | Cuenta regresiva |
-| `src/components/artistas.tsx` | Carrusel de artistas |
-| `src/components/pisadas.tsx` | Huellas que aparecen al scrollear |
-| `src/components/canal.tsx` | Selector de canal y barra fija |
-| `src/components/programa.tsx` | Pestañas por día, line-up, cierre, actividades y filtros |
-| `src/components/mapa.tsx` | Mapa del predio |
-| `src/lib/estado.ts` | Canal elegido y filtros, compartidos entre secciones |
+| `src/components/rio.tsx` | Degradé difuso que atraviesa la portada |
+| `src/components/cronograma.tsx` | Pliego A3 imprimible (`/cronograma`, `npm run pdf`) |
+
+**Paleta v3 (propuesta, sin confirmar):** abrir la web con `?paleta=v3` para verla. Está en el bloque `[data-paleta="v3"]` de `globals.css`; si se confirma, sus valores pasan a `@theme`.
+
+**Fechas y cifras:** salen de `programa.json` (`FECHAS` y `TOTALES` en `src/lib/rb.ts`). No escribir "14 al 17" ni cantidades a mano.
 
 ## Decisiones
 

@@ -121,7 +121,7 @@ export function Arena({ fijo, particulas = 22000, className = "" }: Props) {
 
     const dibujar = () => {
       ctx.clearRect(0, 0, ancho, alto);
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = getComputedStyle(canvas).getPropertyValue("--color-blanco");
       for (let i = 0; i < s.xs.length; i++) {
         ctx.globalAlpha = 0.45 + (i % 5) * 0.12;
         const t = i % 7 === 0 ? 2.6 : 1.7;

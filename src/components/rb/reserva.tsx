@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Encabezado, boton } from "./base";
-import { DIAS, TOTALES } from "@/lib/rb";
+import { DIAS, FECHAS, TOTALES } from "@/lib/rb";
 
 /*
   Reserva, tal como está en el diseño. Es una maqueta: el sitio es estático,
@@ -20,7 +20,7 @@ type Llegada = keyof typeof LLEGADAS;
 
 const PASES = [
   ...DIAS.map((d) => ({ v: `Día ${d.numero}`, kicker: d.etiqueta, fecha: d.fecha, nombre: d.nombre, sub: `Cierre: ${d.cierre}` })),
-  { v: COMPLETO, kicker: "Los 3 días", fecha: "14—16", nombre: COMPLETO, sub: `${TOTALES.artistas} artistas · ${TOTALES.actividades} actividades` },
+  { v: COMPLETO, kicker: `Los ${DIAS.length} días`, fecha: FECHAS.rango.slice(0, -3), nombre: COMPLETO, sub: `${TOTALES.artistas} artistas · ${TOTALES.actividades} actividades` },
 ];
 
 /* Cada paso es una fila de la grilla: número y título a la izquierda, campos a la derecha */
@@ -180,7 +180,7 @@ export function Reserva() {
                 <p className="t-2">{elegido.nombre}</p>
                 <dl className="t-chico">
                   {[
-                    ["Fechas", pase === COMPLETO ? "14, 15 y 16.11" : `${elegido.fecha} · ${elegido.nombre}`],
+                    ["Fechas", pase === COMPLETO ? FECHAS.enumeradas : `${elegido.fecha} · ${elegido.nombre}`],
                     ["Personas", personas],
                     ["Llegada", llegada],
                   ].map(([k, v]) => (
