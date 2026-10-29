@@ -60,9 +60,16 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 
 ## Pendientes
 
-- **Logo:** `public/logo-boceto.png` es un recorte de `LOGOS-03.jpg`, recoloreado con un filtro. Reemplazarlo por el SVG final (en `Logo`, dentro de `signos.tsx`).
-- **Tipografía:** Sets Grotesk está solo en Adobe Fonts; por ahora se ve con Space Grotesk. Para usar el kit, ver el comentario en `src/app/layout.tsx`.
+Lo marcado como **propuesta** está en la web pero no está confirmado:
+
+- **Paleta v3** (propuesta): se ve con `?paleta=v3`. Se cierra con el afiche.
+- **CTA "Reservá tus auriculares"** (propuesta): en portada, menú y reserva. La reserva en un paso (DNI y día) todavía no está hecha: hoy son tres pasos.
+- **Gesto "la arena se ordena"** (propuesta): `Arena` en `src/components/arena.tsx`. La duración está en `DURACION_GESTO`; con movimiento reducido se ve la figura quieta.
+- **Portada** provisoria hasta que esté el KV nuevo.
+- **Logo:** `public/marca/logo-*.png` (versión con cola). Cuando se elija la B, reemplazar por el SVG en `Marca` (`src/components/sistema.tsx`).
+- **Favicon:** hoy es el de Next (`src/app/favicon.ico`). Cuando exista la versión reducida del logo, borrar ese archivo y poner `src/app/icon.svg`.
+- **Tipografía:** Sets Grotesk está solo en Adobe Fonts; por ahora se ve con Schibsted Grotesk, que no tiene light (la línea light sale en 400). Para usar el kit, ver el comentario en `src/app/layout.tsx`.
 - **Fotos:** las de prensa de los artistas y las de las actividades destacadas son placeholders. No se usan imágenes generadas de artistas reales.
 - **Sponsors:** van como nombres en vino hasta tener los logos en un solo color.
-- **Contraste a revisar:** el blanco sobre Lila oscuro (`#767498`, zona Usina Bailable) da 4.45:1, apenas debajo de 4.5:1, en las etiquetas chicas. Viene del JSON y del brief, así que no se cambió.
-# ritmo-blanco
+- **Contraste:** el blanco sobre lila oscuro (`#767498`) da 4.45:1 en texto chico. La v3 lo corrige (violeta, 5.2:1).
+- **PDF del programa:** `public/ritmo-blanco-cronograma.pdf` sale del pliego A3 de la web. Cuando esté el programa A2, reemplazarlo por ese.
