@@ -17,7 +17,7 @@ function GraficoDias() {
   return (
     <ul className="flex flex-col gap-4">
       {programa.dias.map((d) => (
-        <li key={d.numero} className="flex flex-col items-center gap-1">
+        <li key={d.numero} className="flex flex-col items-start gap-1">
           <span className="font-display text-2xl leading-none font-black tabular-nums text-lila-oscuro">{d.fecha.slice(8)}.11</span>
           <span className="font-display text-base leading-none uppercase">
             <b className="font-black">{d.nombre[0]}</b> <span className="font-light">{d.nombre[1]}</span>
@@ -33,7 +33,7 @@ function GraficoCanales() {
   return (
     <ul className="flex flex-col gap-2">
       {CANALES.map((c) => (
-        <li key={c} className="flex flex-col items-center">
+        <li key={c} className="flex flex-col items-start">
           <span className="grid size-9 place-items-center">
             <Signo canal={c} className="size-5" />
           </span>
@@ -49,7 +49,7 @@ function GraficoCanales() {
 function GraficoArtistas() {
   return (
     <div>
-      <ul aria-hidden className="flex max-w-[13rem] flex-wrap items-center justify-center gap-1.5">
+      <ul aria-hidden className="flex max-w-[13rem] flex-wrap items-center gap-1.5">
         {SHOWS.map((s) =>
           s.canal === "todos" ? (
             <li key={s.slug} className="grid size-7 place-items-center rounded-full bg-vino text-rosa">
@@ -86,7 +86,7 @@ function GraficoActividades() {
           </span>
         ))}
       </div>
-      <ul className="t-chico mt-3 grid justify-items-center gap-1">
+      <ul className="t-chico mt-3 grid justify-items-start gap-1">
         {cuentas.map(({ t, n }) => (
           <li key={t} className="flex items-center gap-2">
             <span aria-hidden className="size-2.5 shrink-0" style={{ background: COLOR_TIPO[t] }} />
@@ -149,10 +149,10 @@ export function QueEs() {
         genera el propio público.
       </p>
 
-      {/* Cifras: cinco bloques de color pálido separados por aire (sin filetes), contenido centrado */}
+      {/* Cifras: cinco bloques de color pálido separados por aire (sin filetes), alineados a la izquierda */}
       <dl className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {cifras.map((c, i) => (
-          <div key={c.t} className="flex flex-col items-center px-5 py-8 text-center" style={{ background: FONDOS[i] }}>
+          <div key={c.t} className="flex flex-col items-start px-5 py-8 text-left" style={{ background: FONDOS[i] }}>
             {/* Orden visual: índice, número + nombre, gráfico (en el DOM, dt antes que dd) */}
             <dt className="order-2 mt-3">
               <span className="t-cifra block text-[clamp(2.75rem,4vw,3.75rem)]">{c.n}</span>
@@ -161,7 +161,7 @@ export function QueEs() {
             <span aria-hidden className="rotulo order-1 text-lila-oscuro">
               0{i + 1}
             </span>
-            <dd className="order-3 mt-6 flex w-full flex-col items-center">{c.grafico}</dd>
+            <dd className="order-3 mt-6 flex w-full flex-col items-start">{c.grafico}</dd>
           </div>
         ))}
       </dl>

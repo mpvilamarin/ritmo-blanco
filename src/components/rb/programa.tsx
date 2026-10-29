@@ -83,7 +83,7 @@ export function Programa() {
             <svg viewBox="0 0 16 16" aria-hidden className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13.5h11" />
             </svg>
-            Descargar PDF
+            Descargá el PDF
           </a>
         </div>
       </header>

@@ -12,10 +12,13 @@ export function Pie() {
     <footer className="overflow-hidden bg-vino text-blanco">
       <div className="contenido pt-16">
         <div className="flex flex-wrap items-end justify-between gap-8">
-          <Logo tinta="blanco" className="h-auto w-[clamp(180px,20vw,260px)]" />
+          <div>
+            <Logo tinta="blanco" className="h-auto w-[clamp(180px,20vw,260px)]" />
+            <p className="t-3 mt-5">Ni ruido ni residuo.</p>
+          </div>
           <div className="flex flex-wrap gap-2">
             <a href="#reserva" className={boton("claro")}>
-              Reservá tu lugar
+              Reservá tus auriculares
             </a>
             <a href="#desde-casa" className="rotulo inline-flex items-center justify-center border border-blanco px-5 py-3.5 text-[0.75rem] text-blanco transition-colors hover:bg-blanco hover:text-vino">
               Mirá desde casa

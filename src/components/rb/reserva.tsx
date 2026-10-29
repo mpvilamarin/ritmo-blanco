@@ -204,7 +204,7 @@ export function Reserva() {
                   </p>
                 )}
                 <button type="button" onClick={confirmar} className={`${boton("claro")} w-full py-4`}>
-                  Confirmar reserva
+                  Confirmá tu reserva
                 </button>
                 <p className="rotulo text-center text-lila">Te llega la confirmación por email</p>
               </>
@@ -224,7 +224,7 @@ export function Reserva() {
                   }}
                   className="rotulo cursor-pointer text-lila underline underline-offset-4"
                 >
-                  Hacer otra reserva
+                  Hacé otra reserva
                 </button>
               </div>
             )}

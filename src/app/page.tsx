@@ -21,7 +21,7 @@ export default function Inicio() {
         href="#programa"
         className="rotulo sr-solo bg-blanco px-4 py-3 focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50"
       >
-        Saltar al programa
+        Saltá al programa
       </a>
       {/* El río atraviesa portada, cuenta regresiva y "Qué es" como una sola capa */}
       <div className="relative isolate">

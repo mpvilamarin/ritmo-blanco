@@ -56,29 +56,29 @@ export function Cuenta() {
 
   return (
     // Sin fondo propio: el río (components/rio.tsx) pasa por detrás
-    <section id="cuenta" aria-labelledby="cuenta-titulo" className="relative text-center">
+    <section id="cuenta" aria-labelledby="cuenta-titulo" className="relative">
       <div className="contenido py-[clamp(4rem,7vw,6.5rem)]">
         <p className="rotulo">Festival silencioso · {programa.sede.split(",")[0]}</p>
-        <div className="mx-auto mt-5 w-full max-w-[44rem]">
-          <BoldLight id="cuenta-titulo" fuerte="El bosque se pone" suave="los auriculares" max={132} className="[&>span]:mx-auto" />
+        <div className="mt-5 w-full max-w-[44rem]">
+          <BoldLight id="cuenta-titulo" fuerte="El bosque se pone" suave="los auriculares" max={132} />
         </div>
         {resto !== null && (
           <p className="sr-solo">
             Faltan {Number(valores[0])} días, {Number(valores[1])} horas y {Number(valores[2])} minutos.
           </p>
         )}
-        <ol aria-hidden className="mx-auto mt-[clamp(2.5rem,5vw,4rem)] grid max-w-[60rem] grid-cols-4">
+        <ol aria-hidden className="mt-[clamp(2.5rem,5vw,4rem)] grid max-w-[60rem] grid-cols-4">
           {valores.map((v, i) => (
-            <li key={UNIDADES[i]} className={`relative flex flex-col items-center ${i > 0 ? "before:absolute before:top-[8%] before:left-0 before:h-[62%] before:w-px before:bg-vino/25" : ""}`}>
+            <li key={UNIDADES[i]} className={`relative flex flex-col items-start ${i > 0 ? "pl-[clamp(0.75rem,3vw,2rem)] before:absolute before:top-[8%] before:left-0 before:h-[62%] before:w-px before:bg-vino/25" : ""}`}>
               <span className="t-cifra">{v}</span>
               <span className="rotulo mt-4 text-[0.625rem] sm:text-[0.75rem]">{UNIDADES[i]}</span>
             </li>
           ))}
         </ol>
-        <div className="mt-[clamp(2.5rem,5vw,4rem)] flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+        <div className="mt-[clamp(2.5rem,5vw,4rem)] flex flex-wrap items-center gap-x-8 gap-y-4">
           <span className="t-3">14 nov · 14:00 h</span>
           <button type="button" onClick={agendar} className={boton("vino")}>
-            Agregar al calendario
+            Agendalo
             <Flecha />
           </button>
         </div>

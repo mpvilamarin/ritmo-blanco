@@ -30,7 +30,7 @@ export function DesdeCasa() {
             ))}
           </ul>
           <BotonPrograma filtro={{ vista: "actividades", modalidad: "virtual", tipo: null, zona: null }} className={boton("claro")}>
-            Ver las actividades online
+            Mirá las actividades online
             <Flecha />
           </BotonPrograma>
         </div>

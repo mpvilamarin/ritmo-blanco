@@ -75,14 +75,13 @@ export function LineUp() {
     <section id="lineup" aria-labelledby="lineup-titulo" className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center gap-[2.5svh] overflow-hidden bg-vino py-[3.5svh] lg:gap-[3svh] lg:py-[5svh] text-blanco lg:h-[100svh] lg:min-h-[640px]">
       <div className="contenido">
         <Encabezado
-          centrado
           id="lineup-titulo"
           rotulo={`${SHOWS.length} artistas · 3 canales · ${DIAS.length} jornadas`}
           titulo={["Line-up", "en tus auriculares"]}
           claro
           texto={<p className="text-melocoton">Cada artista suena en un canal. En el cierre de cada noche, los tres canales transmiten lo mismo.</p>}
         />
-        <div role="group" aria-label="Filtrar por canal" className="mt-[2.5svh] flex flex-wrap justify-center gap-2">
+        <div role="group" aria-label="Filtrar por canal" className="mt-[2.5svh] flex flex-wrap gap-2">
           {[null, ...CANALES].map((c) => {
             const on = canal === c;
             return (
@@ -111,7 +110,7 @@ export function LineUp() {
         </div>
       </div>
 
-      <div className="contenido flex flex-wrap items-center justify-center gap-x-10 gap-y-4 border-t border-blanco/20 pt-4">
+      <div className="contenido flex flex-wrap items-center justify-between gap-x-10 gap-y-4 border-t border-blanco/20 pt-4">
         <ul className="hidden flex-wrap gap-x-6 gap-y-2 lg:flex">
           {CANALES.map((c) => (
             <li key={c} className="rotulo inline-flex items-center gap-2">
@@ -121,7 +120,7 @@ export function LineUp() {
           ))}
         </ul>
         <a href="#programa" className={boton("claro")}>
-          Ver horarios en el programa
+          Mirá los horarios en el programa
         </a>
       </div>
     </section>

@@ -208,7 +208,7 @@ export function Mapa() {
             }
             className={`${boton("vino")} mt-6 self-start`}
           >
-            Ver en el programa
+            Buscalo en el programa
             <Flecha />
           </button>
           <div className="mt-8 border-t border-vino pt-4">

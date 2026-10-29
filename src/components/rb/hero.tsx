@@ -73,10 +73,10 @@ function Menu() {
   Portada en la dirección del merch (PROVISORIA hasta que esté el KV nuevo):
   fondo blanco con aire, la arena ordenada en anillos (vino y rosa) a la
   derecha y, a la izquierda, de más grande a más chico:
-    1. las fechas gigantes, como el número de la remera
-    2. el titular bold/light con el guiño principal de la web en el recuadro
-       rosa (el único recuadro de la página)
-    3. datos y una sola acción: el CTA
+    1. el titular bold/light, lo más grande, con el guiño principal de la web
+       en el recuadro rosa (el único recuadro de la página)
+    2. fechas y datos, en una línea
+    3. una sola acción: el CTA
   CTA "Reservá tus auriculares": PROPUESTA, pendiente de confirmar.
 */
 export function Hero() {
@@ -85,37 +85,23 @@ export function Hero() {
       {/* La arena: en escritorio a la derecha; en el celular, arriba. Se desvanece hacia el texto. */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 [mask-image:linear-gradient(180deg,#000_30%,transparent_62%)] lg:[mask-image:linear-gradient(90deg,transparent_34%,#000_58%)]"
+        className="absolute inset-0 -z-10 [mask-image:linear-gradient(180deg,#000_30%,transparent_62%)] lg:[mask-image:linear-gradient(90deg,transparent_40%,#000_66%)]"
       >
-        <Arena fijo="todos" forma="anillos" centro={[0.72, 0.52]} anillos={9} tintas={["--color-vino", "--color-rosa", "--color-rosa"]} particulas={26000} className="hidden lg:block" />
+        <Arena fijo="todos" forma="anillos" centro={[0.78, 0.5]} anillos={9} tintas={["--color-vino", "--color-rosa", "--color-rosa"]} particulas={26000} className="hidden lg:block" />
         <Arena fijo="todos" forma="anillos" centro={[0.62, 0.2]} anillos={7} tintas={["--color-vino", "--color-rosa", "--color-rosa"]} particulas={16000} className="lg:hidden" />
       </div>
 
       <Menu />
 
       <div className="grilla flex-1 content-end pb-[clamp(2.5rem,7svh,5rem)] lg:content-center lg:pb-0">
-        <div className="col-span-4 lg:col-span-6">
+        <div className="col-span-4 lg:col-span-8">
           <p className="rotulo flex items-center gap-3">
             <span aria-hidden className="h-px w-10 bg-vino" />
             Festival silencioso y sustentable · {programa.sede.split(",")[0]}
           </p>
 
-          {/* 1 · Las fechas, el número gigante del sistema */}
-          <p className="mt-5 font-display leading-[0.8] font-black tracking-[-0.04em] tabular-nums">
-            {/* De a dos por línea: 14 15 / 16 17 */}
-            <span className="block text-[clamp(6rem,13vw,11rem)]">
-              {FECHAS.numeros.map((n, i) => (
-                <span key={n}>
-                  {n}
-                  {i % 2 ? <br /> : " "}
-                </span>
-              ))}
-            </span>
-            <span className="tx-rotulo mt-3 block tracking-[0.2em]">Noviembre 2026 · 14 a 23 h · Entrada gratuita</span>
-          </p>
-
-          {/* 2 · Titular bold/light con el guiño principal */}
-          <div className="mt-[clamp(2rem,5svh,3.5rem)] w-full max-w-[36rem]">
+          {/* 1 · Titular bold/light, lo más grande de la portada, con el guiño principal */}
+          <div className="mt-6 w-full">
             <BoldLight
               as="h1"
               fuerte={
@@ -124,9 +110,15 @@ export function Hero() {
                 </>
               }
               suave="que nunca vas a escuchar."
-              max={72}
+              max={120}
             />
           </div>
+
+          {/* 2 · Fechas y datos: se leen, no compiten con el titular */}
+          <p className="mt-[clamp(1.5rem,4svh,2.5rem)] flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <span className="t-3">{FECHAS.lista}</span>
+            <span className="rotulo">14 a 23 h · Entrada gratuita</span>
+          </p>
 
           {/* 3 · Una sola acción */}
           <div className="mt-[clamp(1.75rem,4svh,2.5rem)] flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -135,7 +127,7 @@ export function Hero() {
               <Flecha />
             </a>
             <a href="#programa" className="rotulo py-3 underline underline-offset-[6px] hover:no-underline">
-              Ver el programa
+              Mirá el programa
             </a>
           </div>
         </div>
