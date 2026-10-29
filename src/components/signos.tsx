@@ -62,17 +62,11 @@ export function TipoEtiqueta({ tipo }: { tipo: Tipo }) {
   return <span className="rotulo border border-vino px-1.5 py-0.5 leading-none">{tipo}</span>;
 }
 
-/* Zona: recuadro recto con el color de la zona, el mismo que en el mapa */
+/* Zona: muestra recta con el color de la zona y el nombre al lado (sin texto sobre el color: el vino chico no pasa sobre lila vivo) */
 export function ZonaEtiqueta({ nombre, zona }: { nombre: string; zona: Zona }) {
   return (
-    <span
-      className="rotulo inline-block px-1.5 py-1 leading-none tracking-[0.06em]"
-      style={{
-        background: zona.color,
-        color: zona.texto,
-        boxShadow: zona.borde ? `inset 0 0 0 1px ${zona.borde}` : undefined,
-      }}
-    >
+    <span className="rotulo inline-flex items-center gap-1.5 leading-none tracking-[0.06em]">
+      <span aria-hidden className="size-2.5 shrink-0" style={{ background: zona.color, boxShadow: zona.borde ? `inset 0 0 0 1px ${zona.borde}` : undefined }} />
       {nombre}
     </span>
   );
@@ -137,7 +131,7 @@ export function FotoPendiente({ texto = "[FOTO]", className = "" }: { texto?: st
       className={`con-grano flex items-center justify-center overflow-hidden ${className.includes("absolute") ? "" : "relative"} ${className}`}
       style={{
         background:
-          "radial-gradient(120% 90% at 85% 10%, #edcdb8 0%, #e1b0c1 35%, #b3a5ba 70%, #9195b4 100%)",
+          "radial-gradient(120% 90% at 85% 10%, var(--color-melocoton) 0%, var(--color-rosa) 35%, var(--color-lila) 70%, var(--color-lila-palido) 100%)",
       }}
     >
       <span className="rotulo bg-blanco/80 px-2 py-1 text-vino">{texto}</span>

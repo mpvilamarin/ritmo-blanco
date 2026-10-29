@@ -5,23 +5,47 @@ import { CANALES, diaSemana, fechaCorta, partirHorario, programa, type CanalId, 
   (Ritmo Blanco.dc.html). Nada se escribe a mano: todo sale del JSON.
 */
 
+/* Los colores salen de las variables de globals.css: nunca hex en los componentes */
 export const PALETA = {
-  vino: "#692136",
-  rosa: "#e1b0c1",
-  melocoton: "#edcdb8",
-  crema: "#f2dabd",
-  lila: "#b3a5ba",
-  azulgris: "#9195b4",
-  lilaOscuro: "#767498",
+  vino: "var(--color-vino)",
+  blanco: "var(--color-blanco)",
+  rosa: "var(--color-rosa)",
+  magenta: "var(--color-magenta)",
+  violeta: "var(--color-violeta)",
+  lila: "var(--color-lila)",
+  lilaPalido: "var(--color-lila-palido)",
+  crudo: "var(--color-crudo)",
+  /** Solo dentro del degradé difuso */
+  melocoton: "var(--color-melocoton)",
+};
+
+/** Un color de la paleta con transparencia: velo(PALETA.lila, 20) */
+export const velo = (color: string, porciento: number) => `color-mix(in srgb, ${color} ${porciento}%, transparent)`;
+
+/* Fechas del festival, siempre derivadas del JSON: "14", "15", "16", "17" */
+const NUMEROS = programa.dias.map((d) => d.fecha.slice(8));
+const LETRAS = ["", "un día", "dos días", "tres días", "cuatro días", "cinco días"];
+export const FECHAS = {
+  numeros: NUMEROS,
+  /** "14—17.11" */
+  rango: `${NUMEROS[0]}—${NUMEROS.at(-1)}.11`,
+  /** "14·15·16·17 de noviembre" */
+  lista: `${NUMEROS.join("·")} de noviembre`,
+  /** "14 al 17 de noviembre" */
+  larga: programa.fechas,
+  /** "14, 15, 16 y 17.11" */
+  enumeradas: `${NUMEROS.slice(0, -1).join(", ")} y ${NUMEROS.at(-1)}.11`,
+  /** "cuatro días" */
+  dias: LETRAS[NUMEROS.length] ?? `${NUMEROS.length} días`,
 };
 
 export const INICIO = `${programa.dias[0].fecha}T14:00:00-03:00`;
 
-/* Color de cada canal en el diseño, con su tinta legible */
-export const CANAL: Record<CanalId, { nombre: string; que: string; color: string; tinta: string }> = {
-  tumbao: { nombre: "Tumbao", que: programa.canales.tumbao, color: PALETA.rosa, tinta: PALETA.vino },
-  pulso: { nombre: "Pulso", que: programa.canales.pulso, color: PALETA.melocoton, tinta: PALETA.vino },
-  sinte: { nombre: "Sinte", que: programa.canales.sinte, color: PALETA.lilaOscuro, tinta: "#ffffff" },
+/* Canales: nombre y qué suena. Se distinguen solo por su signo, nunca por color (el color es de las zonas). */
+export const CANAL: Record<CanalId, { nombre: string; que: string }> = {
+  tumbao: { nombre: "Tumbao", que: programa.canales.tumbao },
+  pulso: { nombre: "Pulso", que: programa.canales.pulso },
+  sinte: { nombre: "Sinte", que: programa.canales.sinte },
 };
 
 export const DIAS = programa.dias.map((d) => ({
@@ -80,13 +104,6 @@ export const TOTALES = {
   soloOnline: ACTIVIDADES.filter((a) => a.modalidad === "virtual").length,
 };
 
-/* Forma de cada tipo de actividad, como en el diseño */
-export const FORMA_TIPO: Record<Tipo, { w: number; h: number; r: string; c: string }> = {
-  TALLER: { w: 30, h: 30, r: "8px", c: PALETA.melocoton },
-  CHARLA: { w: 32, h: 32, r: "50%", c: PALETA.azulgris },
-  CLASE: { w: 42, h: 24, r: "999px", c: PALETA.rosa },
-  EXPERIENCIA: { w: 30, h: 30, r: "999px 0 999px 0", c: PALETA.vino },
-};
 
 export const capital = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 export const tipoLindo = (t: Tipo) => capital(t.toLowerCase());

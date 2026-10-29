@@ -1,4 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
+import { PALETA } from "@/lib/rb";
+import { BoldLight } from "../sistema";
 
 /*
   Piezas comunes: lugar para foto, encabezado de sección y botón.
@@ -21,7 +23,7 @@ export function Foto({
       role="img"
       aria-label={`Foto pendiente: ${texto}`}
       className={`con-grano relative flex items-center justify-center overflow-hidden ${circulo ? "rounded-full" : ""} ${className}`}
-      style={{ background: "linear-gradient(140deg, #767498 0%, #b3a5ba 38%, #e1b0c1 70%, #edcdb8 100%)", ...style }}
+      style={{ background: `linear-gradient(140deg, ${PALETA.violeta} 0%, ${PALETA.lila} 38%, ${PALETA.rosa} 70%, ${PALETA.melocoton} 100%)`, ...style }}
     >
       <span className="rotulo bg-blanco/85 px-2 py-1 text-center text-[0.625rem] text-vino">{texto}</span>
     </div>
@@ -30,7 +32,9 @@ export function Foto({
 
 /*
   Encabezado de sección, siempre en una sola columna: rótulo chico, título y
-  debajo la bajada. Nunca título y texto lado a lado.
+  debajo la bajada. Nunca título y texto lado a lado. El título cumple la
+  regla bold/light: dos líneas del mismo ancho, la primera bold y la segunda
+  light. El ancho del título es fijo para que todos los módulos midan igual.
 */
 export function Encabezado({
   id,
@@ -42,17 +46,17 @@ export function Encabezado({
 }: {
   id: string;
   rotulo: string;
-  titulo: ReactNode;
+  titulo: [ReactNode, ReactNode];
   texto?: ReactNode;
   centrado?: boolean;
   claro?: boolean;
 }) {
   return (
     <header className={`flex flex-col ${centrado ? "items-center text-center" : ""}`}>
-      <p className={`rotulo mb-4 ${claro ? "text-rosa" : ""}`}>{rotulo}</p>
-      <h2 id={id} className="t-1">
-        {titulo}
-      </h2>
+      <p className={`rotulo mb-4 ${claro ? "text-lila-palido" : ""}`}>{rotulo}</p>
+      <div className={`w-full max-w-[44rem] ${centrado ? "mx-auto" : ""}`}>
+        <BoldLight id={id} fuerte={titulo[0]} suave={titulo[1]} max={132} className={centrado ? "[&>span]:mx-auto" : ""} />
+      </div>
       {texto && <div className="mt-6 font-mono text-[clamp(1.0625rem,1.6vw,1.375rem)] leading-[1.55]">{texto}</div>}
     </header>
   );
@@ -60,8 +64,7 @@ export function Encabezado({
 
 const BOTON = {
   vino: "bg-vino text-blanco hover:bg-vino-oscuro",
-  claro: "bg-blanco text-vino hover:bg-crema",
-  rosa: "bg-rosa text-vino hover:bg-blanco",
+  claro: "bg-blanco text-vino hover:bg-crudo",
   borde: "border border-vino text-vino hover:bg-vino hover:text-blanco",
 };
 export const boton = (tono: keyof typeof BOTON = "vino") =>

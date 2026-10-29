@@ -5,8 +5,8 @@
     "ruidoso",
     "que nunca vas a escuchar."
   ],
-  "fechas_largas": "14 al 16 de noviembre",
-  "cta": "Elegí tu canal",
+  "fechas_largas": "14 al 17 de noviembre",
+  "cta": "Reservá tus auriculares",
   "cuenta": {
     "rotulo": "Faltan",
     "unidades": [
@@ -20,8 +20,7 @@
   },
   "franjas": [
     [
-      "Elegí tu canal",
-      "14 al 16 de noviembre",
+      "14 al 17 de noviembre",
       "Bosques de Palermo",
       "Entrada gratuita"
     ],
@@ -60,7 +59,7 @@
         "texto": "Te los damos en la entrada. Te los pedimos de vuelta en la salida."
       },
       {
-        "titulo": "Elegí tu canal.",
+        "titulo": "Cambiá de canal.",
         "texto": "Tres canales a la vez. Cambiá cuando quieras:",
         "guino": "nadie se ofende."
       },
@@ -77,16 +76,16 @@
       "Artistas",
       "en tus auriculares"
     ],
-    "texto": "Elegí un canal y sus artistas pasan adelante.",
+    "texto": "Tocá un canal y sus artistas pasan adelante.",
     "todos": "Los tres"
   },
   "programa": {
     "titulo": [
       "Programa",
-      "tres jornadas"
+      "cuatro jornadas"
     ],
     "cierre_rotulo": "Los tres canales, el mismo artista",
-    "rotulo": "14 al 16 de noviembre"
+    "rotulo": "14 al 17 de noviembre"
   },
   "mapa": {
     "titulo": [
@@ -159,7 +158,7 @@
       },
       {
         "rotulo": "Horario",
-        "texto": "14, 15 y 16 de noviembre, de 14:00 a 23:00."
+        "texto": "14, 15, 16 y 17 de noviembre, de 14:00 a 23:00."
       },
       {
         "rotulo": "Cómo llegar",

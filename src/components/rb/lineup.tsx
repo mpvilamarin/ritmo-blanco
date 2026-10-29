@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Encabezado, Foto, boton } from "./base";
 import { Signo } from "../signos";
-import { CANAL, DIAS, SHOWS, type Show } from "@/lib/rb";
+import { CANAL, DIAS, PALETA, SHOWS, type Show } from "@/lib/rb";
 import { CANALES, type CanalId } from "@/lib/programa";
 
 type Columna = { grande: Show } | { par: Show[] };
@@ -29,7 +29,8 @@ function columnas(lista: Show[]) {
   return cols;
 }
 
-const anillo = (s: Show) => (s.canal === "todos" ? "#ffffff" : CANAL[s.canal].color);
+/* Los canales se distinguen por signo, no por color: solo el cierre lleva anillo */
+const anillo = (s: Show) => (s.canal === "todos" ? PALETA.blanco : "transparent");
 const canalDe = (s: Show) => (s.canal === "todos" ? "Cierre" : CANAL[s.canal].nombre);
 
 function Artista({ s, grande }: { s: Show; grande: boolean }) {
@@ -40,9 +41,10 @@ function Artista({ s, grande }: { s: Show; grande: boolean }) {
       </div>
       <div>
         <p className="t-3">{s.nombre}</p>
-        {grande && <p className="t-chico mt-1 text-rosa">{s.que}</p>}
-        <p className="rotulo mt-1.5 text-lila">
+        {grande && <p className="t-chico mt-1 text-blanco/80">{s.que}</p>}
+        <p className="rotulo mt-1.5 inline-flex items-center gap-1.5 text-lila-palido">
           {DIAS[s.dia - 1].fecha} · {grande ? `${s.inicio} · ` : ""}
+          {s.canal !== "todos" && <Signo canal={s.canal} className="size-3 text-blanco" />}
           {canalDe(s)}
         </p>
       </div>
@@ -73,14 +75,13 @@ export function LineUp() {
     <section id="lineup" aria-labelledby="lineup-titulo" className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center gap-[2.5svh] overflow-hidden bg-vino py-[3.5svh] lg:gap-[3svh] lg:py-[5svh] text-blanco lg:h-[100svh] lg:min-h-[640px]">
       <div className="contenido">
         <Encabezado
-          centrado
           id="lineup-titulo"
-          rotulo={`${SHOWS.length} artistas · 3 canales · ${DIAS.length} días`}
-          titulo="Line-up"
+          rotulo={`${SHOWS.length} artistas · 3 canales · ${DIAS.length} jornadas`}
+          titulo={["Line-up", "en tus auriculares"]}
           claro
-          texto={<p className="text-melocoton">Cada artista suena en un canal. En el cierre de cada noche, los tres canales transmiten lo mismo.</p>}
+          texto={<p className="text-blanco/80">Cada artista suena en un canal. En el cierre de cada noche, los tres canales transmiten lo mismo.</p>}
         />
-        <div role="group" aria-label="Filtrar por canal" className="mt-[2.5svh] flex flex-wrap justify-center gap-2">
+        <div role="group" aria-label="Filtrar por canal" className="mt-[2.5svh] flex flex-wrap gap-2">
           {[null, ...CANALES].map((c) => {
             const on = canal === c;
             return (
@@ -90,7 +91,7 @@ export function LineUp() {
                 aria-pressed={on}
                 onClick={() => setCanal(c)}
                 className={`rotulo inline-flex cursor-pointer items-center gap-2 border px-3 py-2 lg:px-4 lg:py-2.5 ${
-                  on ? "border-rosa bg-rosa text-vino" : "border-blanco/40 hover:border-blanco"
+                  on ? "border-blanco bg-blanco text-vino" : "border-blanco/40 hover:border-blanco"
                 }`}
               >
                 {c && <Signo canal={c} className="size-3.5" />}
@@ -109,17 +110,17 @@ export function LineUp() {
         </div>
       </div>
 
-      <div className="contenido flex flex-wrap items-center justify-center gap-x-10 gap-y-4 border-t border-blanco/20 pt-4">
+      <div className="contenido flex flex-wrap items-center justify-between gap-x-10 gap-y-4 border-t border-blanco/20 pt-4">
         <ul className="hidden flex-wrap gap-x-6 gap-y-2 lg:flex">
           {CANALES.map((c) => (
             <li key={c} className="rotulo inline-flex items-center gap-2">
-              <Signo canal={c} className="size-3.5 text-rosa" />
+              <Signo canal={c} className="size-3.5" />
               {CANAL[c].nombre} · {CANAL[c].que}
             </li>
           ))}
         </ul>
-        <a href="#programa" className={boton("rosa")}>
-          Ver horarios en el programa
+        <a href="#programa" className={boton("claro")}>
+          Mirá los horarios en el programa
         </a>
       </div>
     </section>

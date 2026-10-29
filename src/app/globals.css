@@ -4,21 +4,37 @@
   Ritmo Blanco · tokens del sistema (BRIEF.md §6).
   Nunca negro ni gris: los oscuros son vino. Sin esquinas redondeadas ni sombras.
 */
-@theme {
+@theme static {
   --color-*: initial;
-  --color-vino: #692136;
+  /*
+    Paleta v3 (confirmada el 29.10, sale del merch). Es la ÚNICA fuente de
+    color de la web: los componentes usan estas variables (clases de Tailwind
+    o var(--color-…)), nunca hex. Nunca negro ni gris: el oscuro es el vino.
+  */
+  --color-vino: #721b35; /* único vino, el del logo */
   --color-blanco: #ffffff;
-  --color-rosa: #e1b0c1;
-  --color-melocoton: #edcdb8;
-  --color-crema: #f2dabd;
-  --color-lila: #b3a5ba;
-  --color-azulgris: #9195b4;
-  --color-lila-oscuro: #767498;
-  /* Vino noche: el fondo oscuro de la versión intensa. Los oscuros son vino, nunca negro. */
-  --color-noche: #2a0c17;
-  --color-noche-2: #3d1424;
-  /* Hover de los botones vino */
-  --color-vino-oscuro: #561a2c;
+  --color-rosa: #f08faa; /* rosa vivo: solo recuadro y número gigante. Vino encima 4,8:1 */
+  --color-magenta: #b94c77; /* segundo tono de arena. Blanco encima 4,8:1 */
+  --color-violeta: #6e64a8; /* reemplaza al lila oscuro. Blanco encima 5,2:1 */
+  --color-lila: #aa95c3; /* lila vivo: fondos y arena. Vino encima solo en texto grande */
+  --color-lila-palido: #d1b4d8; /* fondos claros. Vino encima 5,8:1 */
+  --color-crudo: #e0cfbc; /* tela, cálido. Vino encima 7,2:1 */
+  --color-melocoton: #edcdb8; /* solo dentro del degradé difuso */
+  --color-vino-oscuro: oklch(from var(--color-vino) calc(l - 0.06) c h);
+
+  /* Roles: qué color hace qué. Cambiar la paleta no toca componentes. */
+  --color-tinta: var(--color-vino);
+  --color-recuadro: var(--color-rosa);
+  --color-zona-domo: var(--color-vino);
+  --color-zona-domo-texto: var(--color-blanco);
+  --color-zona-usina: var(--color-violeta);
+  --color-zona-usina-texto: var(--color-blanco);
+  --color-zona-escenario: var(--color-lila);
+  --color-zona-escenario-texto: var(--color-vino);
+  --color-zona-pantalla: var(--color-magenta);
+  --color-zona-pantalla-texto: var(--color-blanco);
+  --color-zona-instalacion: var(--color-crudo);
+  --color-zona-instalacion-texto: var(--color-vino);
   --color-transparent: transparent;
   --color-current: currentColor;
 
@@ -220,7 +236,7 @@
   height: 110vmax;
   left: -50vmax;
   top: -30vmax;
-  background: radial-gradient(closest-side, #9195b466, #9195b400);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-lila-palido) 40%, transparent), transparent);
   opacity: calc(1 - var(--p) * 0.9);
   transform: translate3d(0, calc(var(--p) * -40vh), 0);
 }
@@ -229,7 +245,7 @@
   height: 100vmax;
   right: -45vmax;
   top: -10vmax;
-  background: radial-gradient(closest-side, #b3a5ba80, #b3a5ba00);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-lila) 50%, transparent), transparent);
   opacity: calc(1 - var(--p) * 0.6);
   transform: translate3d(0, calc(var(--p) * -30vh), 0);
 }
@@ -238,7 +254,7 @@
   height: 100vmax;
   left: -30vmax;
   top: 40vh;
-  background: radial-gradient(closest-side, #e1b0c18c, #e1b0c100);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-rosa) 55%, transparent), transparent);
   opacity: calc(0.35 + var(--p) * 0.65);
   transform: translate3d(calc(var(--p) * 20vw), calc(var(--p) * -50vh), 0);
 }
@@ -247,7 +263,7 @@
   height: 90vmax;
   right: -40vmax;
   bottom: -60vmax;
-  background: radial-gradient(closest-side, #edcdb8cc, #edcdb800);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-melocoton) 80%, transparent), transparent);
   opacity: calc(0.2 + var(--p) * 0.8);
   transform: translate3d(0, calc(var(--p) * -45vh), 0);
 }
@@ -256,7 +272,7 @@
   height: 80vmax;
   left: -20vmax;
   bottom: -70vmax;
-  background: radial-gradient(closest-side, #f2dabdcc, #f2dabd00);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-crudo) 80%, transparent), transparent);
   opacity: var(--p);
   transform: translate3d(0, calc(var(--p) * -40vh), 0);
 }

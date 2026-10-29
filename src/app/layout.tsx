@@ -22,11 +22,12 @@ const plex = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Ritmo Blanco · Festival silencioso y sustentable",
   description:
-    "14 al 16 de noviembre en los Bosques de Palermo. Entrada gratuita, auriculares incluidos. Elegí tu canal.",
+    "14 al 17 de noviembre en los Bosques de Palermo. Entrada gratuita con reserva, auriculares incluidos.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#e1b0c1",
+  // El meta no admite variables: es el blanco de la paleta
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

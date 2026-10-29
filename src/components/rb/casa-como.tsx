@@ -1,5 +1,5 @@
 import { Encabezado, Flecha, boton } from "./base";
-import { BoldLight, Guino } from "../sistema";
+import { BoldLight } from "../sistema";
 import { Rio, type Punto } from "../rio";
 import { BotonPrograma } from "./boton-programa";
 import { Signo } from "../signos";
@@ -8,12 +8,12 @@ import { CANALES } from "@/lib/programa";
 
 export function DesdeCasa() {
   return (
-    <section id="desde-casa" aria-labelledby="casa-titulo" className="banda scroll-mt-4 bg-lila-oscuro text-blanco">
+    <section id="desde-casa" aria-labelledby="casa-titulo" className="banda scroll-mt-4 bg-violeta text-blanco">
       <div className="contenido">
         <Encabezado
           id="casa-titulo"
           rotulo="En vivo desde casa"
-          titulo="¿No llegás al bosque?"
+          titulo={["¿No llegás", "al bosque?"]}
           texto={
             <p>
               Transmitimos los tres canales en vivo, las charlas de la Pantalla Muda y clases pensadas para bailar en el living. Escuchás lo
@@ -30,7 +30,7 @@ export function DesdeCasa() {
             ))}
           </ul>
           <BotonPrograma filtro={{ vista: "actividades", modalidad: "virtual", tipo: null, zona: null }} className={boton("claro")}>
-            Ver las actividades online
+            Mirá las actividades online
             <Flecha />
           </BotonPrograma>
         </div>
@@ -40,9 +40,9 @@ export function DesdeCasa() {
 }
 
 const PASOS = [
-  { t: "Reservá", d: "Elegí un día o el pase completo. El cupo es limitado para que el bosque respire." },
+  { t: "Reservá tus auriculares", d: "Elegí el día y dejá tu DNI. El cupo es limitado para que el bosque respire." },
   { t: "Retirá tus auriculares", d: "En el acceso te damos auriculares inalámbricos, con tu DNI. Los devolvés a la salida." },
-  { t: "Elegí tu canal", d: "Tumbao, Pulso o Sinte: cambiá cuando quieras. Nadie se ofende." },
+  { t: "Cambiá de canal", d: "Tumbao, Pulso o Sinte: pasás de uno a otro desde el auricular, cuando quieras." },
   { t: "Movete y generá", d: "Pedaleá en las bicis generadoras o bailá sobre los pisos cinéticos: tu energía alimenta el festival." },
 ];
 
@@ -80,7 +80,9 @@ export function ComoFunciona() {
       <Rio secciones={RIO_PASOS} escritorio={RIO_PASOS_ESCRITORIO} celular={RIO_PASOS_CELULAR} ancho={0.05} anchoCelular={0.09} />
       <section id="como" aria-label="Cómo funciona" className="banda contenido scroll-mt-4">
         <p className="rotulo mb-5">Cómo funciona · {PASOS.length} pasos</p>
-        <BoldLight as="h2" fuerte="Cero ruido," suave={<Guino>todo ritmo.</Guino>} max={200} />
+        <div className="w-full max-w-[44rem]">
+          <BoldLight as="h2" fuerte="Cero ruido," suave="todo ritmo." max={132} />
+        </div>
         <ol className="mt-16 grid gap-12 lg:grid-cols-4 lg:gap-0">
           {PASOS.map((p, i) => (
             <li key={p.t} className={`flex flex-col ${i > 0 ? "lg:border-l lg:border-vino/25 lg:pl-6" : ""} lg:pr-6`}>
@@ -99,7 +101,7 @@ export function ComoFunciona() {
           <span className="rotulo">Tu auricular, 3 canales</span>
           {CANALES.map((c) => (
             <span key={c} className="inline-flex items-center gap-3">
-              <span className="grid size-10 place-items-center" style={{ background: CANAL[c].color, color: CANAL[c].tinta }}>
+              <span className="grid size-10 place-items-center">
                 <Signo canal={c} className="size-5" />
               </span>
               <span>

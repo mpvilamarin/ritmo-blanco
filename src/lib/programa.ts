@@ -46,7 +46,7 @@ export type Dia = {
   lineup: {
     escenario: string;
     sets: { horario: string; canales: Record<CanalId, Artista> }[];
-    cierre: Artista & { horario: string; todos_los_canales: boolean };
+    cierre: Artista & { horario: string; bio: string; guino: string; todos_los_canales: boolean };
   };
   actividades: Actividad[];
 };

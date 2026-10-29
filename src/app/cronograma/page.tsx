@@ -13,17 +13,17 @@ export const metadata: Metadata = {
 export default function PaginaCronograma() {
   return (
     <>
-      <style>{"@page{size:420mm 297mm;margin:0}html,body{background:#fff}"}</style>
+      <style>{"@page{size:420mm 297mm;margin:0}html,body{background:var(--color-blanco)}"}</style>
       <main
         className="con-grano relative min-h-screen px-10 py-8"
         style={{
           background:
-            "linear-gradient(rgba(255,255,255,.72), rgba(255,255,255,.72)), url(/fondos/degrade.jpg) center / cover no-repeat",
+            "linear-gradient(color-mix(in srgb, var(--color-blanco) 72%, transparent), color-mix(in srgb, var(--color-blanco) 72%, transparent)), url(/fondos/degrade.jpg) center / cover no-repeat",
           printColorAdjust: "exact",
           WebkitPrintColorAdjust: "exact",
         }}
       >
-        <h1 className="sr-solo">Ritmo Blanco · Cronograma 14 al 16 de noviembre</h1>
+        <h1 className="sr-solo">Ritmo Blanco · Cronograma 14 al 17 de noviembre</h1>
         <Cronograma />
       </main>
     </>

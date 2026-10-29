@@ -18,12 +18,14 @@ export function Guino({ children }: { children: ReactNode }) {
   de la clase que reciba.
 */
 export function BoldLight({
+  id,
   fuerte,
   suave,
   as: Tag = "h2",
   max = 200,
   className = "",
 }: {
+  id?: string;
   fuerte: ReactNode;
   suave: ReactNode;
   as?: "h1" | "h2" | "h3" | "p";
@@ -59,7 +61,7 @@ export function BoldLight({
   }, [max]);
 
   return (
-    <Tag ref={caja} className={`font-display leading-[var(--lh-apretado)] uppercase ${className}`}>
+    <Tag ref={caja} id={id} className={`font-display leading-[var(--lh-apretado)] uppercase ${className}`}>
       <span ref={a} className="block w-fit font-black tracking-[-0.03em] whitespace-nowrap">
         {fuerte}
       </span>
@@ -76,19 +78,5 @@ export function Marca({ tinta = "vino", className = "" }: { tinta?: "vino" | "bl
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img src={`/marca/logo-${tinta}.png`} alt="Ritmo Blanco" width={498} height={235} className={`block h-auto ${className}`} />
-  );
-}
-
-/* Botones rectos: principal rosa con texto vino, secundario con filete */
-export const BOTON_PRINCIPAL =
-  "tx-rotulo inline-flex min-h-14 items-center justify-center gap-4 bg-rosa px-8 text-[0.8125rem] font-semibold text-vino transition-colors hover:bg-blanco";
-export const BOTON_SECUNDARIO =
-  "tx-rotulo inline-flex min-h-14 items-center justify-center gap-4 border border-current px-8 text-[0.8125rem] transition-colors hover:bg-blanco hover:text-vino";
-
-export function Flecha() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" aria-hidden className="size-4">
-      <path d="M4 12h15M13 6l6 6-6 6" />
-    </svg>
   );
 }

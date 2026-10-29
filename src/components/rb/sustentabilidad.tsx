@@ -41,7 +41,7 @@ export function Sustentabilidad() {
       <Encabezado
         id="sus-titulo"
         rotulo="Un festival sustentable"
-        titulo="La energía la ponés vos"
+        titulo={["La energía", "la ponés vos"]}
         texto={
           <p>
             Ritmo Blanco funciona con lo que hace su público: pedalear, bailar, caminar. Lo que no se genera ahí, se ahorra con un festival
@@ -59,7 +59,7 @@ export function Sustentabilidad() {
               <h3 className="t-2">{c.titulo}</h3>
               <p className="t-chico">{c.texto}</p>
               {c.extra?.map((x) => (
-                <p key={x} className="rotulo text-lila-oscuro">
+                <p key={x} className="rotulo text-violeta">
                   {x}
                 </p>
               ))}
@@ -69,7 +69,7 @@ export function Sustentabilidad() {
       </div>
 
       {repaso && (
-        <div className="mt-10 flex flex-wrap items-end justify-between gap-6 bg-melocoton p-6 md:p-8">
+        <div className="mt-10 flex flex-wrap items-end justify-between gap-6 bg-crudo p-6 md:p-8">
           <div>
             <p className="rotulo">
               {DIAS[repaso.dia - 1].fecha} · {repaso.inicio} · {repaso.zona} · {NOMBRE_MODALIDAD[repaso.modalidad]}
