@@ -37,7 +37,7 @@ export function Pie() {
         </div>
         <div className="mt-10 flex flex-wrap justify-between gap-3 border-t border-blanco/30 pt-6">
           <p className="rotulo">{FECHAS.larga} de 2026 · Festival silencioso y sustentable</p>
-          <p className="rotulo text-lila">{sitio.credito}</p>
+          <p className="rotulo text-lila-palido">{sitio.credito}</p>
         </div>
       </div>
       <p aria-hidden className="mt-8 -mb-[0.22em] text-center font-display text-[17.5vw] leading-[0.8] font-black tracking-[-0.04em] whitespace-nowrap text-blanco/[0.08] uppercase">

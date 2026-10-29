@@ -50,6 +50,11 @@ const MODOS: Record<CanalId | "ninguno" | "todos", Modo[]> = {
 };
 
 const PI = Math.PI;
+/* Azar fijo por partícula (no cambia entre cuadros) */
+const azar = (i: number) => {
+  const v = Math.sin(i * 12.9898 + 78.233) * 43758.5453;
+  return v - Math.floor(v);
+};
 
 function campo(modos: Modo[], x: number, y: number) {
   const wx = x + 0.11 * Math.sin(2.3 * PI * y + 1.1) + 0.05 * Math.sin(5.1 * PI * x);
@@ -69,7 +74,7 @@ type Props = {
   centro?: [number, number];
   /** Cantidad de anillos en el radio mayor del lienzo */
   anillos?: number;
-  /** Variables de color de las partículas, que se alternan: ["--color-vino", "--color-rosa"] */
+  /** Variables de color de las partículas, que se alternan: ["--color-vino", "--color-magenta"] */
   tintas?: string[];
   particulas?: number;
   className?: string;
@@ -141,6 +146,8 @@ export function Arena({ fijo, forma = "placa", centro = [0.5, 0.5], anillos = 7,
       const h = 0.002;
       const ruido = 0.002 + s.sacudir * 0.02;
       for (let i = 0; i < s.xs.length; i++) {
+        // Una de cada ocho queda suelta: polvo alrededor de la figura
+        if (i % 8 === 0) continue;
         const x = s.xs[i];
         const y = s.ys[i];
         const v = f(x, y);
@@ -162,10 +169,19 @@ export function Arena({ fijo, forma = "placa", centro = [0.5, 0.5], anillos = 7,
       const colores = listaTintas.split(",").map((v) => css.getPropertyValue(v).trim());
       colores.forEach((color, c) => {
         ctx.fillStyle = color;
+        ctx.beginPath();
         for (let i = c; i < s.xs.length; i += colores.length) {
-          const t = i % 7 === 0 ? 2.6 : 1.7;
-          ctx.fillRect(s.xs[i] * escala, s.ys[i] * escala, t, t);
+          // Grano de arena, no vector: tamaño variable y un desvío fijo por partícula que ensancha y desdibuja el borde de la línea
+          const a = azar(i);
+          const b = azar(i + 0.5);
+          const r = 0.5 + a * a * 1.3;
+          const d = (b - 0.5) * (a < 0.7 ? 7 : 16);
+          const x = s.xs[i] * escala + d * Math.cos(i);
+          const y = s.ys[i] * escala + d * Math.sin(i);
+          ctx.moveTo(x + r, y);
+          ctx.arc(x, y, r, 0, 2 * PI);
         }
+        ctx.fill();
       });
     };
 

@@ -8,7 +8,7 @@ import { CANALES } from "@/lib/programa";
 
 export function DesdeCasa() {
   return (
-    <section id="desde-casa" aria-labelledby="casa-titulo" className="banda scroll-mt-4 bg-lila-oscuro text-blanco">
+    <section id="desde-casa" aria-labelledby="casa-titulo" className="banda scroll-mt-4 bg-violeta text-blanco">
       <div className="contenido">
         <Encabezado
           id="casa-titulo"
@@ -40,7 +40,7 @@ export function DesdeCasa() {
 }
 
 const PASOS = [
-  { t: "Reservá", d: "Elegí un día o el pase completo. El cupo es limitado para que el bosque respire." },
+  { t: "Reservá tus auriculares", d: "Elegí el día y dejá tu DNI. El cupo es limitado para que el bosque respire." },
   { t: "Retirá tus auriculares", d: "En el acceso te damos auriculares inalámbricos, con tu DNI. Los devolvés a la salida." },
   { t: "Cambiá de canal", d: "Tumbao, Pulso o Sinte: pasás de uno a otro desde el auricular, cuando quieras." },
   { t: "Movete y generá", d: "Pedaleá en las bicis generadoras o bailá sobre los pisos cinéticos: tu energía alimenta el festival." },

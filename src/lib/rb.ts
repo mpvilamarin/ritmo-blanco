@@ -10,11 +10,13 @@ export const PALETA = {
   vino: "var(--color-vino)",
   blanco: "var(--color-blanco)",
   rosa: "var(--color-rosa)",
-  melocoton: "var(--color-melocoton)",
-  crema: "var(--color-crema)",
+  magenta: "var(--color-magenta)",
+  violeta: "var(--color-violeta)",
   lila: "var(--color-lila)",
-  azulgris: "var(--color-azulgris)",
-  lilaOscuro: "var(--color-lila-oscuro)",
+  lilaPalido: "var(--color-lila-palido)",
+  crudo: "var(--color-crudo)",
+  /** Solo dentro del degradé difuso */
+  melocoton: "var(--color-melocoton)",
 };
 
 /** Un color de la paleta con transparencia: velo(PALETA.lila, 20) */
@@ -27,8 +29,8 @@ export const FECHAS = {
   numeros: NUMEROS,
   /** "14—17.11" */
   rango: `${NUMEROS[0]}—${NUMEROS.at(-1)}.11`,
-  /** "14 · 15 · 16 · 17 de noviembre" */
-  lista: `${NUMEROS.join(" · ")} de noviembre`,
+  /** "14·15·16·17 de noviembre" */
+  lista: `${NUMEROS.join("·")} de noviembre`,
   /** "14 al 17 de noviembre" */
   larga: programa.fechas,
   /** "14, 15, 16 y 17.11" */

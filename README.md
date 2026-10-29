@@ -29,7 +29,7 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 | `src/components/rio.tsx` | Degradé difuso que atraviesa la portada |
 | `src/components/cronograma.tsx` | Pliego A3 imprimible (`/cronograma`, `npm run pdf`) |
 
-**Paleta v3 (propuesta, sin confirmar):** abrir la web con `?paleta=v3` para verla. Está en el bloque `[data-paleta="v3"]` de `globals.css`; si se confirma, sus valores pasan a `@theme`.
+**Paleta v3 (confirmada):** vino #721B35, rosa vivo #F08FAA (solo recuadro y número gigante), magenta, violeta, lila vivo, lila pálido, crudo. El melocotón queda solo dentro del degradé. Texto chico en vino nunca sobre lila vivo: las zonas se muestran con una muestra de color y el nombre al lado.
 
 **Fechas y cifras:** salen de `programa.json` (`FECHAS` y `TOTALES` en `src/lib/rb.ts`). No escribir "14 al 17" ni cantidades a mano.
 
@@ -60,16 +60,12 @@ npm run build   # genera out/, listo para subir a cualquier hosting estático
 
 ## Pendientes
 
-Lo marcado como **propuesta** está en la web pero no está confirmado:
+Confirmado el 29.10: paleta v3, CTA "Reservá tus auriculares" con reserva en un paso (día y DNI) y gesto "la arena se ordena" (`Arena` en `src/components/arena.tsx`; duración en `DURACION_GESTO`, versión quieta con movimiento reducido). El gesto es el mismo de las piezas animadas.
 
-- **Paleta v3** (propuesta): se ve con `?paleta=v3`. Se cierra con el afiche.
-- **CTA "Reservá tus auriculares"** (propuesta): en portada, menú y reserva. La reserva en un paso (DNI y día) todavía no está hecha: hoy son tres pasos.
-- **Gesto "la arena se ordena"** (propuesta): `Arena` en `src/components/arena.tsx`. La duración está en `DURACION_GESTO`; con movimiento reducido se ve la figura quieta.
 - **Portada** provisoria hasta que esté el KV nuevo.
 - **Logo:** `public/marca/logo-*.png` (versión con cola). Cuando se elija la B, reemplazar por el SVG en `Marca` (`src/components/sistema.tsx`).
 - **Favicon:** hoy es el de Next (`src/app/favicon.ico`). Cuando exista la versión reducida del logo, borrar ese archivo y poner `src/app/icon.svg`.
 - **Tipografía:** Sets Grotesk está solo en Adobe Fonts; por ahora se ve con Schibsted Grotesk, que no tiene light (la línea light sale en 400). Para usar el kit, ver el comentario en `src/app/layout.tsx`.
 - **Fotos:** las de prensa de los artistas y las de las actividades destacadas son placeholders. No se usan imágenes generadas de artistas reales.
 - **Sponsors:** van como nombres en vino hasta tener los logos en un solo color.
-- **Contraste:** el blanco sobre lila oscuro (`#767498`) da 4.45:1 en texto chico. La v3 lo corrige (violeta, 5.2:1).
 - **PDF del programa:** `public/ritmo-blanco-cronograma.pdf` sale del pliego A3 de la web. Cuando esté el programa A2, reemplazarlo por ese.

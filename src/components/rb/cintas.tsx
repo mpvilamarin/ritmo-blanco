@@ -2,7 +2,7 @@ import { programa } from "@/lib/programa";
 import { FECHAS, PALETA } from "@/lib/rb";
 
 /*
-  Cintas onduladas con texto corrido sobre la onda: una vino con texto rosa y
+  Cintas onduladas con texto corrido sobre la onda: una vino con texto blanco y
   una lila oscuro con texto blanco, cruzadas sobre el corte del hero.
 */
 const ONDA = "M0,45 Q100,28 200,45 T400,45 T600,45 T800,45 T1000,45 T1200,45 T1400,45 T1600,45";
@@ -30,12 +30,12 @@ export function Cintas() {
   return (
     <div aria-hidden className="pointer-events-none relative z-10 -mt-16 -mb-12 h-[clamp(140px,12vw,180px)] overflow-hidden">
       <div className="absolute -inset-x-[4%] top-[14%] -rotate-[2.5deg]">
-        <Cinta id="cinta-a" banda={PALETA.vino} tinta={PALETA.rosa} palabras={[...nombres, FECHAS.lista]} clase="rb-cinta-izq" />
+        <Cinta id="cinta-a" banda={PALETA.vino} tinta={PALETA.blanco} palabras={[...nombres, FECHAS.lista]} clase="rb-cinta-izq" />
       </div>
       <div className="absolute -inset-x-[4%] top-[38%] rotate-2">
         <Cinta
           id="cinta-b"
-          banda={PALETA.lilaOscuro}
+          banda={PALETA.violeta}
           tinta={PALETA.blanco}
           palabras={["Tumbao", "Pulso", "Sinte", "Bosques de Palermo", "Entrada gratuita"]}
           clase="rb-cinta-der"

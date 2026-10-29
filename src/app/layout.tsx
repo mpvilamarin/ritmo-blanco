@@ -32,15 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${grotesk.variable} ${plex.variable} antialiased`} suppressHydrationWarning>
-      <head>
-        {/* Vista previa de la paleta v3 (pendiente de confirmar): ?paleta=v3 */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `if(new URLSearchParams(location.search).get("paleta")==="v3")document.documentElement.dataset.paleta="v3"`,
-          }}
-        />
-      </head>
+    <html lang="es" className={`${grotesk.variable} ${plex.variable} antialiased`}>
       <body>{children}</body>
     </html>
   );

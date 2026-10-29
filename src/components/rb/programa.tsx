@@ -15,7 +15,7 @@ function Capsula({ tipo }: { tipo: Tipo }) {
 
 const chip = (on: boolean) =>
   `rotulo inline-flex shrink-0 cursor-pointer items-center gap-2 border border-vino px-3 py-1.5 transition-colors ${
-    on ? "bg-vino text-blanco" : "hover:bg-crema"
+    on ? "bg-vino text-blanco" : "hover:bg-crudo"
   }`;
 
 /*
@@ -105,7 +105,7 @@ export function Programa() {
               onClick={() => cambiarPrograma({ dia: d.numero, abierta: null })}
               className={`flex cursor-pointer flex-col items-start gap-0.5 px-3 py-2.5 text-left transition-colors lg:flex-row lg:items-baseline lg:gap-4 lg:px-5 lg:py-3 ${
                 i > 0 ? "border-l border-vino" : ""
-              } ${on ? "bg-vino text-blanco" : "hover:bg-crema"}`}
+              } ${on ? "bg-vino text-blanco" : "hover:bg-crudo"}`}
             >
               <span className="t-2">{d.fecha}</span>
               <span className="font-display text-sm leading-tight uppercase lg:text-base lg:whitespace-nowrap">
@@ -183,10 +183,10 @@ export function Programa() {
           <div className="grid grid-cols-[4rem_1fr] gap-x-4 bg-vino px-0 py-4 text-blanco lg:grid-cols-[7rem_1fr] lg:gap-6 lg:py-5">
             <p className="pl-3 lg:pl-4">
               <span className="t-3 block">{cierre.inicio}</span>
-              <span className="rotulo mt-0.5 block text-lila">a {cierre.fin}</span>
+              <span className="rotulo mt-0.5 block text-lila-palido">a {cierre.fin}</span>
             </p>
             <div className="pr-3">
-              <p className="rotulo flex items-center gap-2 text-lila">
+              <p className="rotulo flex items-center gap-2 text-lila-palido">
                 <span className="flex gap-1">
                   {CANALES.map((c) => (
                     <Signo key={c} canal={c} className="size-3" />
@@ -195,7 +195,7 @@ export function Programa() {
                 Cierre · los 3 canales a la vez
               </p>
               <p className="t-2 mt-2">{cierre.nombre}</p>
-              <p className="t-chico mt-1 text-melocoton">{capital(cierre.que)}</p>
+              <p className="t-chico mt-1 text-blanco/80">{capital(cierre.que)}</p>
             </div>
           </div>
         </div>
@@ -242,7 +242,7 @@ export function Programa() {
                 return (
                   <li
                     key={a.clave}
-                    className={`flex w-[78vw] shrink-0 snap-start flex-col border-y border-r border-vino bg-blanco p-4 pl-5 sm:w-[20rem] ${a.destacado ? "border-y-2 border-r-2" : ""}`}
+                    className={`flex w-[78vw] shrink-0 snap-start flex-col border-y border-r border-vino p-4 pl-5 sm:w-[20rem] ${a.destacado ? "bg-crudo" : "bg-blanco"}`}
                     // Franja izquierda con el color de la zona; Desde Casa, solo contorno
                     style={{ borderLeft: z.borde ? `8px double ${z.borde}` : `8px solid ${z.color}` }}
                   >
@@ -257,7 +257,8 @@ export function Programa() {
                     <div className="rotulo mt-auto flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-vino/25 pt-3">
                       <Capsula tipo={a.tipo} />
                       <Modo modalidad={a.modalidad} conTexto />
-                      <span className="px-1.5 py-0.5" style={{ background: z.color, color: z.texto, boxShadow: z.borde ? `inset 0 0 0 1px ${z.borde}` : undefined }}>
+                      {/* El color de la zona ya está en la franja izquierda: acá solo el nombre */}
+                      <span>
                         {a.zona}
                       </span>
                     </div>

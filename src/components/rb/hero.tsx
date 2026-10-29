@@ -71,7 +71,7 @@ function Menu() {
 
 /*
   Portada en la dirección del merch (PROVISORIA hasta que esté el KV nuevo):
-  fondo blanco con aire, la arena ordenada en anillos (vino y rosa) a la
+  fondo blanco con aire, la arena ordenada en anillos (vino y magenta) a la
   derecha y, a la izquierda, de más grande a más chico:
     1. el titular bold/light, lo más grande, con el guiño principal de la web
        en el recuadro rosa (el único recuadro de la página)
@@ -87,8 +87,8 @@ export function Hero() {
         aria-hidden
         className="absolute inset-0 -z-10 [mask-image:linear-gradient(180deg,#000_30%,transparent_62%)] lg:[mask-image:linear-gradient(90deg,transparent_40%,#000_66%)]"
       >
-        <Arena fijo="todos" forma="anillos" centro={[0.78, 0.5]} anillos={9} tintas={["--color-vino", "--color-rosa", "--color-rosa"]} particulas={26000} className="hidden lg:block" />
-        <Arena fijo="todos" forma="anillos" centro={[0.62, 0.2]} anillos={7} tintas={["--color-vino", "--color-rosa", "--color-rosa"]} particulas={16000} className="lg:hidden" />
+        <Arena fijo="todos" forma="anillos" centro={[0.78, 0.5]} anillos={9} tintas={["--color-vino", "--color-magenta", "--color-magenta"]} particulas={40000} className="hidden lg:block" />
+        <Arena fijo="todos" forma="anillos" centro={[0.62, 0.2]} anillos={7} tintas={["--color-vino", "--color-magenta", "--color-magenta"]} particulas={16000} className="lg:hidden" />
       </div>
 
       <Menu />

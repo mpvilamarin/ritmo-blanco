@@ -42,7 +42,7 @@ function Artista({ s, grande }: { s: Show; grande: boolean }) {
       <div>
         <p className="t-3">{s.nombre}</p>
         {grande && <p className="t-chico mt-1 text-blanco/80">{s.que}</p>}
-        <p className="rotulo mt-1.5 inline-flex items-center gap-1.5 text-lila">
+        <p className="rotulo mt-1.5 inline-flex items-center gap-1.5 text-lila-palido">
           {DIAS[s.dia - 1].fecha} · {grande ? `${s.inicio} · ` : ""}
           {s.canal !== "todos" && <Signo canal={s.canal} className="size-3 text-blanco" />}
           {canalDe(s)}
@@ -79,7 +79,7 @@ export function LineUp() {
           rotulo={`${SHOWS.length} artistas · 3 canales · ${DIAS.length} jornadas`}
           titulo={["Line-up", "en tus auriculares"]}
           claro
-          texto={<p className="text-melocoton">Cada artista suena en un canal. En el cierre de cada noche, los tres canales transmiten lo mismo.</p>}
+          texto={<p className="text-blanco/80">Cada artista suena en un canal. En el cierre de cada noche, los tres canales transmiten lo mismo.</p>}
         />
         <div role="group" aria-label="Filtrar por canal" className="mt-[2.5svh] flex flex-wrap gap-2">
           {[null, ...CANALES].map((c) => {

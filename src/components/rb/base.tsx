@@ -23,7 +23,7 @@ export function Foto({
       role="img"
       aria-label={`Foto pendiente: ${texto}`}
       className={`con-grano relative flex items-center justify-center overflow-hidden ${circulo ? "rounded-full" : ""} ${className}`}
-      style={{ background: `linear-gradient(140deg, ${PALETA.lilaOscuro} 0%, ${PALETA.lila} 38%, ${PALETA.rosa} 70%, ${PALETA.melocoton} 100%)`, ...style }}
+      style={{ background: `linear-gradient(140deg, ${PALETA.violeta} 0%, ${PALETA.lila} 38%, ${PALETA.rosa} 70%, ${PALETA.melocoton} 100%)`, ...style }}
     >
       <span className="rotulo bg-blanco/85 px-2 py-1 text-center text-[0.625rem] text-vino">{texto}</span>
     </div>
@@ -53,7 +53,7 @@ export function Encabezado({
 }) {
   return (
     <header className={`flex flex-col ${centrado ? "items-center text-center" : ""}`}>
-      <p className={`rotulo mb-4 ${claro ? "text-rosa" : ""}`}>{rotulo}</p>
+      <p className={`rotulo mb-4 ${claro ? "text-lila-palido" : ""}`}>{rotulo}</p>
       <div className={`w-full max-w-[44rem] ${centrado ? "mx-auto" : ""}`}>
         <BoldLight id={id} fuerte={titulo[0]} suave={titulo[1]} max={132} className={centrado ? "[&>span]:mx-auto" : ""} />
       </div>
@@ -64,8 +64,7 @@ export function Encabezado({
 
 const BOTON = {
   vino: "bg-vino text-blanco hover:bg-vino-oscuro",
-  claro: "bg-blanco text-vino hover:bg-crema",
-  rosa: "bg-rosa text-vino hover:bg-blanco",
+  claro: "bg-blanco text-vino hover:bg-crudo",
   borde: "border border-vino text-vino hover:bg-vino hover:text-blanco",
 };
 export const boton = (tono: keyof typeof BOTON = "vino") =>

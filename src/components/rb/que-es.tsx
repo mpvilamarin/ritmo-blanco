@@ -7,7 +7,7 @@ import { CANALES, TIPOS, programa } from "@/lib/programa";
 const plural = (n: number, t: string) => `${n} ${t.toLowerCase()}${n === 1 ? "" : /[aeiou]$/.test(t.toLowerCase()) ? "s" : "es"}`;
 
 /* Fondo de cada bloque: tonos de la paleta muy aclarados */
-const FONDOS = [velo(PALETA.crema, 40), velo(PALETA.rosa, 20), velo(PALETA.lila, 20), velo(PALETA.melocoton, 40), velo(PALETA.azulgris, 15)];
+const FONDOS = [velo(PALETA.crudo, 40), velo(PALETA.lilaPalido, 30), velo(PALETA.lila, 20), velo(PALETA.lila, 20), velo(PALETA.lilaPalido, 15)];
 
 /* Tipos: tonos de un solo vino (cantidad, no categoría), para no chocar con los colores de zona */
 const COLOR_TIPO = { TALLER: PALETA.vino, CHARLA: velo(PALETA.vino, 72), CLASE: velo(PALETA.vino, 45), EXPERIENCIA: velo(PALETA.vino, 22) };
@@ -18,7 +18,7 @@ function GraficoDias() {
     <ul className="flex flex-col gap-4">
       {programa.dias.map((d) => (
         <li key={d.numero} className="flex flex-col items-start gap-1">
-          <span className="font-display text-2xl leading-none font-black tabular-nums text-lila-oscuro">{d.fecha.slice(8)}.11</span>
+          <span className="font-display text-2xl leading-none font-black tabular-nums text-violeta">{d.fecha.slice(8)}.11</span>
           <span className="font-display text-base leading-none uppercase">
             <b className="font-black">{d.nombre[0]}</b> <span className="font-light">{d.nombre[1]}</span>
           </span>
@@ -52,7 +52,7 @@ function GraficoArtistas() {
       <ul aria-hidden className="flex max-w-[13rem] flex-wrap items-center gap-1.5">
         {SHOWS.map((s) =>
           s.canal === "todos" ? (
-            <li key={s.slug} className="grid size-7 place-items-center rounded-full bg-vino text-rosa">
+            <li key={s.slug} className="grid size-7 place-items-center rounded-full bg-vino text-blanco">
               <Signo canal="sinte" className="size-3.5" />
             </li>
           ) : (
@@ -107,7 +107,7 @@ function GraficoParlantes() {
           <span className="rotulo">Concierto · máx. OMS</span>
           <span className="rotulo">100 dB</span>
         </div>
-        <div className="mt-1.5 h-3 w-full bg-lila-oscuro" />
+        <div className="mt-1.5 h-3 w-full bg-violeta" />
       </div>
       <div>
         <div className="flex justify-between">
@@ -115,7 +115,7 @@ function GraficoParlantes() {
           <span className="rotulo">silencio</span>
         </div>
         <div className="mt-1.5 h-3 w-full border border-dashed border-vino/40">
-          <div className="h-full w-[3%] bg-rosa" />
+          <div className="h-full w-[3%] bg-vino" />
         </div>
       </div>
       <p className="t-chico">La música suena solo en tus auriculares. El bosque sigue en calma.</p>
@@ -158,7 +158,7 @@ export function QueEs() {
               <span className="t-cifra block text-[clamp(2.75rem,4vw,3.75rem)]">{c.n}</span>
               <span className="rotulo mt-2 block text-[0.75rem] font-semibold">{c.t}</span>
             </dt>
-            <span aria-hidden className="rotulo order-1 text-lila-oscuro">
+            <span aria-hidden className="rotulo order-1 text-violeta">
               0{i + 1}
             </span>
             <dd className="order-3 mt-6 flex w-full flex-col items-start">{c.grafico}</dd>

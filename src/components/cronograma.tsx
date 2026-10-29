@@ -7,7 +7,7 @@ import { CANALES, diaSemana, fechaCorta, ordenarActividades, partirHorario, prog
   Cronograma con la diagramación del programa impreso: una columna por día,
   separadas por filetes vino. Cada día: cabecera con el nombre bold/light y
   "DÍA n" gigante en rosa detrás, line-up por canal, cierre (foto + bloque
-  rosa) y las actividades en dos columnas. Todo sale de programa.json.
+  crudo) y las actividades en dos columnas. Todo sale de programa.json.
   Lo usan la vista "Cuadrícula" del programa y la página /cronograma (PDF).
 */
 function Jornada({ dia }: { dia: Dia }) {
@@ -84,7 +84,7 @@ function Jornada({ dia }: { dia: Dia }) {
       </section>
 
       {/* Cierre */}
-      <section aria-label="Cierre" className="bg-rosa">
+      <section aria-label="Cierre" className="bg-crudo">
         <Foto texto="[FOTO DE PRENSA]" className="aspect-[4/1.1]" />
         <div className="grid grid-cols-[1fr_auto_1.1fr] gap-3 px-3 py-3">
           <div>
@@ -110,7 +110,7 @@ function Jornada({ dia }: { dia: Dia }) {
         </h4>
         <ul className="mt-3 columns-2 gap-4 [column-rule:1px_solid_color-mix(in_srgb,var(--color-vino)_50%,transparent)]">
           {actividades.map((a) => (
-            <li key={a.titulo} className={`mb-2.5 break-inside-avoid border-b border-vino/40 pb-2.5 ${a.destacado ? "border-0 bg-rosa pb-0" : ""}`}>
+            <li key={a.titulo} className={`mb-2.5 break-inside-avoid border-b border-vino/40 pb-2.5 ${a.destacado ? "border-0 bg-crudo pb-0" : ""}`}>
               {a.destacado && <Foto texto="[FOTO]" className="aspect-[2/1]" />}
               <div className={a.destacado ? "p-2" : ""}>
                 <div className="flex items-start justify-between gap-2">

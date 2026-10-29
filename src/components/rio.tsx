@@ -52,7 +52,7 @@ const CELULAR: Punto[] = [
 /* Paradas del degradé por nombre de variable: el color real sale de globals.css */
 const PARADAS: [number, string][] = [
   [0, "--color-lila"],
-  [0.3, "--color-azulgris"],
+  [0.3, "--color-lila-palido"],
   [0.5, "--color-rosa"],
   [0.65, "--color-lila"],
   [0.8, "--color-rosa"],

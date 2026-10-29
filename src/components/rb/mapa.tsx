@@ -96,7 +96,7 @@ export function Mapa() {
               type="button"
               aria-pressed={on}
               onClick={() => setServicio(on ? null : s.id)}
-              className={`rotulo inline-flex cursor-pointer items-center gap-2 border border-vino px-3 py-2 ${on ? "bg-vino text-blanco" : "hover:bg-crema"}`}
+              className={`rotulo inline-flex cursor-pointer items-center gap-2 border border-vino px-3 py-2 ${on ? "bg-vino text-blanco" : "hover:bg-crudo"}`}
             >
               <Icono d={s.icono} className="size-3.5" />
               {s.label}
@@ -107,9 +107,9 @@ export function Mapa() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <div className="min-w-0 self-start overflow-x-auto border border-vino">
-          <div className="relative aspect-[16/10] min-w-[640px] overflow-hidden bg-crema/40">
+          <div className="relative aspect-[16/10] min-w-[640px] overflow-hidden bg-crudo/40">
             <svg viewBox="0 0 160 100" aria-hidden className="absolute inset-0 size-full">
-              <g fill={PALETA.melocoton}>
+              <g fill={PALETA.crudo}>
                 {ARBOLES.map(([cx, cy, r], i) => (
                   <circle key={i} cx={cx} cy={cy} r={r} />
                 ))}
@@ -223,9 +223,9 @@ export function Mapa() {
                       onClick={() => setZona(nombre)}
                       className={`t-chico flex cursor-pointer items-center gap-2.5 ${zona === nombre ? "font-semibold underline underline-offset-4" : ""}`}
                     >
-                      <span className="rotulo grid size-5 place-items-center" style={{ background: zz.color, color: zz.texto }}>
-                        {k + 1}
-                      </span>
+                      {/* Muestra de color sin texto encima: el vino chico no pasa sobre lila vivo */}
+                      <span aria-hidden className="size-4 shrink-0" style={{ background: zz.color, boxShadow: zz.borde ? `inset 0 0 0 1px ${zz.borde}` : undefined }} />
+                      <span className="rotulo">{k + 1}</span>
                       {nombre}
                     </button>
                   </li>
