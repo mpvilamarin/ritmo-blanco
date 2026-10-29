@@ -37,7 +37,7 @@ export function Cintas() {
           id="cinta-b"
           banda={PALETA.lilaOscuro}
           tinta={PALETA.blanco}
-          palabras={["Tumbao", "Pulso", "Sinte", "0 parlantes", "La energía la ponés vos"]}
+          palabras={["Tumbao", "Pulso", "Sinte", "Bosques de Palermo", "Entrada gratuita"]}
           clase="rb-cinta-der"
         />
       </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
-import { Signo } from "../signos";
-import { CANALES } from "@/lib/programa";
-import { Guino, Marca } from "../sistema";
+import { useState } from "react";
+import { Arena } from "../arena";
+import { BoldLight, Guino, Marca } from "../sistema";
+import { Flecha, boton } from "./base";
 import { programa } from "@/lib/programa";
 import { FECHAS } from "@/lib/rb";
 
@@ -21,21 +21,21 @@ const MENU = [
 function Menu() {
   const [abierto, setAbierto] = useState(false);
   return (
-    <nav aria-label="Principal" className="relative z-20 border-b border-blanco/35">
+    <nav aria-label="Principal" className="relative z-20 border-b border-vino/20 bg-blanco">
       <div className="grid grid-cols-[1fr_auto] items-center gap-6 px-[var(--margen)] py-3 lg:grid-cols-[1fr_auto_1fr]">
         <a href="#top" aria-label="Ritmo Blanco, inicio" className="justify-self-start">
-          <Marca tinta="blanco" className="w-20 lg:w-24" />
+          <Marca tinta="vino" className="w-20 lg:w-24" />
         </a>
         <ul
           id="menu-links"
-          className={`${abierto ? "flex" : "hidden"} absolute inset-x-0 top-full flex-col bg-lila-oscuro px-[var(--margen)] py-2 lg:static lg:flex lg:flex-row lg:gap-10 lg:bg-transparent lg:p-0`}
+          className={`${abierto ? "flex" : "hidden"} absolute inset-x-0 top-full flex-col bg-blanco px-[var(--margen)] py-2 lg:static lg:flex lg:flex-row lg:gap-10 lg:bg-transparent lg:p-0`}
         >
           {MENU.map(([href, t]) => (
             <li key={href}>
               <a
                 href={href}
                 onClick={() => setAbierto(false)}
-                className="tx-rotulo block border-b border-blanco/20 py-4 underline-offset-[6px] hover:underline lg:border-0 lg:py-2"
+                className="tx-rotulo block border-b border-vino/20 py-4 underline-offset-[6px] hover:underline lg:border-0 lg:py-2"
               >
                 {t}
               </a>
@@ -43,9 +43,12 @@ function Menu() {
           ))}
         </ul>
         <div className="flex items-center gap-6 justify-self-end">
-          <a href="#desde-casa" className="tx-rotulo flex items-center gap-2 py-2 underline-offset-[6px] hover:underline">
-            <span aria-hidden className="size-2 rounded-full bg-rosa" />
+          <a href="#desde-casa" className="tx-rotulo hidden items-center gap-2 py-2 underline-offset-[6px] hover:underline sm:flex">
+            <span aria-hidden className="size-2 rounded-full bg-vino" />
             En vivo
+          </a>
+          <a href="#reserva" className={`${boton("vino")} hidden py-2.5 lg:inline-flex`}>
+            Reservá
           </a>
           <button
             type="button"
@@ -67,96 +70,74 @@ function Menu() {
 }
 
 /*
-  Hero: la foto del KV a sangre. Estructura y niveles de lectura de la
-  referencia del usuario, de más chico a más grande:
-    1. rótulo con filete en rosa (mono 12 px)
-    2. título bold/light enorme, con el guiño en el recuadro rosa
-    3. bajada de dos líneas (mono 18 px)
-    4. un solo botón: ver el cronograma
-    5. tres datos en fila (número 36 px + rótulo), separados por los signos de canal
-  El logo va en la barra. El bloque ocupa 7 de 12 columnas a la izquierda;
-  la derecha queda para las bailarinas.
+  Portada en la dirección del merch (PROVISORIA hasta que esté el KV nuevo):
+  fondo blanco con aire, la arena ordenada en anillos (vino y rosa) a la
+  derecha y, a la izquierda, de más grande a más chico:
+    1. las fechas gigantes, como el número de la remera
+    2. el titular bold/light con el guiño principal de la web en el recuadro
+       rosa (el único recuadro de la página)
+    3. datos y una sola acción: el CTA
+  CTA "Reservá tus auriculares": PROPUESTA, pendiente de confirmar.
 */
 export function Hero() {
-  const primero = programa.dias[0];
-  const datos = [
-    [FECHAS.rango, "Noviembre"],
-    [primero.horario.replace("–", "—").replace(/:00/g, ""), "Horas"],
-    ["Gratis", "Entrada"],
-  ];
   return (
-    <section id="top" aria-label="Portada" className="sobre-oscuro relative isolate flex min-h-[100svh] flex-col overflow-hidden text-blanco">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/fotos/kv.jpg"
-        alt="Dos personas bailan con auriculares al atardecer en el bosque, con el público y el domo detrás."
-        className="absolute inset-y-0 left-0 -z-20 h-full w-full max-w-none object-cover object-[66%_center] saturate-[.78] lg:w-[109%] lg:object-left"
-      />
-      {/* Velo localizado detrás del bloque de texto, más una franja arriba para el menú */}
+    <section id="top" aria-label="Portada" className="relative isolate z-[1] flex min-h-[100svh] flex-col overflow-hidden bg-blanco text-vino">
+      {/* La arena: en escritorio a la derecha; en el celular, arriba. Se desvanece hacia el texto. */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{
-          background: [
-            "linear-gradient(90deg, color-mix(in srgb, var(--color-lila-oscuro) 62%, transparent) 0%, color-mix(in srgb, var(--color-lila-oscuro) 48%, transparent) 32%, color-mix(in srgb, var(--color-lila-oscuro) 18%, transparent) 50%, color-mix(in srgb, var(--color-lila-oscuro) 0%, transparent) 62%)",
-            "linear-gradient(180deg, color-mix(in srgb, var(--color-lila-oscuro) 40%, transparent) 0%, color-mix(in srgb, var(--color-lila-oscuro) 0%, transparent) 14%)",
-          ].join(","),
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 lg:hidden"
-        style={{ background: "linear-gradient(0deg, color-mix(in srgb, var(--color-lila-oscuro) 70%, transparent) 0%, color-mix(in srgb, var(--color-lila-oscuro) 55%, transparent) 50%, color-mix(in srgb, var(--color-lila-oscuro) 25%, transparent) 72%, color-mix(in srgb, var(--color-lila-oscuro) 0%, transparent) 88%)" }}
-      />
+        className="absolute inset-0 -z-10 [mask-image:linear-gradient(180deg,#000_30%,transparent_62%)] lg:[mask-image:linear-gradient(90deg,transparent_34%,#000_58%)]"
+      >
+        <Arena fijo="todos" forma="anillos" centro={[0.72, 0.52]} anillos={9} tintas={["--color-vino", "--color-rosa", "--color-rosa"]} particulas={26000} className="hidden lg:block" />
+        <Arena fijo="todos" forma="anillos" centro={[0.62, 0.2]} anillos={7} tintas={["--color-vino", "--color-rosa", "--color-rosa"]} particulas={16000} className="lg:hidden" />
+      </div>
 
       <Menu />
 
-      {/* El bloque se centra en el alto total de la pantalla (no en el espacio que deja el menú) */}
-      <div className="grilla pointer-events-none absolute inset-0 content-center [&_a]:pointer-events-auto">
-        <div className="col-span-4 lg:col-span-4">
-          {/* 1 · Rótulo */}
-          <p className="tx-rotulo flex items-center gap-3 text-[0.75rem]">
-            <span aria-hidden className="h-px w-10 bg-blanco" />
-            Festival silencioso<span className="hidden sm:inline"> · {programa.sede.split(",")[0]}</span>
+      <div className="grilla flex-1 content-end pb-[clamp(2.5rem,7svh,5rem)] lg:content-center lg:pb-0">
+        <div className="col-span-4 lg:col-span-6">
+          <p className="rotulo flex items-center gap-3">
+            <span aria-hidden className="h-px w-10 bg-vino" />
+            Festival silencioso y sustentable · {programa.sede.split(",")[0]}
           </p>
 
-          {/* 2 · La marca: el elemento más grande */}
-          <h1 className="mt-5 w-[82%] lg:mt-6 lg:w-full">
-            <Marca tinta="blanco" className="w-full" />
-          </h1>
+          {/* 1 · Las fechas, el número gigante del sistema */}
+          <p className="mt-5 font-display leading-[0.8] font-black tracking-[-0.04em] tabular-nums">
+            {/* De a dos por línea: 14 15 / 16 17 */}
+            <span className="block text-[clamp(6rem,13vw,11rem)]">
+              {FECHAS.numeros.map((n, i) => (
+                <span key={n}>
+                  {n}
+                  {i % 2 ? <br /> : " "}
+                </span>
+              ))}
+            </span>
+            <span className="tx-rotulo mt-3 block tracking-[0.2em]">Noviembre 2026 · 14 a 23 h · Entrada gratuita</span>
+          </p>
 
-          {/* 3 · Todo en una sola columna, subordinado a la marca: título, bajada y acción */}
-          <div className="@container mt-6 border-t border-blanco/70 pt-6 lg:mt-8 lg:pt-7">
-            {/* En un solo renglón y del ancho exacto del bloque (unidades del contenedor): bold + light en el recuadro rosa */}
-            <p className="font-display text-[5.7cqw] leading-none whitespace-nowrap uppercase">
-              <span className="font-black tracking-[-0.02em]">Tres canales.</span>{" "}
-              <Guino>
-                <span className="font-light tracking-[-0.01em]">Cero parlantes.</span>
-              </Guino>
-            </p>
-            <p className="mt-5 max-w-[30rem] font-mono text-[0.9375rem] leading-[1.55]">
-              Bailá con auriculares en los Bosques de Palermo. Afuera, el parque sigue en silencio.
-            </p>
-            <a
-              href="#programa"
-              className="mt-6 inline-flex min-h-13 items-center bg-rosa px-5 font-mono text-base font-semibold tracking-[0.06em] text-vino uppercase transition-colors hover:bg-blanco"
-            >
-              Ver cronograma
-            </a>
+          {/* 2 · Titular bold/light con el guiño principal */}
+          <div className="mt-[clamp(2rem,5svh,3.5rem)] w-full max-w-[36rem]">
+            <BoldLight
+              as="h1"
+              fuerte={
+                <>
+                  El festival más <Guino>ruidoso</Guino>
+                </>
+              }
+              suave="que nunca vas a escuchar."
+              max={72}
+            />
           </div>
 
-          {/* 4 · Datos, separados por los signos de canal */}
-          <dl className="mt-8 flex items-center gap-3 sm:gap-8 lg:mt-10">
-            {datos.map(([v, k], i) => (
-              <Fragment key={k}>
-                {i > 0 && <Signo canal={CANALES[i - 1]} className="size-3 shrink-0 text-rosa sm:size-4" />}
-                <div className="flex flex-col-reverse">
-                  <dt className="tx-rotulo mt-1.5 text-blanco/80">{k}</dt>
-                  <dd className="font-display text-xl leading-none font-bold whitespace-nowrap uppercase sm:text-3xl">{v}</dd>
-                </div>
-              </Fragment>
-            ))}
-          </dl>
+          {/* 3 · Una sola acción */}
+          <div className="mt-[clamp(1.75rem,4svh,2.5rem)] flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a href="#reserva" className={`${boton("vino")} min-h-13 px-6 text-[0.8125rem]`}>
+              Reservá tus auriculares
+              <Flecha />
+            </a>
+            <a href="#programa" className="rotulo py-3 underline underline-offset-[6px] hover:no-underline">
+              Ver el programa
+            </a>
+          </div>
         </div>
       </div>
     </section>

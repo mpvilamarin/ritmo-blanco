@@ -71,7 +71,7 @@ export function Reserva() {
         <Encabezado
           id="reserva-titulo"
           rotulo="Cupo limitado para cuidar el bosque"
-          titulo={["Reservá", "tu lugar"]}
+          titulo={["Reservá", "tus auriculares"]}
           texto={<p>Tres pasos y listo. Tu reserva incluye los auriculares, que devolvés a la salida.</p>}
         />
 
