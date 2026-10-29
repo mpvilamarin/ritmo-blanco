@@ -18,12 +18,14 @@ export function Guino({ children }: { children: ReactNode }) {
   de la clase que reciba.
 */
 export function BoldLight({
+  id,
   fuerte,
   suave,
   as: Tag = "h2",
   max = 200,
   className = "",
 }: {
+  id?: string;
   fuerte: ReactNode;
   suave: ReactNode;
   as?: "h1" | "h2" | "h3" | "p";
@@ -59,7 +61,7 @@ export function BoldLight({
   }, [max]);
 
   return (
-    <Tag ref={caja} className={`font-display leading-[var(--lh-apretado)] uppercase ${className}`}>
+    <Tag ref={caja} id={id} className={`font-display leading-[var(--lh-apretado)] uppercase ${className}`}>
       <span ref={a} className="block w-fit font-black tracking-[-0.03em] whitespace-nowrap">
         {fuerte}
       </span>

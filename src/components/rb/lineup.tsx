@@ -29,7 +29,8 @@ function columnas(lista: Show[]) {
   return cols;
 }
 
-const anillo = (s: Show) => (s.canal === "todos" ? PALETA.blanco : CANAL[s.canal].color);
+/* Los canales se distinguen por signo, no por color: solo el cierre lleva anillo */
+const anillo = (s: Show) => (s.canal === "todos" ? PALETA.blanco : "transparent");
 const canalDe = (s: Show) => (s.canal === "todos" ? "Cierre" : CANAL[s.canal].nombre);
 
 function Artista({ s, grande }: { s: Show; grande: boolean }) {
@@ -40,9 +41,10 @@ function Artista({ s, grande }: { s: Show; grande: boolean }) {
       </div>
       <div>
         <p className="t-3">{s.nombre}</p>
-        {grande && <p className="t-chico mt-1 text-rosa">{s.que}</p>}
-        <p className="rotulo mt-1.5 text-lila">
+        {grande && <p className="t-chico mt-1 text-blanco/80">{s.que}</p>}
+        <p className="rotulo mt-1.5 inline-flex items-center gap-1.5 text-lila">
           {DIAS[s.dia - 1].fecha} · {grande ? `${s.inicio} · ` : ""}
+          {s.canal !== "todos" && <Signo canal={s.canal} className="size-3 text-blanco" />}
           {canalDe(s)}
         </p>
       </div>
@@ -75,8 +77,8 @@ export function LineUp() {
         <Encabezado
           centrado
           id="lineup-titulo"
-          rotulo={`${SHOWS.length} artistas · 3 canales · ${DIAS.length} días`}
-          titulo="Line-up"
+          rotulo={`${SHOWS.length} artistas · 3 canales · ${DIAS.length} jornadas`}
+          titulo={["Line-up", "en tus auriculares"]}
           claro
           texto={<p className="text-melocoton">Cada artista suena en un canal. En el cierre de cada noche, los tres canales transmiten lo mismo.</p>}
         />
@@ -90,7 +92,7 @@ export function LineUp() {
                 aria-pressed={on}
                 onClick={() => setCanal(c)}
                 className={`rotulo inline-flex cursor-pointer items-center gap-2 border px-3 py-2 lg:px-4 lg:py-2.5 ${
-                  on ? "border-rosa bg-rosa text-vino" : "border-blanco/40 hover:border-blanco"
+                  on ? "border-blanco bg-blanco text-vino" : "border-blanco/40 hover:border-blanco"
                 }`}
               >
                 {c && <Signo canal={c} className="size-3.5" />}
@@ -113,12 +115,12 @@ export function LineUp() {
         <ul className="hidden flex-wrap gap-x-6 gap-y-2 lg:flex">
           {CANALES.map((c) => (
             <li key={c} className="rotulo inline-flex items-center gap-2">
-              <Signo canal={c} className="size-3.5 text-rosa" />
+              <Signo canal={c} className="size-3.5" />
               {CANAL[c].nombre} · {CANAL[c].que}
             </li>
           ))}
         </ul>
-        <a href="#programa" className={boton("rosa")}>
+        <a href="#programa" className={boton("claro")}>
           Ver horarios en el programa
         </a>
       </div>

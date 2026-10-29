@@ -83,7 +83,7 @@ export function Mapa() {
       <Encabezado
         id="mapa-titulo"
         rotulo="Cómo moverte en el bosque"
-        titulo="Mapa del predio"
+        titulo={["Mapa", "del predio"]}
         texto={<p>Tocá una zona para ver qué pasa ahí, o un servicio para encontrarlo en el mapa.</p>}
       />
 

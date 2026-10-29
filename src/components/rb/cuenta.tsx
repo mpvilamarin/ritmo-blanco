@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { Flecha, boton } from "./base";
+import { BoldLight } from "../sistema";
 import { FECHAS, INICIO } from "@/lib/rb";
 import { programa } from "@/lib/programa";
 
@@ -58,9 +59,9 @@ export function Cuenta() {
     <section id="cuenta" aria-labelledby="cuenta-titulo" className="relative text-center">
       <div className="contenido py-[clamp(4rem,7vw,6.5rem)]">
         <p className="rotulo">Festival silencioso · {programa.sede.split(",")[0]}</p>
-        <h2 id="cuenta-titulo" className="t-1 mx-auto mt-5 max-w-[17ch]">
-          El bosque se pone los auriculares
-        </h2>
+        <div className="mx-auto mt-5 w-full max-w-[44rem]">
+          <BoldLight id="cuenta-titulo" fuerte="El bosque se pone" suave="los auriculares" max={132} className="[&>span]:mx-auto" />
+        </div>
         {resto !== null && (
           <p className="sr-solo">
             Faltan {Number(valores[0])} días, {Number(valores[1])} horas y {Number(valores[2])} minutos.
@@ -68,7 +69,7 @@ export function Cuenta() {
         )}
         <ol aria-hidden className="mx-auto mt-[clamp(2.5rem,5vw,4rem)] grid max-w-[60rem] grid-cols-4">
           {valores.map((v, i) => (
-            <li key={UNIDADES[i]} className={`relative flex flex-col items-center ${i > 0 ? "before:absolute before:top-[8%] before:left-0 before:h-[62%] before:w-px before:bg-rosa" : ""}`}>
+            <li key={UNIDADES[i]} className={`relative flex flex-col items-center ${i > 0 ? "before:absolute before:top-[8%] before:left-0 before:h-[62%] before:w-px before:bg-vino/25" : ""}`}>
               <span className="t-cifra">{v}</span>
               <span className="rotulo mt-4 text-[0.625rem] sm:text-[0.75rem]">{UNIDADES[i]}</span>
             </li>

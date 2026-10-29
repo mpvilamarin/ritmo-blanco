@@ -3,14 +3,14 @@
 import { useRef, useState } from "react";
 import { Cronograma } from "../cronograma";
 import { Modo, Signo } from "../signos";
+import { BoldLight } from "../sistema";
 import { cambiarPrograma, usePrograma } from "@/lib/estado-programa";
-import { ACTIVIDADES, CANAL, DIAS, FORMA_TIPO, SHOWS, capital, tipoLindo } from "@/lib/rb";
+import { ACTIVIDADES, CANAL, DIAS, FECHAS, SHOWS, capital, tipoLindo } from "@/lib/rb";
 import { CANALES, MODALIDADES, NOMBRE_MODALIDAD, TIPOS, programa, type Tipo } from "@/lib/programa";
 
-/* Signo de cada tipo de actividad: forma chica en el color del diseño */
-function FormaTipo({ tipo }: { tipo: Tipo }) {
-  const f = FORMA_TIPO[tipo];
-  return <span aria-hidden className="inline-block shrink-0" style={{ width: f.w / 2, height: f.h / 2, borderRadius: f.r, background: f.c }} />;
+/* Tipo de actividad: cápsula con contorno, sin color (el color es de las zonas) */
+function Capsula({ tipo }: { tipo: Tipo }) {
+  return <span className="rotulo inline-flex shrink-0 border border-current px-1.5 py-0.5 leading-none">{tipo}</span>;
 }
 
 const chip = (on: boolean) =>
@@ -53,14 +53,14 @@ export function Programa() {
       id="programa"
       aria-labelledby="programa-titulo"
       className={`contenido flex scroll-mt-0 flex-col gap-[2.5svh] py-[5svh] ${
-        cuadricula ? "" : "min-h-[100svh] justify-center lg:h-[100svh] lg:min-h-[680px]"
+        cuadricula ? "" : "min-h-[100svh] justify-center"
       }`}
     >
       <header>
-        <p className="rotulo mb-3">Programa · {DIAS.length} días · 14:00 a 23:00</p>
-        <h2 id="programa-titulo" className="t-1">
-          Programa
-        </h2>
+        <p className="rotulo mb-3">{FECHAS.larga} · 14:00 a 23:00</p>
+        <div className="w-full max-w-[44rem]">
+          <BoldLight id="programa-titulo" fuerte="Programa" suave={`${DIAS.length === 4 ? "cuatro" : DIAS.length} jornadas`} max={132} />
+        </div>
         <p className="t-cuerpo mt-3">
           Shows de 17 a 23 en el {escenario}. Talleres, charlas y clases desde las 14.
         </p>
@@ -108,13 +108,15 @@ export function Programa() {
               } ${on ? "bg-vino text-blanco" : "hover:bg-crema"}`}
             >
               <span className="t-2">{d.fecha}</span>
-              <span className="font-display text-sm leading-tight uppercase lg:text-lg">
+              <span className="font-display text-sm leading-tight uppercase lg:text-base lg:whitespace-nowrap">
                 <b className="font-black">{programa.dias[i].nombre[0]}</b> <span className="font-light">{programa.dias[i].nombre[1]}</span>
               </span>
             </button>
           );
         })}
       </div>
+
+      <Jornada numero={e.dia} />
 
       {/* Vista */}
       <div role="tablist" aria-label="Vista" className="flex gap-6 border-b border-vino/20">
@@ -147,7 +149,7 @@ export function Programa() {
             <span className="rotulo">{escenario}</span>
             {CANALES.map((c) => (
               <span key={c} className="rotulo flex items-center gap-2">
-                <span className="grid size-6 place-items-center" style={{ background: CANAL[c].color, color: CANAL[c].tinta }}>
+                <span className="grid size-6 place-items-center">
                   <Signo canal={c} className="size-3.5" />
                 </span>
                 {CANAL[c].nombre}
@@ -165,7 +167,7 @@ export function Programa() {
                 <ul className="contents">
                   {celdas.map((a, k) => (
                     <li key={a.slug} className="col-start-2 flex items-center gap-3 py-1 lg:col-start-auto lg:block lg:py-0">
-                      <span className="grid size-6 shrink-0 place-items-center lg:hidden" style={{ background: CANAL[CANALES[k]].color, color: CANAL[CANALES[k]].tinta }}>
+                      <span className="grid size-6 shrink-0 place-items-center lg:hidden">
                         <Signo canal={CANALES[k]} className="size-3" />
                       </span>
                       <span>
@@ -181,10 +183,10 @@ export function Programa() {
           <div className="grid grid-cols-[4rem_1fr] gap-x-4 bg-vino px-0 py-4 text-blanco lg:grid-cols-[7rem_1fr] lg:gap-6 lg:py-5">
             <p className="pl-3 lg:pl-4">
               <span className="t-3 block">{cierre.inicio}</span>
-              <span className="rotulo mt-0.5 block text-rosa">a {cierre.fin}</span>
+              <span className="rotulo mt-0.5 block text-lila">a {cierre.fin}</span>
             </p>
             <div className="pr-3">
-              <p className="rotulo flex items-center gap-2 text-rosa">
+              <p className="rotulo flex items-center gap-2 text-lila">
                 <span className="flex gap-1">
                   {CANALES.map((c) => (
                     <Signo key={c} canal={c} className="size-3" />
@@ -208,7 +210,6 @@ export function Programa() {
             </button>
             {TIPOS.map((t) => (
               <button key={t} type="button" aria-pressed={e.tipo === t} onClick={() => cambiarPrograma({ tipo: t })} className={chip(e.tipo === t)}>
-                <FormaTipo tipo={t} />
                 {tipoLindo(t)}
               </button>
             ))}
@@ -241,7 +242,9 @@ export function Programa() {
                 return (
                   <li
                     key={a.clave}
-                    className={`flex w-[78vw] shrink-0 snap-start flex-col border border-vino p-4 sm:w-[20rem] ${a.destacado ? "bg-rosa" : "bg-blanco"}`}
+                    className={`flex w-[78vw] shrink-0 snap-start flex-col border-y border-r border-vino bg-blanco p-4 pl-5 sm:w-[20rem] ${a.destacado ? "border-y-2 border-r-2" : ""}`}
+                    // Franja izquierda con el color de la zona; Desde Casa, solo contorno
+                    style={{ borderLeft: z.borde ? `8px double ${z.borde}` : `8px solid ${z.color}` }}
                   >
                     <div className="flex items-baseline justify-between gap-3">
                       <span className="t-2">{a.inicio}</span>
@@ -252,10 +255,7 @@ export function Programa() {
                     <p className="t-3 mt-3">{a.titulo}</p>
                     <p className="t-chico mt-2 line-clamp-3">{a.descripcion}</p>
                     <div className="rotulo mt-auto flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-vino/25 pt-3">
-                      <span className="inline-flex items-center gap-1.5">
-                        <FormaTipo tipo={a.tipo} />
-                        {tipoLindo(a.tipo)}
-                      </span>
+                      <Capsula tipo={a.tipo} />
                       <Modo modalidad={a.modalidad} conTexto />
                       <span className="px-1.5 py-0.5" style={{ background: z.color, color: z.texto, boxShadow: z.borde ? `inset 0 0 0 1px ${z.borde}` : undefined }}>
                         {a.zona}
@@ -285,6 +285,32 @@ export function Programa() {
         </>
       )}
     </section>
+  );
+}
+
+/*
+  Jornada elegida: el número gigante rosa detrás del nombre (bold/light), como
+  en el impreso y la remera. Los datos chicos van al costado, nunca encima del
+  número; la frase es el guiño de la jornada.
+*/
+function Jornada({ numero }: { numero: number }) {
+  const d = programa.dias[numero - 1];
+  return (
+    <div className="grid items-end gap-4 md:grid-cols-[minmax(0,26rem)_1fr] md:gap-10">
+      <div className="relative isolate pt-[clamp(1.5rem,4vw,3rem)] pl-[clamp(1rem,3vw,2.5rem)]">
+        <span aria-hidden className="t-cifra absolute top-0 left-0 -z-10 text-[clamp(7rem,16vw,12rem)] leading-[0.75] text-rosa">
+          {d.numero}
+        </span>
+        <BoldLight as="h3" fuerte={d.nombre[0]} suave={d.nombre[1]} max={96} />
+      </div>
+      <div className="flex flex-col gap-1.5 md:border-l md:border-vino md:pl-6">
+        <p className="rotulo">
+          {DIAS[numero - 1].etiqueta} · {DIAS[numero - 1].fecha} · {d.horario}
+        </p>
+        <p className="t-3">{d.generos.replace(/\.$/, "")}</p>
+        <p className="t-chico max-w-[36rem]">{d.frase}</p>
+      </div>
+    </div>
   );
 }
 

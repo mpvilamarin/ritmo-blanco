@@ -40,7 +40,7 @@ function Paso({ n, titulo, children }: { n: string; titulo: string; children: Re
 }
 
 const opcion = (on: boolean) =>
-  `cursor-pointer border border-vino transition-colors ${on ? "bg-vino text-blanco" : "bg-transparent text-vino hover:bg-blanco/50"}`;
+  `cursor-pointer border border-vino transition-colors ${on ? "bg-vino text-blanco" : "bg-transparent text-vino hover:bg-crema"}`;
 
 export function Reserva() {
   const [pase, setPase] = useState(COMPLETO);
@@ -66,19 +66,19 @@ export function Reserva() {
   };
 
   return (
-    <section id="reserva" aria-labelledby="reserva-titulo" className="banda scroll-mt-4 bg-rosa">
+    <section id="reserva" aria-labelledby="reserva-titulo" className="banda scroll-mt-4 bg-blanco">
       <div className="contenido">
         <Encabezado
           id="reserva-titulo"
           rotulo="Cupo limitado para cuidar el bosque"
-          titulo="Reservá tu lugar"
+          titulo={["Reservá", "tu lugar"]}
           texto={<p>Tres pasos y listo. Tu reserva incluye los auriculares, que devolvés a la salida.</p>}
         />
 
         <div className="mt-12 grid items-start gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <div className="border-b border-vino">
             <Paso n="01" titulo="Elegí tu pase">
-              <div role="radiogroup" aria-label="Pase" className="grid grid-cols-2 gap-2 xl:grid-cols-4">
+              <div role="radiogroup" aria-label="Pase" className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-5">
                 {PASES.map((p) => (
                   <button
                     key={p.v}
@@ -103,7 +103,7 @@ export function Reserva() {
                     type="button"
                     aria-label="Una persona menos"
                     onClick={() => setPersonas((n) => Math.max(1, n - 1))}
-                    className="t-3 size-11 cursor-pointer hover:bg-blanco/50"
+                    className="t-3 size-11 cursor-pointer hover:bg-crema"
                   >
                     −
                   </button>
@@ -115,7 +115,7 @@ export function Reserva() {
                     type="button"
                     aria-label="Una persona más"
                     onClick={() => setPersonas((n) => Math.min(6, n + 1))}
-                    className="t-3 size-11 cursor-pointer hover:bg-blanco/50"
+                    className="t-3 size-11 cursor-pointer hover:bg-crema"
                   >
                     +
                   </button>
@@ -176,7 +176,7 @@ export function Reserva() {
           <aside aria-label="Tu reserva" className="flex flex-col gap-5 bg-vino p-6 text-blanco md:p-8 lg:sticky lg:top-6">
             {!reserva ? (
               <>
-                <p className="rotulo text-rosa">Tu reserva</p>
+                <p className="rotulo text-lila">Tu reserva</p>
                 <p className="t-2">{elegido.nombre}</p>
                 <dl className="t-chico">
                   {[
@@ -191,7 +191,7 @@ export function Reserva() {
                   ))}
                 </dl>
                 <div>
-                  <p className="rotulo text-rosa">Incluye</p>
+                  <p className="rotulo text-lila">Incluye</p>
                   <ul className="t-chico mt-2 flex flex-col gap-1">
                     <li>Auriculares con los 3 canales</li>
                     <li>Talleres, charlas y clases</li>
@@ -203,14 +203,14 @@ export function Reserva() {
                     {error}
                   </p>
                 )}
-                <button type="button" onClick={confirmar} className={`${boton("rosa")} w-full py-4`}>
+                <button type="button" onClick={confirmar} className={`${boton("claro")} w-full py-4`}>
                   Confirmar reserva
                 </button>
                 <p className="rotulo text-center text-lila">Te llega la confirmación por email</p>
               </>
             ) : (
               <div role="status" className="flex flex-col items-start gap-4">
-                <p className="rotulo text-rosa">Reserva confirmada</p>
+                <p className="rotulo text-lila">Reserva confirmada</p>
                 <p className="t-2">Nos vemos en el bosque, {reserva.nombre}.</p>
                 <p className="t-chico">{reserva.resumen}</p>
                 <p className="t-2 bg-blanco px-4 py-2 text-vino">{reserva.codigo}</p>
@@ -222,7 +222,7 @@ export function Reserva() {
                     setNombre("");
                     setEmail("");
                   }}
-                  className="rotulo cursor-pointer text-rosa underline underline-offset-4"
+                  className="rotulo cursor-pointer text-lila underline underline-offset-4"
                 >
                   Hacer otra reserva
                 </button>

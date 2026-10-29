@@ -39,11 +39,11 @@ export const FECHAS = {
 
 export const INICIO = `${programa.dias[0].fecha}T14:00:00-03:00`;
 
-/* Color de cada canal en el diseño, con su tinta legible */
-export const CANAL: Record<CanalId, { nombre: string; que: string; color: string; tinta: string }> = {
-  tumbao: { nombre: "Tumbao", que: programa.canales.tumbao, color: PALETA.rosa, tinta: PALETA.vino },
-  pulso: { nombre: "Pulso", que: programa.canales.pulso, color: PALETA.melocoton, tinta: PALETA.vino },
-  sinte: { nombre: "Sinte", que: programa.canales.sinte, color: PALETA.lilaOscuro, tinta: PALETA.blanco },
+/* Canales: nombre y qué suena. Se distinguen solo por su signo, nunca por color (el color es de las zonas). */
+export const CANAL: Record<CanalId, { nombre: string; que: string }> = {
+  tumbao: { nombre: "Tumbao", que: programa.canales.tumbao },
+  pulso: { nombre: "Pulso", que: programa.canales.pulso },
+  sinte: { nombre: "Sinte", que: programa.canales.sinte },
 };
 
 export const DIAS = programa.dias.map((d) => ({
@@ -102,13 +102,6 @@ export const TOTALES = {
   soloOnline: ACTIVIDADES.filter((a) => a.modalidad === "virtual").length,
 };
 
-/* Forma de cada tipo de actividad, como en el diseño */
-export const FORMA_TIPO: Record<Tipo, { w: number; h: number; r: string; c: string }> = {
-  TALLER: { w: 30, h: 30, r: "8px", c: PALETA.melocoton },
-  CHARLA: { w: 32, h: 32, r: "50%", c: PALETA.azulgris },
-  CLASE: { w: 42, h: 24, r: "999px", c: PALETA.rosa },
-  EXPERIENCIA: { w: 30, h: 30, r: "999px 0 999px 0", c: PALETA.vino },
-};
 
 export const capital = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 export const tipoLindo = (t: Tipo) => capital(t.toLowerCase());

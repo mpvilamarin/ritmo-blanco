@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { PALETA } from "@/lib/rb";
+import { BoldLight } from "../sistema";
 
 /*
   Piezas comunes: lugar para foto, encabezado de sección y botón.
@@ -31,7 +32,9 @@ export function Foto({
 
 /*
   Encabezado de sección, siempre en una sola columna: rótulo chico, título y
-  debajo la bajada. Nunca título y texto lado a lado.
+  debajo la bajada. Nunca título y texto lado a lado. El título cumple la
+  regla bold/light: dos líneas del mismo ancho, la primera bold y la segunda
+  light. El ancho del título es fijo para que todos los módulos midan igual.
 */
 export function Encabezado({
   id,
@@ -43,7 +46,7 @@ export function Encabezado({
 }: {
   id: string;
   rotulo: string;
-  titulo: ReactNode;
+  titulo: [ReactNode, ReactNode];
   texto?: ReactNode;
   centrado?: boolean;
   claro?: boolean;
@@ -51,9 +54,9 @@ export function Encabezado({
   return (
     <header className={`flex flex-col ${centrado ? "items-center text-center" : ""}`}>
       <p className={`rotulo mb-4 ${claro ? "text-rosa" : ""}`}>{rotulo}</p>
-      <h2 id={id} className="t-1">
-        {titulo}
-      </h2>
+      <div className={`w-full max-w-[44rem] ${centrado ? "mx-auto" : ""}`}>
+        <BoldLight id={id} fuerte={titulo[0]} suave={titulo[1]} max={132} className={centrado ? "[&>span]:mx-auto" : ""} />
+      </div>
       {texto && <div className="mt-6 font-mono text-[clamp(1.0625rem,1.6vw,1.375rem)] leading-[1.55]">{texto}</div>}
     </header>
   );

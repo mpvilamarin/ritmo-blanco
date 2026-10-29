@@ -1,5 +1,5 @@
 import { Encabezado, Flecha, boton } from "./base";
-import { BoldLight, Guino } from "../sistema";
+import { BoldLight } from "../sistema";
 import { Rio, type Punto } from "../rio";
 import { BotonPrograma } from "./boton-programa";
 import { Signo } from "../signos";
@@ -13,7 +13,7 @@ export function DesdeCasa() {
         <Encabezado
           id="casa-titulo"
           rotulo="En vivo desde casa"
-          titulo="¿No llegás al bosque?"
+          titulo={["¿No llegás", "al bosque?"]}
           texto={
             <p>
               Transmitimos los tres canales en vivo, las charlas de la Pantalla Muda y clases pensadas para bailar en el living. Escuchás lo
@@ -80,7 +80,9 @@ export function ComoFunciona() {
       <Rio secciones={RIO_PASOS} escritorio={RIO_PASOS_ESCRITORIO} celular={RIO_PASOS_CELULAR} ancho={0.05} anchoCelular={0.09} />
       <section id="como" aria-label="Cómo funciona" className="banda contenido scroll-mt-4">
         <p className="rotulo mb-5">Cómo funciona · {PASOS.length} pasos</p>
-        <BoldLight as="h2" fuerte="Cero ruido," suave={<Guino>todo ritmo.</Guino>} max={200} />
+        <div className="w-full max-w-[44rem]">
+          <BoldLight as="h2" fuerte="Cero ruido," suave="todo ritmo." max={132} />
+        </div>
         <ol className="mt-16 grid gap-12 lg:grid-cols-4 lg:gap-0">
           {PASOS.map((p, i) => (
             <li key={p.t} className={`flex flex-col ${i > 0 ? "lg:border-l lg:border-vino/25 lg:pl-6" : ""} lg:pr-6`}>
@@ -99,7 +101,7 @@ export function ComoFunciona() {
           <span className="rotulo">Tu auricular, 3 canales</span>
           {CANALES.map((c) => (
             <span key={c} className="inline-flex items-center gap-3">
-              <span className="grid size-10 place-items-center" style={{ background: CANAL[c].color, color: CANAL[c].tinta }}>
+              <span className="grid size-10 place-items-center">
                 <Signo canal={c} className="size-5" />
               </span>
               <span>

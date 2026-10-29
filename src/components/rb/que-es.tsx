@@ -1,16 +1,16 @@
 import type { ReactNode } from "react";
 import { Signo } from "../signos";
-import { BoldLight, Guino } from "../sistema";
+import { BoldLight } from "../sistema";
 import { ACTIVIDADES, CANAL, DIAS, PALETA, SHOWS, tipoLindo, velo } from "@/lib/rb";
 import { CANALES, TIPOS, programa } from "@/lib/programa";
 
 const plural = (n: number, t: string) => `${n} ${t.toLowerCase()}${n === 1 ? "" : /[aeiou]$/.test(t.toLowerCase()) ? "s" : "es"}`;
 
-/* Color de cada tipo de actividad para la barra proporcional */
 /* Fondo de cada bloque: tonos de la paleta muy aclarados */
 const FONDOS = [velo(PALETA.crema, 40), velo(PALETA.rosa, 20), velo(PALETA.lila, 20), velo(PALETA.melocoton, 40), velo(PALETA.azulgris, 15)];
 
-const COLOR_TIPO = { TALLER: PALETA.melocoton, CHARLA: PALETA.azulgris, CLASE: PALETA.rosa, EXPERIENCIA: PALETA.vino };
+/* Tipos: tonos de un solo vino (cantidad, no categoría), para no chocar con los colores de zona */
+const COLOR_TIPO = { TALLER: PALETA.vino, CHARLA: velo(PALETA.vino, 72), CLASE: velo(PALETA.vino, 45), EXPERIENCIA: velo(PALETA.vino, 22) };
 
 /* Días: cada jornada con su fecha grande y su nombre en bold/light */
 function GraficoDias() {
@@ -28,13 +28,13 @@ function GraficoDias() {
   );
 }
 
-/* Canales: los tres signos grandes, cada uno con su color y lo que suena */
+/* Canales: los tres signos grandes, en vino, y lo que suena */
 function GraficoCanales() {
   return (
     <ul className="flex flex-col gap-2">
       {CANALES.map((c) => (
         <li key={c} className="flex flex-col items-center">
-          <span className="grid size-9 place-items-center" style={{ background: CANAL[c].color, color: CANAL[c].tinta }}>
+          <span className="grid size-9 place-items-center">
             <Signo canal={c} className="size-5" />
           </span>
           <span className="mt-1.5 font-display text-base leading-none font-black uppercase">{CANAL[c].nombre}</span>
@@ -45,7 +45,7 @@ function GraficoCanales() {
   );
 }
 
-/* Artistas: un punto por artista, en el color de su canal; los cierres, más grandes y en vino */
+/* Artistas: el signo de su canal por artista (los canales no llevan color); los cierres, en círculo vino */
 function GraficoArtistas() {
   return (
     <div>
@@ -56,7 +56,9 @@ function GraficoArtistas() {
               <Signo canal="sinte" className="size-3.5" />
             </li>
           ) : (
-            <li key={s.slug} className="size-5 rounded-full" style={{ background: CANAL[s.canal].color }} />
+            <li key={s.slug} className="grid size-5 place-items-center">
+              <Signo canal={s.canal} className="size-4" />
+            </li>
           ),
         )}
       </ul>
@@ -78,7 +80,7 @@ function GraficoActividades() {
           <span
             key={t}
             className="grid place-items-center font-display text-lg font-black"
-            style={{ flex: n, background: COLOR_TIPO[t], color: t === "EXPERIENCIA" || t === "CHARLA" ? PALETA.blanco : PALETA.vino }}
+            style={{ flex: n, background: COLOR_TIPO[t], color: t === "EXPERIENCIA" || t === "CLASE" ? PALETA.vino : PALETA.blanco }}
           >
             {n}
           </span>
@@ -138,7 +140,9 @@ export function QueEs() {
   return (
     <section id="que-es" aria-label="Qué es Ritmo Blanco" className="banda contenido scroll-mt-4">
       <p className="rotulo mb-5">Qué es Ritmo Blanco</p>
-      <BoldLight as="h2" fuerte="La música no se escucha," suave={<Guino>se lleva puesta.</Guino>} max={200} />
+      <div className="w-full max-w-[44rem]">
+        <BoldLight as="h2" fuerte="La música no se escucha," suave="se lleva puesta." max={132} />
+      </div>
       <p className="mt-8 font-mono text-[clamp(1.0625rem,1.6vw,1.375rem)] leading-[1.55]">
         Ritmo Blanco es un festival silencioso: cada persona recibe auriculares y elige entre tres canales en vivo. Desde afuera, el bosque está
         en calma; adentro, miles bailan canciones distintas al mismo tiempo. Además de los shows hay talleres, charlas y clases, y la energía la

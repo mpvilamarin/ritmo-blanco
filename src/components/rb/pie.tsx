@@ -14,7 +14,7 @@ export function Pie() {
         <div className="flex flex-wrap items-end justify-between gap-8">
           <Logo tinta="blanco" className="h-auto w-[clamp(180px,20vw,260px)]" />
           <div className="flex flex-wrap gap-2">
-            <a href="#reserva" className={boton("rosa")}>
+            <a href="#reserva" className={boton("claro")}>
               Reservá tu lugar
             </a>
             <a href="#desde-casa" className="rotulo inline-flex items-center justify-center border border-blanco px-5 py-3.5 text-[0.75rem] text-blanco transition-colors hover:bg-blanco hover:text-vino">
@@ -65,7 +65,7 @@ export function BarraFlotante() {
       <a href="#desde-casa" className="rotulo px-3 py-2.5 hover:bg-vino-oscuro">
         En vivo
       </a>
-      <a href="#reserva" className={`${boton("rosa")} py-2.5`}>
+      <a href="#reserva" className={`${boton("claro")} py-2.5`}>
         Reservá
       </a>
     </div>
