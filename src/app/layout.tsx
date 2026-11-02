@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
+import "./espaciado.css";
 
 /*
   Sets Grotesk está solo en Adobe Fonts. Mientras no haya kit web, se ve con

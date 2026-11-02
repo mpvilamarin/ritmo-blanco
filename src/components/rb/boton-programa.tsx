@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { irAlPrograma, type EstadoPrograma } from "@/lib/estado-programa";
 
-/* Botón que deja el programa filtrado y baja hasta él */
+/* Link al programa: deja los filtros puestos y baja hasta él. Sin JS, igual llega por el ancla. */
 export function BotonPrograma({
   filtro,
   className,
@@ -14,8 +14,15 @@ export function BotonPrograma({
   children: ReactNode;
 }) {
   return (
-    <button type="button" onClick={() => irAlPrograma(filtro)} className={className}>
+    <a
+      href="#programa"
+      onClick={(e) => {
+        e.preventDefault();
+        irAlPrograma(filtro);
+      }}
+      className={className}
+    >
       {children}
-    </button>
+    </a>
   );
 }

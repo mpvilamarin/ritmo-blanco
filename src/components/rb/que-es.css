@@ -1,0 +1,45 @@
+/* Texto a la izquierda; la arena, más chica, a la derecha con su canal abajo. */
+.rb-concepto-composicion { display: grid; gap: 2rem; grid-template-areas: "intro" "visual"; }
+.rb-concepto-intro { grid-area: intro; min-width: 0; }
+.rb-concepto-visual { grid-area: visual; position: relative; min-width: 0; aspect-ratio: 1; width: min(100%, 26rem); margin: 0 auto; }
+.rb-concepto-visual canvas { display: block; width: 100%; height: 100%; }
+/* Qué canal está dibujando la arena: chico, en la esquina inferior derecha */
+.rb-concepto-canal-actual {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.125rem;
+  text-align: right;
+  animation: rb-aparece 0.6s var(--ease-reposo);
+}
+@keyframes rb-aparece { from { opacity: 0; } }
+
+/* Tres datos bajo la composición: la cifra al lado de su texto, separados por filetes */
+.rb-concepto-datos { display: grid; margin-top: var(--esp-5); border-top: 1px solid var(--color-vino); }
+.rb-concepto-datos > li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--esp-2);
+  padding-block: var(--esp-3);
+  border-bottom: 1px solid var(--color-vino);
+}
+.rb-concepto-cifra { font-family: var(--font-display); font-size: var(--tx-subtitulo); font-weight: 900; line-height: 0.9; letter-spacing: -0.03em; }
+.rb-concepto-dato { font-family: var(--font-mono); font-size: var(--tx-bajada); line-height: 1.35; text-wrap: balance; }
+@media (min-width: 48rem) {
+  .rb-concepto-datos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rb-concepto-datos > li { border-bottom: 0; padding: var(--esp-3) var(--calle); }
+  .rb-concepto-datos > li:first-child { padding-left: 0; }
+  .rb-concepto-datos > li + li { border-left: 1px solid var(--color-vino); }
+  .rb-concepto-composicion {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    grid-template-areas: "intro visual";
+    column-gap: clamp(2rem, 5vw, 5rem);
+  }
+  .rb-concepto-intro { align-self: center; }
+  .rb-concepto-intro .encabezado { margin-bottom: 0; }
+  .rb-concepto-visual { align-self: center; margin-right: 0; }
+}

@@ -25,17 +25,12 @@ export function Foto({
       className={`con-grano relative flex items-center justify-center overflow-hidden ${circulo ? "rounded-full" : ""} ${className}`}
       style={{ background: `linear-gradient(140deg, ${PALETA.violeta} 0%, ${PALETA.lila} 38%, ${PALETA.rosa} 70%, ${PALETA.melocoton} 100%)`, ...style }}
     >
-      <span className="rotulo bg-blanco/85 px-2 py-1 text-center text-[0.625rem] text-vino">{texto}</span>
+      <span className="rotulo bg-blanco/85 px-2 py-1 text-center text-vino">{texto}</span>
     </div>
   );
 }
 
-/*
-  Encabezado de sección, siempre en una sola columna: rótulo chico, título y
-  debajo la bajada. Nunca título y texto lado a lado. El título cumple la
-  regla bold/light: dos líneas del mismo ancho, la primera bold y la segunda
-  light. El ancho del título es fijo para que todos los módulos midan igual.
-*/
+/* Encabezado compartido con ancho de lectura limitado. */
 export function Encabezado({
   id,
   rotulo,
@@ -43,6 +38,7 @@ export function Encabezado({
   texto,
   centrado = false,
   claro = false,
+  apilado = false,
 }: {
   id: string;
   rotulo: string;
@@ -50,14 +46,14 @@ export function Encabezado({
   texto?: ReactNode;
   centrado?: boolean;
   claro?: boolean;
+  /** En una sola columna, para cuando el encabezado comparte la fila con una imagen */
+  apilado?: boolean;
 }) {
   return (
-    <header className={`flex flex-col ${centrado ? "items-center text-center" : ""}`}>
-      <p className={`rotulo mb-4 ${claro ? "text-lila-palido" : ""}`}>{rotulo}</p>
-      <div className={`w-full max-w-[44rem] ${centrado ? "mx-auto" : ""}`}>
-        <BoldLight id={id} fuerte={titulo[0]} suave={titulo[1]} max={132} className={centrado ? "[&>span]:mx-auto" : ""} />
-      </div>
-      {texto && <div className="mt-6 font-mono text-[clamp(1.0625rem,1.6vw,1.375rem)] leading-[1.55]">{texto}</div>}
+    <header className={`encabezado ${apilado || centrado ? "encabezado-apilado" : ""} ${centrado ? "encabezado-centrado" : ""}`}>
+      <p className={`rotulo ${claro ? "text-lila-palido" : ""}`}>{rotulo}</p>
+      <BoldLight id={id} fuerte={titulo[0]} suave={titulo[1]} className={centrado ? "[&>span]:mx-auto" : ""} />
+      {texto && <div className="bajada">{texto}</div>}
     </header>
   );
 }
@@ -66,9 +62,10 @@ const BOTON = {
   vino: "bg-vino text-blanco hover:bg-vino-oscuro",
   claro: "bg-blanco text-vino hover:bg-crudo",
   borde: "border border-vino text-vino hover:bg-vino hover:text-blanco",
+  bordeClaro: "border border-blanco text-blanco hover:bg-blanco hover:text-vino",
 };
 export const boton = (tono: keyof typeof BOTON = "vino") =>
-  `rotulo inline-flex cursor-pointer items-center justify-center gap-2 px-5 py-3.5 text-[0.75rem] transition-colors ${BOTON[tono]}`;
+  `rotulo inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 px-5 py-3 transition-colors ${BOTON[tono]}`;
 
 export function Flecha({ className = "size-4" }: { className?: string }) {
   return (
@@ -78,7 +75,7 @@ export function Flecha({ className = "size-4" }: { className?: string }) {
   );
 }
 
-/* Íconos de trazo para el mapa (sin auriculares, ondas ni hojas: fuera del sistema) */
+/* Íconos de trazo (mapa y sustentabilidad); sin ondas ni hojas: fuera del sistema */
 export const ICONOS = {
   carpa: "M3.5 21 14 3M20.5 21 10 3M15.5 21 12 15l-3.5 6M2 21h20",
   rayo: "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",
@@ -91,6 +88,9 @@ export const ICONOS = {
   compost: "M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z",
   mas: "M12 5v14M5 12h14",
   punto: "M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zM12 10a2 2 0 1 1 0 4 2 2 0 0 1 0-4z",
+  auriculares: "M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3",
+  pisadas:
+    "M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0zM20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0zM16 17h4M4 13h4",
 };
 
 export function Icono({ d, className = "size-5", grosor = 2.25 }: { d: string; className?: string; grosor?: number }) {

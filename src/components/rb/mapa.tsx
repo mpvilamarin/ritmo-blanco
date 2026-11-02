@@ -1,237 +1,247 @@
 "use client";
 
 import { useState } from "react";
-import { Encabezado, Flecha, ICONOS, Icono, boton } from "./base";
+import Image from "next/image";
+import { Encabezado, Flecha, boton } from "./base";
 import { Signo } from "../signos";
-import { irAlPrograma } from "@/lib/estado-programa";
+import { BotonPrograma } from "./boton-programa";
 import { ACTIVIDADES, DIAS, PALETA, SHOWS } from "@/lib/rb";
-import { CANALES, programa } from "@/lib/programa";
+import { programa } from "@/lib/programa";
 
-/* Mancha orgánica cerrada (8 puntos, Catmull-Rom), fija según la semilla */
-function mancha(semilla: number) {
-  const n = 8;
-  const azar = (i: number) => {
-    const x = Math.sin(semilla * 91.7 + i * 12.9) * 43758.5;
-    return x - Math.floor(x);
-  };
-  const p = Array.from({ length: n }, (_, i) => {
-    const a = (i / n) * Math.PI * 2;
-    const r = 41 + azar(i) * 8;
-    return [50 + Math.cos(a) * r, 50 + Math.sin(a) * r];
-  });
-  let d = `M${p[0][0].toFixed(1)},${p[0][1].toFixed(1)}`;
-  for (let i = 0; i < n; i++) {
-    const [p0, p1, p2, p3] = [p[(i - 1 + n) % n], p[i], p[(i + 1) % n], p[(i + 2) % n]];
-    d += ` C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)},${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)},${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
-  }
-  return `${d}Z`;
-}
-
-/* Posición (x, y, ancho en %), semilla e ícono de cada zona del JSON */
-const UBICACION: Record<string, { x: number; y: number; w: number; semilla: number; icono: string | null }> = {
-  "Escenario Mudo": { x: 64, y: 28, w: 27, semilla: 3, icono: null },
-  "Domo Callado": { x: 20, y: 48, w: 20, semilla: 11, icono: ICONOS.carpa },
-  "Usina Bailable": { x: 80, y: 70, w: 21, semilla: 9, icono: ICONOS.rayo },
-  "Pantalla Muda": { x: 37, y: 24, w: 16, semilla: 7, icono: ICONOS.pantalla },
-  "Instalación central": { x: 47, y: 66, w: 15, semilla: 5, icono: ICONOS.reciclar },
+/* Coordenadas sobre public/fotos/Mapa@2x.png, según el plano marcado. */
+const UBICACION: Record<string, { x: number; y: number; w: number }> = {
+  "Escenario Mudo": { x: 70, y: 62, w: 16 },
+  "Domo Callado": { x: 23, y: 55, w: 15 },
+  "Usina Bailable": { x: 59.5, y: 75, w: 19 },
+  "Pantalla Muda": { x: 36, y: 68, w: 12 },
+  "Instalación central": { x: 49.5, y: 61, w: 10 },
 };
 const ZONAS = Object.keys(UBICACION).filter((n) => programa.zonas[n]);
 
 const SERVICIOS = [
-  { id: "acceso", label: "Acceso", icono: ICONOS.acceso, pts: [[6, 80]] },
-  { id: "auri", label: "Auriculares", icono: ICONOS.punto, pts: [[17, 72]] },
-  { id: "bici", label: "Bicicletero", icono: ICONOS.bici, pts: [[7, 62], [88, 52]] },
-  { id: "agua", label: "Agua", icono: ICONOS.gota, pts: [[50, 49], [30, 70], [90, 86]] },
-  { id: "compost", label: "Compost", icono: ICONOS.compost, pts: [[94, 34], [36, 88]] },
-  { id: "aux", label: "Primeros auxilios", icono: ICONOS.mas, pts: [[60, 57]] },
+  {
+    id: "acceso",
+    letra: "A",
+    label: "Accesos",
+    pts: [
+      [37, 86],
+      [70.5, 95],
+    ],
+  },
+  {
+    id: "agua",
+    letra: "B",
+    label: "Hidratación libre",
+    pts: [
+      [30.5, 28.5],
+      [65, 44],
+    ],
+  },
+  { id: "aux", letra: "C", label: "Primeros auxilios", pts: [[75.5, 72]] },
+  { id: "auri", letra: "D", label: "Auriculares (con DNI)", pts: [[44, 75]] },
+  { id: "banos", letra: "E", label: "Baños", pts: [[82, 79.5]] },
+  { id: "bici", letra: "F", label: "Bicicleteros", pts: [[32.3, 76.5]] },
 ];
-
-const SENDEROS =
-  "M9.6,88 C18,82 22,78 26,76 S42,70 52,68 S70,72 80,70 S112,68 124,70 M52,68 C58,56 64,46 72,43 S94,36 102,32 M26,76 C28,66 30,58 32,52 M72,43 C66,36 62,30 58,26";
-
-const ARBOLES = [
-  [4, 8, 6], [13, 4, 4.5], [9, 16, 3.5], [20, 9, 3], [150, 6, 6], [158, 15, 4], [142, 12, 3], [152, 93, 6], [143, 98, 4],
-  [158, 83, 3], [60, 96, 4], [68, 99, 3], [2, 42, 4], [5, 32, 3], [98, 8, 3.5], [106, 4, 3], [118, 50, 2.6], [88, 88, 3],
-];
-
-function SignosEscenario({ className }: { className: string }) {
-  return (
-    <span className="flex gap-[6%]">
-      {CANALES.map((c) => (
-        <Signo key={c} canal={c} className={className} />
-      ))}
-    </span>
-  );
-}
 
 export function Mapa() {
   const [zona, setZona] = useState("Escenario Mudo");
   const [servicio, setServicio] = useState<string | null>(null);
 
   const items = [
-    ...ACTIVIDADES.map((a) => ({ dia: a.dia, inicio: a.inicio, titulo: a.titulo, zona: a.zona })),
-    ...SHOWS.map((s) => ({ dia: s.dia, inicio: s.inicio, titulo: s.nombre, zona: programa.dias[0].lineup.escenario })),
+    ...ACTIVIDADES.map((a) => ({ dia: a.dia, inicio: a.inicio, titulo: a.titulo, zona: a.zona, show: false })),
+    ...SHOWS.map((s) => ({ dia: s.dia, inicio: s.inicio, titulo: s.nombre, zona: programa.dias[0].lineup.escenario, show: true })),
   ]
     .filter((i) => i.zona === zona)
     .sort((a, b) => a.dia - b.dia || a.inicio.localeCompare(b.inicio));
   const z = programa.zonas[zona];
-  const n = ZONAS.indexOf(zona) + 1;
   const esEscenario = zona === programa.dias[0].lineup.escenario;
+  // Shows y actividades se cuentan por separado: el escenario también tiene charlas
+  const nShows = items.filter((i) => i.show).length;
+  const nActividades = items.length - nShows;
+  const conteo = [
+    nShows && `${nShows} ${nShows === 1 ? "show" : "shows"}`,
+    nActividades && `${nActividades} ${nActividades === 1 ? "actividad" : "actividades"}`,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
-    <section id="mapa" aria-labelledby="mapa-titulo" className="banda contenido scroll-mt-4">
-      <Encabezado
-        id="mapa-titulo"
-        rotulo="Cómo moverte en el bosque"
-        titulo={["Mapa", "del predio"]}
-        texto={<p>Tocá una zona para ver qué pasa ahí, o un servicio para encontrarlo en el mapa.</p>}
-      />
+    <section id="mapa" aria-labelledby="mapa-titulo" className="pantalla scroll-mt-4 bg-blanco">
+      <div className="contenido">
+        <Encabezado
+          id="mapa-titulo"
+          rotulo="Cómo moverte en el bosque"
+          titulo={["Mapa", "del predio"]}
+          texto={<p>Tocá una zona para ver qué pasa ahí, o un servicio para encontrarlo en el mapa.</p>}
+        />
 
-      <div role="group" aria-label="Servicios" className="mt-10 flex flex-wrap gap-1.5">
-        {SERVICIOS.map((s) => {
-          const on = servicio === s.id;
-          return (
-            <button
-              key={s.id}
-              type="button"
-              aria-pressed={on}
-              onClick={() => setServicio(on ? null : s.id)}
-              className={`rotulo inline-flex cursor-pointer items-center gap-2 border border-vino px-3 py-2 ${on ? "bg-vino text-blanco" : "hover:bg-crudo"}`}
-            >
-              <Icono d={s.icono} className="size-3.5" />
-              {s.label}
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <div className="min-w-0 self-start overflow-x-auto border border-vino">
-          <div className="relative aspect-[16/10] min-w-[640px] overflow-hidden bg-crudo/40">
-            <svg viewBox="0 0 160 100" aria-hidden className="absolute inset-0 size-full">
-              <g fill={PALETA.crudo}>
-                {ARBOLES.map(([cx, cy, r], i) => (
-                  <circle key={i} cx={cx} cy={cy} r={r} />
-                ))}
-              </g>
-              <g fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path d={SENDEROS} stroke={PALETA.blanco} strokeWidth="4" />
-                <path d={SENDEROS} stroke={PALETA.vino} strokeWidth=".5" strokeDasharray="1.4 1.4" />
-              </g>
-            </svg>
-
-            {ZONAS.map((nombre, k) => {
-              const u = UBICACION[nombre];
-              const zz = programa.zonas[nombre];
-              const on = zona === nombre;
-              return (
-                <div
-                  key={nombre}
-                  className="absolute aspect-square -translate-x-1/2 -translate-y-1/2 transition-opacity duration-[250ms]"
-                  style={{ left: `${u.x}%`, top: `${u.y}%`, width: `${u.w}%`, opacity: servicio ? 0.35 : 1 }}
-                >
-                  <button
-                    type="button"
-                    aria-pressed={on}
-                    aria-label={`${nombre}: ${zz.uso}`}
-                    onClick={() => {
-                      setZona(nombre);
-                      setServicio(null);
-                    }}
-                    className="absolute inset-0 cursor-pointer"
-                  >
-                    <svg viewBox="0 0 100 100" className="absolute inset-0 size-full overflow-visible">
-                      <path d={mancha(u.semilla)} fill={zz.color} stroke={PALETA.vino} strokeWidth={on ? 2.5 : 0} />
-                    </svg>
-                    <span className="absolute inset-0 grid place-items-center" style={{ color: zz.texto }}>
-                      {u.icono ? <Icono d={u.icono} className="size-[30%]" /> : <SignosEscenario className="size-[1.4vw] min-w-3.5" />}
-                    </span>
-                    <span className="rotulo absolute top-[6%] left-[6%] grid size-5 place-items-center bg-blanco text-vino">{k + 1}</span>
-                  </button>
-                  <span
-                    className={`rotulo pointer-events-none absolute top-[94%] left-1/2 -translate-x-1/2 px-2 py-1 text-[0.625rem] whitespace-nowrap ${
-                      on ? "bg-vino text-blanco" : "bg-blanco text-vino"
-                    }`}
-                  >
-                    {nombre}
-                  </span>
-                </div>
-              );
-            })}
-
-            {SERVICIOS.flatMap((s) =>
-              s.pts.map(([x, y]) => (
-                <div
-                  key={`${s.id}-${x}`}
-                  aria-hidden
-                  className="absolute flex flex-col items-center gap-0.5 transition-[opacity,transform] duration-[250ms]"
-                  style={{
-                    left: `${x}%`,
-                    top: `${y}%`,
-                    transform: `translate(-50%,-50%) scale(${servicio === s.id ? 1.3 : 1})`,
-                    opacity: servicio && servicio !== s.id ? 0.2 : 1,
-                  }}
-                >
-                  <span className="grid size-6 place-items-center bg-vino text-blanco">
-                    <Icono d={s.icono} className="size-3.5" />
-                  </span>
-                </div>
-              )),
-            )}
-
-            <span aria-hidden className="rb-pulso absolute top-[88%] left-[6%] size-[3%] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-vino" />
-            <span className="rotulo absolute top-[95%] left-[9%] -translate-y-full bg-vino px-2 py-1 text-[0.625rem] text-blanco">Estás acá</span>
-          </div>
+        <div role="group" aria-label="Servicios" className="flex flex-wrap gap-2">
+          {SERVICIOS.map((s) => {
+            const on = servicio === s.id;
+            return (
+              <button
+                key={s.id}
+                type="button"
+                aria-pressed={on}
+                onClick={() => setServicio(on ? null : s.id)}
+                className={`rotulo inline-flex min-h-11 cursor-pointer items-center gap-2 border border-vino px-3 ${on ? "bg-vino text-blanco" : "hover:bg-crudo"}`}
+              >
+                <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-vino text-blanco">
+                  {s.letra}
+                </span>
+                {s.label}
+              </button>
+            );
+          })}
         </div>
 
-        <div className="flex flex-col border-t border-vino pt-5 lg:border-t-0 lg:pt-0" aria-live="polite">
-          <p className="rotulo flex items-center gap-2">
-            <span className="size-3" style={{ background: z.color, boxShadow: `inset 0 0 0 1px ${PALETA.vino}` }} />
-            Zona {n} · {items.length} {esEscenario ? "shows" : "actividades"}
-          </p>
-          <h3 className="t-2 mt-3">{zona}</h3>
-          <p className="t-chico mt-2">{z.uso}</p>
-          <ul className="mt-5 border-t border-vino/25">
-            {items.slice(0, 5).map((it) => (
-              <li key={`${it.dia}-${it.titulo}`} className="t-chico grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 border-b border-vino/25 py-2.5">
-                <span className="font-semibold">
-                  {DIAS[it.dia - 1].fecha} · {it.inicio}
-                </span>
-                <span>{it.titulo}</span>
-              </li>
-            ))}
-          </ul>
-          <button
-            type="button"
-            onClick={() =>
-              irAlPrograma(esEscenario ? { vista: "lineup" } : { vista: "actividades", zona, tipo: null, modalidad: null, abierta: null })
-            }
-            className={`${boton("vino")} mt-6 self-start`}
+        {/* En escritorio la zona se elige en el plano o en la leyenda */}
+        <div className="mt-6 flex flex-wrap items-center gap-3 lg:hidden">
+          <label htmlFor="mapa-zona" className="t-chico font-semibold">
+            Elegí una zona
+          </label>
+          <select
+            id="mapa-zona"
+            value={zona}
+            onChange={(e) => {
+              setZona(e.target.value);
+              setServicio(null);
+            }}
+            className="t-chico min-h-11 max-w-full border border-vino bg-blanco px-3"
           >
-            Buscalo en el programa
-            <Flecha />
-          </button>
-          <div className="mt-8 border-t border-vino pt-4">
-            <p className="rotulo">Zonas</p>
-            <ul className="mt-3 grid gap-1.5">
-              {ZONAS.map((nombre, k) => {
-                const zz = programa.zonas[nombre];
-                return (
-                  <li key={nombre}>
+            {ZONAS.map((nombre) => (
+              <option key={nombre} value={nombre}>
+                {nombre}
+              </option>
+            ))}
+          </select>
+          <p id="mapa-ayuda" className="t-chico lg:hidden">
+            Deslizá el mapa hacia los costados para recorrerlo.
+          </p>
+        </div>
+        <div className="mt-6 grid gap-6 lg:mt-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+          <div className="flex min-w-0 flex-col gap-1">
+            <div
+              tabIndex={0}
+              role="region"
+              aria-label="Mapa del predio"
+              aria-describedby="mapa-ayuda"
+              className="min-w-0 self-start overflow-x-auto border border-vino"
+            >
+              <div className="relative aspect-[1684/790] min-w-[800px] bg-blanco">
+                <Image
+                  src="/fotos/Mapa@2x.png"
+                  alt="Plano del predio con lagunas, arboledas y senderos entre las zonas del festival."
+                  width={1684}
+                  height={790}
+                  unoptimized
+                  className="absolute inset-0 size-full"
+                />
+                {ZONAS.map((nombre) => {
+                  const u = UBICACION[nombre];
+                  const zz = programa.zonas[nombre];
+                  const on = zona === nombre && !servicio;
+                  return (
                     <button
+                      key={nombre}
                       type="button"
-                      onClick={() => setZona(nombre)}
-                      className={`t-chico flex cursor-pointer items-center gap-2.5 ${zona === nombre ? "font-semibold underline underline-offset-4" : ""}`}
+                      aria-pressed={on}
+                      aria-label={`${nombre}: ${zz.uso}`}
+                      onClick={() => {
+                        setZona(nombre);
+                        setServicio(null);
+                      }}
+                      className={`absolute flex min-h-16 -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center justify-center rounded-sm px-1 py-2 text-vino transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vino ${on ? "bg-blanco/75 ring-1 ring-vino" : "hover:bg-blanco/60"}`}
+                      style={{ left: `${u.x}%`, top: `${u.y}%`, width: `${u.w}%`, opacity: servicio ? 0.4 : 1 }}
                     >
-                      {/* Muestra de color sin texto encima: el vino chico no pasa sobre lila vivo */}
-                      <span aria-hidden className="size-4 shrink-0" style={{ background: zz.color, boxShadow: zz.borde ? `inset 0 0 0 1px ${zz.borde}` : undefined }} />
-                      <span className="rotulo">{k + 1}</span>
-                      {nombre}
+                      <span style={{ color: zz.color }}>
+                        <Signo canal="tumbao" className="size-6" />
+                      </span>
+                      <span className="max-w-[12ch] text-center font-sans text-[13px] leading-none font-bold">{nombre}</span>
                     </button>
-                  </li>
-                );
-              })}
+                  );
+                })}
+                {SERVICIOS.flatMap((s) =>
+                  s.pts.map(([x, y]) => (
+                    <button
+                      key={`${s.id}-${x}`}
+                      type="button"
+                      aria-label={`${s.letra}: ${s.label}`}
+                      aria-pressed={servicio === s.id}
+                      onClick={() => setServicio(servicio === s.id ? null : s.id)}
+                      className="absolute grid size-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center rounded-full font-mono text-[0.875rem] font-bold text-blanco transition-[opacity,scale] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vino"
+                      style={{
+                        left: `${x}%`,
+                        top: `${y}%`,
+                        scale: servicio === s.id ? 1.3 : 1,
+                        opacity: servicio && servicio !== s.id ? 0.25 : 1,
+                      }}
+                    >
+                      <span className="grid size-7 place-items-center rounded-full bg-vino">{s.letra}</span>
+                    </button>
+                  )),
+                )}
+              </div>
+            </div>
+            {/* Leyenda bajo el plano: cada zona con su color, en una grilla de tres */}
+            <div className="grid grid-cols-2 items-center gap-x-4 sm:grid-cols-3">
+              <p className="rotulo">Zonas</p>
+              <ul className="contents">
+                {ZONAS.map((nombre) => {
+                  const zz = programa.zonas[nombre];
+                  return (
+                    <li key={nombre}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setZona(nombre);
+                          setServicio(null);
+                        }}
+                        className={`t-chico flex min-h-11 cursor-pointer items-center gap-2 ${zona === nombre ? "font-semibold underline underline-offset-4" : ""}`}
+                      >
+                        {/* Muestra de color sin texto encima: el vino chico no pasa sobre lila vivo */}
+                        <span
+                          aria-hidden
+                          className="size-4 shrink-0"
+                          style={{ background: zz.color, boxShadow: zz.borde ? `inset 0 0 0 1px ${zz.borde}` : undefined }}
+                        />
+                        {nombre}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex flex-col border-t border-vino pt-5 lg:border-t-0 lg:pt-0" aria-live="polite">
+            <p className="rotulo flex items-center gap-2">
+              <span className="size-3" style={{ background: z.color, boxShadow: `inset 0 0 0 1px ${PALETA.vino}` }} />
+              {conteo}
+            </p>
+            <h3 className="t-2 mt-2">{zona}</h3>
+            <p className="t-cuerpo mt-2">{z.uso}</p>
+            <ul className="mt-4 border-t border-vino/25">
+              {items.slice(0, 5).map((it) => (
+                <li
+                  key={`${it.dia}-${it.titulo}`}
+                  className="t-chico grid grid-cols-[8.5rem_minmax(0,1fr)] gap-3 border-b border-vino/25 py-2"
+                >
+                  <span className="font-semibold">
+                    {DIAS[it.dia - 1].fecha} · {it.inicio}
+                  </span>
+                  <span>{it.titulo}</span>
+                </li>
+              ))}
             </ul>
+            {/* La lista muestra 5: el link dice cuántos hay en total */}
+            <BotonPrograma
+              filtro={esEscenario ? { vista: "lineup" } : { vista: "actividades", zona, tipo: null, modalidad: null, abierta: null }}
+              className={`${boton("vino")} mt-5 self-start`}
+            >
+              {items.length > 5 ? `Ver los ${items.length} en el programa` : "Buscalo en el programa"}
+              <Flecha />
+            </BotonPrograma>
           </div>
         </div>
       </div>

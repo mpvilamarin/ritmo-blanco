@@ -97,31 +97,6 @@ export function Texto({ children }: { children: string }) {
   );
 }
 
-/*
-  Logo provisorio: recorte de LOGOS-03.jpg recoloreado con un filtro
-  (negro → color, blanco → transparente). Reemplazar por public/logo.svg.
-*/
-const TINTAS = {
-  vino: [105 / 255, 33 / 255, 54 / 255],
-  blanco: [1, 1, 1],
-} as const;
-
-export function Logo({ tinta = "vino", className = "" }: { tinta?: keyof typeof TINTAS; className?: string }) {
-  const [r, g, b] = TINTAS[tinta];
-  const id = `logo-${tinta}`;
-  return (
-    <svg viewBox="0 0 420 224" role="img" aria-label="Ritmo Blanco" className={className}>
-      <filter id={id} colorInterpolationFilters="sRGB">
-        <feColorMatrix
-          type="matrix"
-          values={`0 0 0 0 ${r} 0 0 0 0 ${g} 0 0 0 0 ${b} -0.34 -1.144 -0.116 0 1.4`}
-        />
-      </filter>
-      <image href="/logo-boceto.png" width="420" height="224" filter={`url(#${id})`} />
-    </svg>
-  );
-}
-
 /* Placeholder de foto: tono pastel con grano, texto marcado */
 export function FotoPendiente({ texto = "[FOTO]", className = "" }: { texto?: string; className?: string }) {
   return (

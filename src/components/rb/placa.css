@@ -1,0 +1,58 @@
+/* Creá tu patrón: explicación y controles a la izquierda, la placa a la derecha. */
+.rb-placa { background: var(--color-lila-palido); }
+.rb-placa-composicion {
+  display: grid;
+  gap: 2rem;
+  grid-template-areas: "texto" "lienzo" "controles";
+}
+.rb-placa-texto { grid-area: texto; min-width: 0; }
+.rb-placa-texto .encabezado { margin-bottom: 0; }
+
+.rb-placa-lienzo { grid-area: lienzo; min-width: 0; }
+.rb-placa-lienzo canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--color-blanco);
+  border: 1px solid var(--color-vino);
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+.rb-placa-lienzo figcaption { margin-top: 0.5rem; }
+
+.rb-placa-controles { grid-area: controles; display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+.rb-placa-hz { font-family: var(--font-display); font-size: var(--tx-subtitulo); font-weight: 900; line-height: 1; letter-spacing: -0.03em; }
+.rb-placa-regla { position: relative; padding-bottom: 0.5rem; }
+.rb-placa-regla input { display: block; width: 100%; min-height: 2.75rem; accent-color: var(--color-vino); cursor: pointer; }
+.rb-placa-marcas { position: absolute; left: 0.5rem; right: 0.5rem; bottom: 0; height: 0.625rem; pointer-events: none; }
+.rb-placa-marcas > span { position: absolute; width: 2px; height: 100%; translate: -1px 0; background: var(--color-vino); }
+.rb-placa-boton {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--color-vino);
+  background: var(--color-blanco);
+  font-family: var(--font-mono);
+  font-size: var(--tx-rotulo);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.rb-placa-boton:hover { background: var(--color-crudo); }
+.rb-placa-boton[aria-pressed="true"] { background: var(--color-vino); color: var(--color-blanco); }
+
+@media (min-width: 64rem) {
+  .rb-placa-composicion {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-areas: "texto lienzo" "controles lienzo";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+    row-gap: 1.75rem;
+  }
+  .rb-placa-lienzo { align-self: center; }
+  .rb-placa-lienzo canvas { aspect-ratio: 3 / 2; }
+}

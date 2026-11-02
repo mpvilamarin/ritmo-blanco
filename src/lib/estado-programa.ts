@@ -36,5 +36,10 @@ export function irAlPrograma(parcial: Partial<EstadoPrograma>) {
   const el = document.getElementById("programa");
   if (!el) return;
   const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 10, behavior: quieto ? "auto" : "smooth" });
+  // scrollIntoView respeta el scroll-padding de la cabecera pegada
+  el.scrollIntoView({ behavior: quieto ? "auto" : "smooth" });
+  // El teclado sigue desde el programa, no desde el principio de la página
+  const titulo = document.getElementById("programa-titulo");
+  titulo?.setAttribute("tabindex", "-1");
+  titulo?.focus({ preventScroll: true });
 }

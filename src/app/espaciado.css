@@ -1,0 +1,62 @@
+/*
+  Ritmo de la portada. Cada sección es una banda a todo el ancho con su
+  contenido adentro, y el color de fondo dice qué tipo de momento es:
+    blanco       leer y consultar (la base)
+    lila pálido  probar algo con las manos (la placa)
+    violeta      lo que pasa fuera del bosque (desde casa)
+    vino         la voz del festival (la cuenta, sustentabilidad y el pie)
+  Nunca dos bandas de color pegadas ni una banda dentro de otra.
+  Entre dos secciones blancas, un filete vino separa (el color ya separa solo).
+*/
+:root { --esp-seccion: clamp(3.5rem, 7vw, 6.5rem); }
+main > section {
+  padding-block: var(--esp-seccion);
+}
+main > section.bg-blanco + section.bg-blanco {
+  padding-top: 0;
+}
+main > section.bg-blanco + section.bg-blanco > :first-child {
+  padding-top: var(--esp-seccion);
+  border-top: 1px solid var(--color-vino);
+}
+/* El filete se dibuja dentro de los márgenes, como el resto del contenido */
+main > section.bg-blanco + section.bg-blanco > :first-child:not(.contenido) {
+  margin-inline: var(--margen);
+}
+
+/* Secciones de un solo mensaje (la cuenta, la reserva): menos aire */
+main > section.compacta { --esp-seccion: clamp(2.5rem, 5vw, 4rem); }
+
+/*
+  Secciones de consulta que entran en una pantalla (programa, mapa, energía):
+  en escritorio ocupan el alto visible bajo la cabecera, con aire más justo.
+*/
+@media (min-width: 64rem) and (min-height: 40rem) {
+  main > section.pantalla {
+    --esp-seccion: clamp(1rem, 2.5vh, 2rem);
+    min-height: calc(100svh - 4.25rem);
+    scroll-margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  main > section.pantalla .encabezado { margin-bottom: var(--esp-2); }
+}
+#top { min-height: 0; }
+#top > .grilla { flex: none; padding-block: clamp(1.75rem, 3vw, 3rem); }
+
+/* El hero usa todo el ancho: las demás secciones comparten su mismo eje. */
+.contenido {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: var(--margen);
+}
+/* La línea del filete va de margen a margen, no de borde a borde */
+main > section.bg-blanco + section.bg-blanco > .contenido:first-child {
+  margin-inline: var(--margen);
+  width: auto;
+  padding-inline: 0;
+}
+
+footer > .contenido { padding-block: var(--esp-5) var(--esp-3); }

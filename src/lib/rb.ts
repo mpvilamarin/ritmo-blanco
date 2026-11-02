@@ -68,10 +68,12 @@ export type Show = {
   cierre: boolean;
 };
 
-const slug = (t: string) =>
+/* "Hernán Cattáneo" → "hernan-cattaneo": también es el nombre de su foto en public/fotos/artistas */
+export const slug = (t: string) =>
   t
     .toLowerCase()
     .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
@@ -102,6 +104,7 @@ export const TOTALES = {
   artistas: SHOWS.length,
   actividades: ACTIVIDADES.length,
   soloOnline: ACTIVIDADES.filter((a) => a.modalidad === "virtual").length,
+  hibridas: ACTIVIDADES.filter((a) => a.modalidad === "hibrida").length,
 };
 
 

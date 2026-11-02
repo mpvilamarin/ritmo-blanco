@@ -31,7 +31,7 @@ function Jornada({ dia }: { dia: Dia }) {
           </p>
           <h3 className="mt-1 font-display text-[3.25rem] leading-[0.86] uppercase">
             <span className="block font-black tracking-[-0.03em]">{dia.nombre[0]}</span>
-            <span className="block font-light tracking-[-0.02em]">{dia.nombre[1]}</span>
+            <span className="block font-normal tracking-[-0.02em]">{dia.nombre[1]}</span>
           </h3>
         </div>
         <div className="relative border-t border-vino pt-2 pb-1">

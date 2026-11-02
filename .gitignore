@@ -42,3 +42,21 @@ next-env.d.ts
 
 # Materiales de referencia (no se publican)
 /ritmo-blanco-web 2/
+/teaser/.cuadros/
+/reel/.cuadros/
+/cortina/.cuadros/
+/espera/.cuadros/
+/overlays/.cuadros/
+/via-publica/.cuadros/
+
+# Piezas de impresión y video: pesadas, viven solo en la compu (no las usa la web)
+/.claude/
+/reel*/
+/overlays/
+/teaser/
+/via-publica/
+/programa/
+/espera/
+/cortina/
+/public/patrones/
+/public/*.mp4

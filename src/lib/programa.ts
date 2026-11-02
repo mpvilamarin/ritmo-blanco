@@ -19,6 +19,8 @@ export type Zona = {
   color: string;
   texto: string;
   borde?: string;
+  /** Fondo de la etiqueta chica, si el color de la zona no alcanza contraste */
+  etiqueta?: string;
   uso: string;
 };
 
@@ -27,6 +29,8 @@ export type Actividad = {
   fin: string;
   duracion: string;
   titulo: string;
+  /** Segunda línea de las destacadas ("Meditación guiada") */
+  bajada?: string;
   descripcion: string;
   tipo: Tipo;
   modalidad: Modalidad;

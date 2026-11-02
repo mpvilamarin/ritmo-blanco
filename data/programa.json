@@ -22,6 +22,7 @@
     "Escenario Mudo": {
       "color": "var(--color-zona-escenario)",
       "texto": "var(--color-zona-escenario-texto)",
+      "etiqueta": "var(--color-zona-escenario-etiqueta)",
       "uso": "Line-up y clases masivas"
     },
     "Pantalla Muda": {
@@ -105,6 +106,7 @@
           "fin": "15:30",
           "duracion": "90 min",
           "titulo": "Respirá en silencio",
+          "bajada": "Meditación guiada",
           "descripcion": "Meditación guiada al aire libre, con el mismo canal que suena en el bosque.",
           "tipo": "EXPERIENCIA",
           "modalidad": "hibrida",
@@ -145,6 +147,17 @@
           "destacado": false
         },
         {
+          "inicio": "17:00",
+          "fin": "18:30",
+          "duracion": "90 min",
+          "titulo": "Respiración y sonido",
+          "descripcion": "Una clase para hacer en casa: respiración, voz y cuerpo, con el canal Sinte de fondo.",
+          "tipo": "CLASE",
+          "modalidad": "virtual",
+          "zona": "Desde Casa",
+          "destacado": false
+        },
+        {
           "inicio": "18:30",
           "fin": "20:00",
           "duracion": "90 min",
@@ -156,6 +169,28 @@
           "destacado": false
         },
         {
+          "inicio": "18:30",
+          "fin": "20:00",
+          "duracion": "90 min",
+          "titulo": "Sintes con chatarra",
+          "descripcion": "Armamos sintetizadores simples con plaquetas y aparatos que iban a la basura.",
+          "tipo": "TALLER",
+          "modalidad": "presencial",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
+          "inicio": "20:00",
+          "fin": "21:30",
+          "duracion": "90 min",
+          "titulo": "Sonidos del día",
+          "descripcion": "Escuchamos juntos lo que se grabó en el bosque durante la jornada.",
+          "tipo": "EXPERIENCIA",
+          "modalidad": "hibrida",
+          "zona": "Pantalla Muda",
+          "destacado": false
+        },
+        {
           "inicio": "20:00",
           "fin": "21:30",
           "duracion": "90 min",
@@ -164,6 +199,17 @@
           "tipo": "EXPERIENCIA",
           "modalidad": "presencial",
           "zona": "Instalación central",
+          "destacado": false
+        },
+        {
+          "inicio": "20:00",
+          "fin": "21:30",
+          "duracion": "90 min",
+          "titulo": "Estirá antes del cierre",
+          "descripcion": "Elongación guiada para llegar al cierre con el cuerpo despierto.",
+          "tipo": "CLASE",
+          "modalidad": "presencial",
+          "zona": "Usina Bailable",
           "destacado": false
         }
       ]
@@ -263,9 +309,10 @@
           "inicio": "17:00",
           "fin": "18:30",
           "duracion": "90 min",
-          "titulo": "Instrumentos con basura",
+          "titulo": "Instrumentos",
+          "bajada": "A partir de reciclaje",
           "descripcion": "Maracas, tambores y guitarras con cartón, latas y botellas, y una banda improvisada.",
-          "tipo": "TALLER",
+          "tipo": "EXPERIENCIA",
           "modalidad": "hibrida",
           "zona": "Domo Callado",
           "destacado": true
@@ -282,6 +329,28 @@
           "destacado": false
         },
         {
+          "inicio": "18:30",
+          "fin": "20:00",
+          "duracion": "90 min",
+          "titulo": "Karaoke mudo",
+          "descripcion": "Cantás a todo pulmón con los auriculares puestos. Desde afuera, solo se ven las caras.",
+          "tipo": "EXPERIENCIA",
+          "modalidad": "presencial",
+          "zona": "Usina Bailable",
+          "destacado": false
+        },
+        {
+          "inicio": "20:00",
+          "fin": "21:30",
+          "duracion": "90 min",
+          "titulo": "Escribí una canción",
+          "descripcion": "De una frase a un estribillo en noventa minutos, con músicos del line-up.",
+          "tipo": "TALLER",
+          "modalidad": "hibrida",
+          "zona": "Domo Callado",
+          "destacado": false
+        },
+        {
           "inicio": "20:00",
           "fin": "21:30",
           "duracion": "90 min",
@@ -290,6 +359,17 @@
           "tipo": "CLASE",
           "modalidad": "virtual",
           "zona": "Desde Casa",
+          "destacado": false
+        },
+        {
+          "inicio": "20:00",
+          "fin": "21:30",
+          "duracion": "90 min",
+          "titulo": "Bailá con tu abuela",
+          "descripcion": "Pasos de siempre para bailar entre generaciones. Traé a quien quieras.",
+          "tipo": "CLASE",
+          "modalidad": "hibrida",
+          "zona": "Usina Bailable",
           "destacado": false
         }
       ]
@@ -397,6 +477,17 @@
           "destacado": false
         },
         {
+          "inicio": "17:00",
+          "fin": "18:30",
+          "duracion": "90 min",
+          "titulo": "Percusión con baldes",
+          "descripcion": "Ritmos latinos con baldes, tachos y palos. Nadie se queda sin tocar.",
+          "tipo": "CLASE",
+          "modalidad": "presencial",
+          "zona": "Usina Bailable",
+          "destacado": false
+        },
+        {
           "inicio": "18:30",
           "fin": "20:00",
           "duracion": "90 min",
@@ -408,13 +499,25 @@
           "destacado": false
         },
         {
+          "inicio": "18:30",
+          "fin": "20:00",
+          "duracion": "90 min",
+          "titulo": "¿Cuánto pesa un festival?",
+          "descripcion": "Qué residuos deja un festival, cuánto se recupera y qué podemos hacer para que pese menos.",
+          "tipo": "CHARLA",
+          "modalidad": "hibrida",
+          "zona": "Pantalla Muda",
+          "destacado": false
+        },
+        {
           "inicio": "20:00",
           "fin": "21:30",
           "duracion": "90 min",
-          "titulo": "Bailemos todos",
-          "descripcion": "Cientos de personas aprenden la misma coreografía, sin un solo parlante.",
-          "tipo": "CLASE",
-          "modalidad": "presencial",
+          "titulo": "Respirá en silencio",
+          "bajada": "Meditación guiada",
+          "descripcion": "Meditación guiada frente al Escenario Mudo, antes del cierre.",
+          "tipo": "EXPERIENCIA",
+          "modalidad": "hibrida",
           "zona": "Escenario Mudo",
           "destacado": true
         }
@@ -523,15 +626,37 @@
           "destacado": false
         },
         {
+          "inicio": "17:00",
+          "fin": "18:30",
+          "duracion": "90 min",
+          "titulo": "Chacarera para principiantes",
+          "descripcion": "Los pasos básicos de la chacarera, para bailarla en el cierre del folklore.",
+          "tipo": "CLASE",
+          "modalidad": "hibrida",
+          "zona": "Usina Bailable",
+          "destacado": false
+        },
+        {
           "inicio": "18:30",
           "fin": "20:00",
           "duracion": "90 min",
           "titulo": "Plantá y llevate",
           "descripcion": "Plantines nativos y compost del propio festival para plantarlos en tu casa.",
           "tipo": "EXPERIENCIA",
-          "modalidad": "presencial",
+          "modalidad": "hibrida",
           "zona": "Instalación central",
           "destacado": true
+        },
+        {
+          "inicio": "20:00",
+          "fin": "21:30",
+          "duracion": "90 min",
+          "titulo": "Última luz",
+          "descripcion": "La instalación se enciende con la energía que generamos durante el festival.",
+          "tipo": "EXPERIENCIA",
+          "modalidad": "presencial",
+          "zona": "Instalación central",
+          "destacado": false
         },
         {
           "inicio": "20:00",
@@ -542,6 +667,17 @@
           "tipo": "CHARLA",
           "modalidad": "hibrida",
           "zona": "Pantalla Muda",
+          "destacado": false
+        },
+        {
+          "inicio": "20:00",
+          "fin": "21:30",
+          "duracion": "90 min",
+          "titulo": "Tango en el living",
+          "descripcion": "Clase de tango para seguir desde casa, en pareja o con una silla.",
+          "tipo": "CLASE",
+          "modalidad": "virtual",
+          "zona": "Desde Casa",
           "destacado": false
         }
       ]

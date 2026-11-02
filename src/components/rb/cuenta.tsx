@@ -1,9 +1,8 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { Flecha, boton } from "./base";
-import { BoldLight } from "../sistema";
-import { FECHAS, INICIO } from "@/lib/rb";
+import { Encabezado, boton } from "./base";
+import { DIAS, FECHAS, INICIO, capital } from "@/lib/rb";
 import { programa } from "@/lib/programa";
 
 const reloj = {
@@ -45,7 +44,11 @@ function agendar() {
   a.remove();
 }
 
-/* Cuenta regresiva: solo las cifras, sin contenedores, separadas por dos puntos */
+/*
+  Cuenta regresiva, centrada: qué se cuenta (título bold/light y bajada), las
+  cuatro cifras en blanco con su unidad en rosa, y "Agendalo" debajo. Las
+  cifras tienen ancho fijo, así el segundero no mueve nada.
+*/
 export function Cuenta() {
   const ahora = useSyncExternalStore(reloj.suscribir, reloj.ahora, reloj.servidor);
   const resto = ahora === null ? null : Math.max(0, new Date(INICIO).getTime() / 1000 - ahora);
@@ -55,33 +58,34 @@ export function Cuenta() {
       : [Math.floor(resto / 86400), Math.floor((resto % 86400) / 3600), Math.floor((resto % 3600) / 60), Math.floor(resto % 60)].map(dos);
 
   return (
-    // Sin fondo propio: el río (components/rio.tsx) pasa por detrás
-    <section id="cuenta" aria-labelledby="cuenta-titulo" className="relative">
-      <div className="contenido py-[clamp(4rem,7vw,6.5rem)]">
-        <p className="rotulo">Festival silencioso · {programa.sede.split(",")[0]}</p>
-        <div className="mt-5 w-full max-w-[44rem]">
-          <BoldLight id="cuenta-titulo" fuerte="El bosque se pone" suave="los auriculares" max={132} />
+    <section id="cuenta" aria-labelledby="cuenta-titulo" className="compacta bg-vino text-blanco">
+      <div className="contenido rb-cuenta">
+        <Encabezado
+          id="cuenta-titulo"
+          rotulo="Cuenta regresiva"
+          titulo={["Nos vemos", "en el bosque"]}
+          texto={
+            <p>
+              Arranca el {DIAS[0].fecha} a las 14 h en los {programa.sede.split(",")[0]}. {capital(FECHAS.dias)}, entrada gratuita.
+            </p>
+          }
+          claro
+          apilado
+          centrado
+        />
+        <div role="timer" aria-label={resto === null ? "Cargando cuenta regresiva" : `Faltan ${valores[0]} días, ${valores[1]} horas y ${valores[2]} minutos`}>
+          <ol aria-hidden className="rb-cuenta-cifras">
+            {valores.map((v, i) => (
+              <li key={UNIDADES[i]}>
+                <span className="t-cifra">{v}</span>
+                <span className="rotulo text-rosa">{UNIDADES[i]}</span>
+              </li>
+            ))}
+          </ol>
         </div>
-        {resto !== null && (
-          <p className="sr-solo">
-            Faltan {Number(valores[0])} días, {Number(valores[1])} horas y {Number(valores[2])} minutos.
-          </p>
-        )}
-        <ol aria-hidden className="mt-[clamp(2.5rem,5vw,4rem)] grid max-w-[60rem] grid-cols-4">
-          {valores.map((v, i) => (
-            <li key={UNIDADES[i]} className={`relative flex flex-col items-start ${i > 0 ? "pl-[clamp(0.75rem,3vw,2rem)] before:absolute before:top-[8%] before:left-0 before:h-[62%] before:w-px before:bg-vino/25" : ""}`}>
-              <span className="t-cifra">{v}</span>
-              <span className="rotulo mt-4 text-[0.625rem] sm:text-[0.75rem]">{UNIDADES[i]}</span>
-            </li>
-          ))}
-        </ol>
-        <div className="mt-[clamp(2.5rem,5vw,4rem)] flex flex-wrap items-center gap-x-8 gap-y-4">
-          <span className="t-3">14 nov · 14:00 h</span>
-          <button type="button" onClick={agendar} className={boton("vino")}>
-            Agendalo
-            <Flecha />
-          </button>
-        </div>
+        <button type="button" onClick={agendar} className={boton("claro")}>
+          Agendalo en tu calendario
+        </button>
       </div>
     </section>
   );

@@ -1,0 +1,11 @@
+# Resonancia contenida
+
+La referencia visual es una materia granular que se acumula en bandas curvas, con bordes porosos, centros vacíos y halos de partículas. El acabado busca espesor y profundidad mediante densidad, sin convertir el patrón en líneas finas ni en un medallón aislado.
+
+Dos campos de onda simétricos definen rosetas, lóbulos y celdas cerradas; una perturbación leve mantiene el carácter material sin perder la repetición. Un muestreo reproducible con semilla fija distribuye puntos alrededor de dos niveles del campo. Cada nivel lleva una tinta: vino y rosa. Con una sola tinta, ambos niveles conservan la misma estructura en monocromo.
+
+La portada utiliza una trama de figuras reconocibles que continúa por los bordes, como una trama que continúa fuera de la pantalla. La concentración lateral compensa el título y entra suavemente detrás de sus extremos. Una segunda máscara reduce progresivamente la densidad en la parte inferior hasta dejar el blanco de la sección siguiente. El patrón está en una capa absoluta: no reserva espacio, no agrega controles ni empuja el contenido hacia abajo.
+
+Las muestras de los tres canales mantienen un tamaño menor y una sola tinta. La densidad depende de la superficie del lienzo, los puntos se generan solamente al entrar en pantalla y las coordenadas normalizadas permiten redimensionar sin conservar medidas anteriores. La portada alterna tres figuras con ciclos de cinco segundos y medio. Cada grano mantiene su identidad, tinta y tamaño y viaja a su destino en el siguiente patrón mediante desplazamientos en un plano fijo, con dispersión local máxima a mitad del ciclo y asentamiento al llegar, sin rotación, perspectiva ni cambio de escala. Los destinos se emparejan por tinta y cercanía; el render calcula las coordenadas de los granos en cada cuadro, sin transiciones de imágenes. El control de pausa congela el momento actual; fuera de pantalla la animación se suspende, y con movimiento reducido se presenta quieta.
+
+La calidad se calibra por proporción entre masas y vacíos, escala del grano y continuidad de las bandas. Es una interpretación generativa de la referencia, no una simulación física de la vibración de una placa ni una visualización del audio del festival.

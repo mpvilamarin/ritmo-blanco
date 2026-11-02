@@ -15,7 +15,7 @@
   --color-blanco: #ffffff;
   --color-rosa: #f08faa; /* rosa vivo: solo recuadro y número gigante. Vino encima 4,8:1 */
   --color-magenta: #b94c77; /* segundo tono de arena. Blanco encima 4,8:1 */
-  --color-violeta: #6e64a8; /* reemplaza al lila oscuro. Blanco encima 5,2:1 */
+  --color-violeta: #6e6c90; /* lila oscuro de la paleta, ajustado para que el blanco encima dé 5:1 */
   --color-lila: #aa95c3; /* lila vivo: fondos y arena. Vino encima solo en texto grande */
   --color-lila-palido: #d1b4d8; /* fondos claros. Vino encima 5,8:1 */
   --color-crudo: #e0cfbc; /* tela, cálido. Vino encima 7,2:1 */
@@ -31,6 +31,8 @@
   --color-zona-usina-texto: var(--color-blanco);
   --color-zona-escenario: var(--color-lila);
   --color-zona-escenario-texto: var(--color-vino);
+  /* Etiquetas chicas: el vino de 13 px necesita un lila más claro (5,9:1) */
+  --color-zona-escenario-etiqueta: color-mix(in srgb, var(--color-lila) 60%, var(--color-blanco));
   --color-zona-pantalla: var(--color-magenta);
   --color-zona-pantalla-texto: var(--color-blanco);
   --color-zona-instalacion: var(--color-crudo);
@@ -50,20 +52,28 @@
 
 /*
   ── TOKENS (fuente única) ─────────────────────────────────────────────
-  Escala tipográfica: 5 pasos con mucho contraste entre sí.
-    --tx-rotulo   mono 11 px, mayúscula espaciada: datos, rótulos, botones
-    --tx-cuerpo   mono 15 px: párrafos
-    --tx-nombre   grotesk 20–26 px: artistas, actividades
-    --tx-titulo   grotesk 44–88 px: títulos de sección (bold/light)
-    --tx-display  grotesk 64–184 px: lo que manda en cada pantalla
-  Interlineado apretado en titulares (0.86), abierto en texto (1.6).
+  Niveles de lectura. Cada texto de la página usa uno solo; no hay tamaños sueltos.
+    Grotesk, siempre en mayúscula (bold + regular cuando es un título):
+      --tx-display    40–120 px  titular de portada (y las cifras como gráfica)
+      --tx-titulo     40–68 px   título de sección (h2), todos iguales
+      --tx-subtitulo  28–42 px   h3: jornada, paso, tarjeta, zona          → t-2
+      --tx-nombre     18–22 px   artistas, actividades, datos destacados    → t-3
+    Mono, en caja baja:
+      --tx-bajada     16–19 px   la bajada bajo cada título de sección      → bajada
+      --tx-cuerpo     16 px      todo párrafo                               → t-cuerpo
+      --tx-dato       14 px      horarios, canales, notas de una línea      → t-chico
+      --tx-rotulo     13 px      mayúscula espaciada: rótulos y botones     → rotulo
+  Interlineado apretado en titulares (0.86–0.95), abierto en texto (1.6).
   Espaciado: múltiplos de 8 px. Grilla: 4 columnas (celular), 12 (escritorio).
 */
 :root {
-  --tx-rotulo: 0.6875rem;
-  --tx-cuerpo: 0.9375rem;
-  --tx-nombre: clamp(1.25rem, 1.6vw, 1.625rem);
-  --tx-titulo: clamp(2.75rem, 6vw, 5.5rem);
+  --tx-rotulo: 0.8125rem;
+  --tx-dato: 0.875rem;
+  --tx-cuerpo: 1rem;
+  --tx-nombre: clamp(1.125rem, 1.5vw, 1.375rem);
+  --tx-subtitulo: clamp(1.75rem, min(3vw, 4.5vh), 2.625rem);
+  --tx-titulo: clamp(2.5rem, min(5vw, 7vh), 4.25rem); /* en pantallas bajas también se achica */
+  --tx-bajada: clamp(1rem, 1.3vw, 1.1875rem);
   --tx-display: clamp(4rem, 12vw, 11.5rem);
   --lh-apretado: 0.86;
   --lh-texto: 1.6;
@@ -79,13 +89,14 @@
 
   --col: 4;
   --calle: 1rem;
-  --margen: 1.25rem;
+  --margen: 1rem;
 }
 @media (min-width: 64rem) {
   :root {
     --col: 12;
     --calle: 1.5rem;
-    --margen: 3.5rem;
+    /* Más allá de 1440 px el contenido no crece: el margen absorbe el resto */
+    --margen: max(1.5rem, calc((100vw - 90rem) / 2 + 1.5rem));
   }
 }
 
@@ -101,7 +112,7 @@
   font-size: var(--tx-rotulo);
   line-height: 1.3;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 @utility tx-cuerpo {
@@ -112,7 +123,7 @@
 @utility tx-nombre {
   font-family: var(--font-display);
   font-size: var(--tx-nombre);
-  line-height: 1.05;
+  line-height: 1.1;
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -122,12 +133,12 @@
     color: var(--color-vino);
     background: var(--color-blanco);
     scroll-behavior: smooth;
-    scroll-padding-top: 1rem;
+    scroll-padding-top: 4.25rem; /* la cabecera pegada no tapa el destino */
     -webkit-text-size-adjust: 100%;
   }
   body {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.5;
   }
 
@@ -139,8 +150,12 @@
     outline: 2px solid var(--color-vino);
     outline-offset: 3px;
   }
-  .sobre-oscuro :focus-visible {
+  /* El anillo de foco cambia con el fondo: blanco sobre vino o violeta, vino sobre claros */
+  :where(.sobre-oscuro, .bg-vino, .bg-violeta, footer) :focus-visible {
     outline-color: var(--color-blanco);
+  }
+  :where(.bg-crudo) :focus-visible {
+    outline-color: var(--color-vino);
   }
   mark {
     background: none;
@@ -168,7 +183,7 @@
 @media (min-width: 48rem) and (max-width: 63.99rem) {
   :root {
     --calle: 1.5rem;
-    --margen: 2.5rem;
+    --margen: 1.5rem;
   }
 }
 @utility reticula {
@@ -190,10 +205,10 @@
 /* Rótulos en mono mayúscula: fechas, canales, legales */
 @utility rotulo {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: var(--tx-rotulo);
   line-height: 1.3;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -373,8 +388,13 @@
   animation: rb-izq-2 var(--duracion, 90s) linear infinite;
 }
 .rb-carrusel-pausa:hover .rb-carrusel,
-.rb-carrusel-pausa:focus-within .rb-carrusel {
+.rb-carrusel-pausa:focus-within .rb-carrusel,
+[data-quieto] .rb-carrusel {
   animation-play-state: paused;
+}
+/* En pausa, el carrusel se recorre a mano */
+[data-quieto] .rb-carrusel-pausa {
+  overflow-x: auto;
 }
 .rb-pulso {
   animation: rb-pulso 2.4s ease-in-out infinite;
@@ -392,21 +412,10 @@
   }
 }
 
-/*
-  Escala tipográfica fija (de grande a chico). Toda la página usa solo estos
-  cinco tamaños más el rótulo; los títulos van siempre en mayúscula.
-*/
-@utility t-1 {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
-  line-height: 0.92;
-  font-weight: 900;
-  letter-spacing: -0.025em;
-  text-transform: uppercase;
-}
+/* Utilidades de cada nivel (ver TOKENS arriba) */
 @utility t-2 {
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3vw, 2.625rem);
+  font-size: var(--tx-subtitulo);
   line-height: 0.95;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -414,7 +423,7 @@
 }
 @utility t-3 {
   font-family: var(--font-display);
-  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  font-size: var(--tx-nombre);
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: -0.005em;
@@ -422,12 +431,13 @@
 }
 @utility t-cuerpo {
   font-family: var(--font-mono);
-  font-size: 0.9375rem;
+  font-size: var(--tx-cuerpo);
   line-height: 1.6;
 }
+/* Datos y notas cortas (14 px); los párrafos van en t-cuerpo */
 @utility t-chico {
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: var(--tx-dato);
   line-height: 1.5;
 }
 /* Cifras de la cuenta regresiva */
@@ -448,5 +458,140 @@
   padding-inline: var(--margen);
 }
 @utility banda {
-  padding-block: clamp(4rem, 8vw, 7rem);
+  padding-block: var(--esp-seccion);
 }
+
+/* Una escala estable: todos los títulos de sección miden lo mismo; solo la portada es mayor. */
+.rb-titulo {
+  font-size: var(--tx-titulo);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+#top .rb-titulo {
+  font-size: clamp(2.5rem, 5.3vw, 120px);
+  line-height: 0.98;
+}
+/* Sobre las bandas vino, la línea regular del título va en rosa (4,8:1, solo en tamaño grande) */
+.bg-vino .rb-titulo > span:last-child { color: var(--color-rosa); }
+/* Títulos bold/light de nivel 3 (jornadas, pasos). Todos los títulos: línea bold arriba, regular abajo */
+h3.rb-titulo {
+  font-size: var(--tx-subtitulo);
+  line-height: 0.95;
+}
+/* En una sola línea, como el nombre de la jornada en el impreso: FLOTÁ QUIETO */
+.rb-titulo-linea > span { display: inline; }
+.rb-titulo-linea > span:last-child::before { content: " "; }
+
+/*
+  Encabezado de sección: rótulo → 16 px → título → 24 px → bajada → 48 px → contenido.
+  En escritorio el título va a la izquierda (7 col) y la bajada a la derecha (5 col),
+  apoyada en la base del título. "apilado" lo deja en una columna (Qué es, la placa).
+*/
+.encabezado {
+  display: grid;
+  row-gap: var(--esp-2);
+  margin-bottom: var(--esp-5);
+}
+.encabezado > .bajada { margin-top: var(--esp-1); }
+/* Centrado (la cuenta y la reserva): todo al eje, la bajada también */
+.encabezado-centrado { justify-items: center; text-align: center; }
+.encabezado-centrado > .bajada { margin-inline: auto; }
+@media (min-width: 64rem) {
+  .encabezado:not(.encabezado-apilado) {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: calc(var(--calle) * 2);
+    align-items: end;
+  }
+  .encabezado:not(.encabezado-apilado) > .rotulo { grid-column: 1 / -1; }
+  .encabezado:not(.encabezado-apilado) > .bajada { margin-top: 0; padding-bottom: 0.4em; }
+}
+
+/* Bajada común a todos los encabezados de sección */
+@utility bajada {
+  max-width: 62ch;
+  font-family: var(--font-mono);
+  font-size: var(--tx-bajada);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* Cuenta regresiva: todo centrado, las cuatro cifras en una fila con filetes entre sí */
+.rb-cuenta { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.rb-cuenta .encabezado { margin-bottom: var(--esp-4); }
+.rb-cuenta > [role="timer"] { width: 100%; max-width: 60rem; margin-bottom: var(--esp-4); }
+.rb-cuenta-cifras {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block: 1px solid color-mix(in srgb, var(--color-blanco) 35%, transparent);
+}
+.rb-cuenta-cifras > li { display: flex; flex-direction: column; align-items: center; gap: var(--esp-1); padding: var(--esp-3) var(--esp-1); }
+.rb-cuenta-cifras > li + li { border-left: 1px solid color-mix(in srgb, var(--color-blanco) 35%, transparent); }
+.rb-cuenta-cifras .t-cifra { font-size: clamp(2.5rem, 8vw, 6rem); }
+
+/*
+  Key visual de la portada: la arena a la derecha, el cable abajo a la
+  izquierda. El blanco del JPG desaparece con multiply sobre el fondo blanco.
+*/
+.rb-kv { pointer-events: none; }
+.rb-kv-arena { display: block; width: 100%; height: 100%; }
+/* Reflejado: el corte del cable apoya en el borde izquierdo y el plug apunta al patrón */
+.rb-kv-cable { position: absolute; display: block; height: auto; mix-blend-mode: multiply; transform: scaleX(-1); }
+@media (min-width: 64rem) {
+  .rb-kv { position: absolute; z-index: 0; inset: 0; }
+  .rb-kv-arena {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 64%;
+    /* Se abre a la derecha y en la franja baja, donde llega el cable */
+    mask-image:
+      linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.35) 14%, #000 34%),
+      linear-gradient(0deg, #000 0%, #000 22%, transparent 42%);
+  }
+  .rb-kv-cable { left: 0; bottom: 1.5rem; width: 38%; }
+  /* El texto deja lugar al cable */
+  #top > .grilla { padding-bottom: calc(38vw * 400 / 1480 + 2.5rem) !important; }
+}
+@media (max-width: 63.99rem) {
+  .rb-kv { position: relative; order: 2; height: min(92vw, 30rem); margin-top: -1rem; }
+  .rb-kv-arena { mask-image: linear-gradient(180deg, transparent 0%, #000 22%); }
+  .rb-kv-cable { left: 0; bottom: 0.5rem; width: 72%; }
+}
+
+/* La sección sigue la altura del contenido, sin espacio de relleno. */
+.rb-lineup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+  overflow: hidden;
+}
+.rb-lineup > .contenido:first-child { flex-shrink: 0; }
+.rb-lineup-ventana {
+  flex: none;
+  padding-block: 4px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.rb-artista { gap: 6px; }
+.rb-artista-grande { width: clamp(150px, 22vw, 260px); }
+.rb-artista-chico { width: clamp(120px, 12vw, 145px); }
+/* Dos escalas de artista: el círculo grande lleva nombre de nivel 3; el chico, a 16 px */
+.rb-artista-nombre {
+  font-family: var(--font-display);
+  font-size: var(--tx-nombre);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.rb-artista-chico .rb-artista-nombre { font-size: var(--tx-cuerpo); }
+.rb-artista-datos { font-family: var(--font-mono); font-size: var(--tx-dato); line-height: 1.3; }
+.rb-artista-grande .t-chico { line-height: 1.35; }
+@media (max-height: 600px) {
+  .rb-lineup > .contenido:last-child > ul { display: none; }
+  .rb-artista-grande .t-chico { display: none; }
+}
+
+/* Cabecera pegada arriba: se esconde al bajar y vuelve al subir o al recibir foco */
+.rb-cabecera { transition: translate 0.3s var(--ease-reposo); }
+.rb-cabecera[data-oculta]:not(:focus-within) { translate: 0 -100%; }
