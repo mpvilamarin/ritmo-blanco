@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Schibsted_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import "./espaciado.css";
 
@@ -34,7 +35,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${grotesk.variable} ${plex.variable} antialiased`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Vercel Web Analytics: cuenta visitas en producción (no en desarrollo). */}
+        <Analytics />
+      </body>
     </html>
   );
 }
